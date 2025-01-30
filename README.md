@@ -10,57 +10,40 @@ How can women with psoriasis accurately capture and track key information about 
 
 The Challenge
 
-Inconsistent tracking and documentation make it difficult for patients to communicate effectively with healthcare providers.
-
-A lack of comprehensive tracking solutions tailored specifically for psoriasis.
-
-Inadequate patient education on gender-specific psoriasis symptoms.
-
-Limited availability of tracking apps with preferred features and aesthetics.
+-Inconsistent tracking and documentation make it difficult for patients to communicate effectively with healthcare providers.
+-A lack of comprehensive tracking solutions tailored specifically for psoriasis.
+-Inadequate patient education on gender-specific psoriasis symptoms.
+-Limited availability of tracking apps with preferred features and aesthetics.
 
 Why This Matters
 
-Psoriasis is a systemic disease linked to serious comorbidities such as cardiovascular disease, arthritis, and depression. Effective tracking solutions can:
-
-Improve treatment adherence.
-
-Enable better symptom management.
-
-Enhance communication with healthcare professionals.
-
-Lead to more personalized and effective care plans.
-
-Improve quality of life and reduce healthcare costs.
+-Psoriasis is a systemic disease linked to serious comorbidities such as cardiovascular disease, arthritis, and depression. Effective tracking solutions can:
+-Improve treatment adherence.
+-Enable better symptom management.
+-Enhance communication with healthcare professionals.
+-Lead to more personalized and effective care plans.
+-Improve quality of life and reduce healthcare costs.
 
 Key Features
 
-Comprehensive Symptom Tracking: Log daily symptoms, flare-ups, and severity levels.
-
-Trigger Identification: Identify environmental, dietary, or lifestyle factors that exacerbate psoriasis.
-
-Medication & Treatment Scheduling: Set reminders and track adherence to prescribed treatments.
-
-Personalized Insights & Reports: Generate visual data trends for better communication with healthcare providers.
-
-Educational Resources: Provide information on gender-specific differences in psoriasis symptoms and treatment responses.
+-Comprehensive Symptom Tracking: Log daily symptoms, flare-ups, and severity levels.
+-Trigger Identification: Identify environmental, dietary, or lifestyle factors that exacerbate psoriasis.
+-Medication & Treatment Scheduling: Set reminders and track adherence to prescribed treatments.
+-Personalized Insights & Reports: Generate visual data trends for better communication with healthcare providers.
+-Educational Resources: Provide information on gender-specific differences in psoriasis symptoms and treatment responses.
 
 User Needs
 
-A specialized tracking tool that goes beyond general health apps.
-
-A customizable interface that accommodates individual preferences.
-
-A solution that prevents reliance on inefficient or incomplete tracking methods.
-
-Increased awareness and education on psoriasis, particularly its gender-specific aspects.
+-A specialized tracking tool that goes beyond general health apps.
+-A customizable interface that accommodates individual preferences.
+-A solution that prevents reliance on inefficient or incomplete tracking methods.
+-Increased awareness and education on psoriasis, particularly its gender-specific aspects.
 
 Challenges & Considerations
 
-Target Audience: The primary user base consists of individuals already diagnosed with psoriasis or other chronic conditions who are inclined to use tracking apps.
-
-Adoption Barriers: Encouraging non-tech-savvy individuals to consistently use the app for long-term tracking.
-
-Privacy & Security: Ensuring secure data storage and user confidentiality.
+-Target Audience: The primary user base consists of individuals already diagnosed with psoriasis or other chronic conditions who are inclined to use tracking apps.
+-Adoption Barriers: Encouraging non-tech-savvy individuals to consistently use the app for long-term tracking.
+-Privacy & Security: Ensuring secure data storage and user confidentiality.
 
 Goals & Impact
 
