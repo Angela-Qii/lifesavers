@@ -17,7 +17,7 @@ const authConfig = {
 	auth: {
 			clientId: "45ea8f42-240e-4b13-afec-c7cd9953ba03",
 			authority: "https://login.microsoftonline.com/f6b6dd5b-f02f-441a-99a0-162ac5060bd2",
-			clientSecret: "0xv8Q~B_KnLVqUtHuSdk6dQZpNoMbObfmg_QWbUw",
+			//clientSecret: "0xv8Q~B_KnLVqUtHuSdk6dQZpNoMbObfmg_QWbUw",
 			redirectUri: "http://localhost:3000/redirect", //note: you can explicitly make this "localhost:3000/redirect" or "examplesite.me/redirect"
 	}, //https://websharer-cdong03-a6.onrender.com/redirect
 	system: {
