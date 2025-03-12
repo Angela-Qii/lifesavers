@@ -4,12 +4,15 @@
   <title>Lifesavers</title>
   <link rel="stylesheet" href="stylesheets/style.css">
   <script src="javascripts/checkin.js"></script>
+  <script src="javascripts/nav.js"></script>
   <script src="javascripts/identity.js"></script>
   <script src="javascripts/api_version.js"></script>
   <script src="javascripts/utils.js"></script>
 </head>
 
 <body>
+  <div id="main-nav"></div>
+
   <p>Daily-Check in for __</p>
 
   <div id="lesion">
@@ -45,15 +48,17 @@
     <h1>Weather</h1>
   </div>
 
-  <div id="checkin_nav" class="sidenav">
-    <p>Tracking Sections</p>
-    <p onClick="showLesion()">Lesions</p>
-    <p onClick="showStress()">Stress</p>
-    <p onClick="showHormone()">Hormone Cycle</p>
-    <p onClick="showSun()">Sun Exposure</p>
-    <p onClick="showMedication()">Medication</p>
-    <p onClick="showRoutine()">Skin Care Routine</p>
-    <p onClick="showDiet()">Diet</p>
-    <p onClick="showWeather()">Weather</p>
-  </div>
+  <nav id="checkin_nav" class="sidenav">
+    <ul>
+      <li><p>Tracking Sections</p></li>
+      <li><button id="lesion-btn">Lesions</button></li>
+      <li><button id="stress-btn">Stress</button></li>
+      <li><button id="hormone-btn">Hormone Cycle</button></li>
+      <li><button id="sun-btn">Sun Exposure</button></li>
+      <li><button id="medication-btn">Medication</button></li>
+      <li><button id="routine-btn">Skin Care Routine</button></li>
+      <li><button id="diet-btn">Diet</button></li>
+      <li><button id="weather-btn">Weather</button></li>
+    </ul>
+  </nav>
 </html>

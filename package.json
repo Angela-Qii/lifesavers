@@ -1,7 +1,7 @@
 {
-  "type": "module",
   "name": "lifesavers",
   "version": "1.0.0",
+  "type": "module",
   "description": "Psoriasis Health Tracker",
   "main": "app.js",
   "scripts": {
@@ -10,7 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "express": "^4.19.2",
     "mongoose": "^8.12.1",
-    "packages": "^0.0.8"
-  }
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {}
 }

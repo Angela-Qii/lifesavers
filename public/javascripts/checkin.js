@@ -1,30 +1,34 @@
 "use strict";
 (function() {
 
-window.addEventListener("load", init);
-
 let currSection = 'lesion';
+
+window.addEventListener("load", init);
 
 /**
  * Sets up event listeners for website's buttons.
  */
 async function init() {
-  id('upload_data').addEventListener('submit', (evt) => {
-    evt.preventDefault();
-    uploadData();
+  qsa('button').forEach(button => {
+    button.addEventListener('click', showSection);
   });
-  loadData();
-  //await loadIdentity();
 }
 
-function showStress(id, text, btn) {
-  id(currSection).style.display = 'none';
-  id('stress').style.display = 'block';
-  currSection = 'stress';
+/**
+ * Shows Checkin section for the specific button clicked.
+ */
+function showSection(event) {
+  let targetSection = event.target.id.replace('-btn', '');
+  if (targetSection && targetSection !== currSection) {
+    id(currSection).style.display = 'none';
+    id(targetSection).style.display = 'block';
+    currSection = targetSection;
+  }
 }
 
 /**
  * Uploads data from form to database.
+ * COMMENT: Replace fetchJSON with normal fetch?
  */
 async function uploadData() {
   let upData = id('up_data').value;

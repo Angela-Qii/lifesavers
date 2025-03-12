@@ -26,29 +26,29 @@ h1 {
 }
 
 #stress {
-  display: hidden;
+  display: none;
 }
 
 #hormone {
-  display: hidden;
+  display: none;
 }
 
 #sun {
-  display: hidden;
+  display: none;
 }
 
 #medication {
-  display: hidden;
+  display: none;
 }
 
 #routine {
-  display: hidden;
+  display: none;
 }
 
 #diet {
-  display: hidden;
+  display: none;
 }
 
 #weather {
-  display: hidden;
+  display: none;
 }

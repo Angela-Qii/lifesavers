@@ -4,23 +4,15 @@
   <title>Lifesavers</title>
   <link rel="stylesheet" href="stylesheets/style.css">
   <script src="javascripts/index.js"></script>
+  <script src="javascripts/nav.js"></script>
   <script src="javascripts/identity.js"></script>
   <script src="javascripts/api_version.js"></script>
   <script src="javascripts/utils.js"></script>
-  <script src="javascripts/nav.js"></script>
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 
 <body>
-  <!--Navigation bar-->
-  <div id="nav-placeholder">
-    <p>Navbar loading...</p>
-  </div>
-  <script>
-  $(function(){
-    $("#nav-placeholder").load("nav.html");
-  });
-  </script>
+  <div id="main-nav"></div>
 
   <div id="header_container">
     <!-- "loading..." will be replaced with user data by a function -->
