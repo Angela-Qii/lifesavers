@@ -3,59 +3,57 @@
 <head>
   <title>Lifesavers</title>
   <link rel="stylesheet" href="stylesheets/style.css">
-  <script src="javascripts/index.js"></script>
+  <script src="javascripts/checkin.js"></script>
   <script src="javascripts/identity.js"></script>
   <script src="javascripts/api_version.js"></script>
   <script src="javascripts/utils.js"></script>
 </head>
 
 <body>
-  <!-- TO BE REPLACED -->
-  <div id="navbar" class="sidenav">
-    <div>
-      <p>MENU</p>
-      <a href="/dashboard">Dashboard</a>
-      <a href="/">Homepage</a>
-      <a href="/info">Information Menu</a>
-      <a href="/checkin">Daily Check-in</a>
-    </div>
-    <div>
-      <p>MENU</p>
-      <a href="/settings">Settings</a>
-      <a href="/">Accounts</a>
-      <a href="/help">Help</a>
-    </div>
-  </div>
+  <p>Daily-Check in for __</p>
 
   <div id="lesion">
     <!-- starts visible, will be hidden when other sections shown -->
+    <h1>Lesions</h1>
   </div>
 
   <div id="stress">
-
+    <h1>Stress</h1>
   </div>
 
   <div id="hormone">
-
+    <h1>Hormone Cycle</h1>
   </div>
 
   <div id="sun">
-
+    <h1>Sun Exposure</h1>
   </div>
 
   <div id="medication">
-
+    <h1>Medication</h1>
   </div>
 
   <div id="routine">
-
+    <h1>Skin Care Routine</h1>
   </div>
 
   <div id="diet">
-
+    <h1>Diet</h1>
   </div>
 
   <div id="weather">
+    <h1>Weather</h1>
+  </div>
 
+  <div id="checkin_nav" class="sidenav">
+    <p>Tracking Sections</p>
+    <p onClick="showLesion()">Lesions</p>
+    <p onClick="showStress()">Stress</p>
+    <p onClick="showHormone()">Hormone Cycle</p>
+    <p onClick="showSun()">Sun Exposure</p>
+    <p onClick="showMedication()">Medication</p>
+    <p onClick="showRoutine()">Skin Care Routine</p>
+    <p onClick="showDiet()">Diet</p>
+    <p onClick="showWeather()">Weather</p>
   </div>
 </html>

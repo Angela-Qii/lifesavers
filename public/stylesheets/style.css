@@ -24,3 +24,31 @@ h1 {
   padding: 10px;
   border-radius: 15px;
 }
+
+#stress {
+  display: hidden;
+}
+
+#hormone {
+  display: hidden;
+}
+
+#sun {
+  display: hidden;
+}
+
+#medication {
+  display: hidden;
+}
+
+#routine {
+  display: hidden;
+}
+
+#diet {
+  display: hidden;
+}
+
+#weather {
+  display: hidden;
+}

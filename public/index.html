@@ -7,25 +7,20 @@
   <script src="javascripts/identity.js"></script>
   <script src="javascripts/api_version.js"></script>
   <script src="javascripts/utils.js"></script>
+  <script src="javascripts/nav.js"></script>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 
 <body>
-  <!-- TO BE REPLACED -->
-  <div id="navbar" class="sidenav">
-    <div>
-      <p>MENU</p>
-      <a href="/dashboard">Dashboard</a>
-      <a href="/">Homepage</a>
-      <a href="/info">Information Menu</a>
-      <a href="/checkin">Daily Check-in</a>
-    </div>
-    <div>
-      <p>MENU</p>
-      <a href="/settings">Settings</a>
-      <a href="/">Accounts</a>
-      <a href="/help">Help</a>
-    </div>
+  <!--Navigation bar-->
+  <div id="nav-placeholder">
+    <p>Navbar loading...</p>
   </div>
+  <script>
+  $(function(){
+    $("#nav-placeholder").load("nav.html");
+  });
+  </script>
 
   <div id="header_container">
     <!-- "loading..." will be replaced with user data by a function -->
