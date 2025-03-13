@@ -22,6 +22,12 @@
 
   <div id="stress">
     <h1>Stress</h1>
+    <p>1 = Not at all,  2 = A little,  3 = Moderately,  4 = Quite a bit,  5 = Extremely</p>
+    <form>
+      <label for="up_data">Data: </label>
+      <input name="up_data" id="up_data" maxlength="20" required>
+      <button>Next</button>
+    </form>
   </div>
 
   <div id="hormone">
@@ -30,6 +36,13 @@
 
   <div id="sun">
     <h1>Sun Exposure</h1>
+    <form>
+      <p>How long did you stay out directly in the sun?</p>
+      <input name="sun_hr" id="sun_hr" type="number" min="0" max="24">
+      <label for="sun_hr">hr</label>
+      <input name="sun_min" id="sun_min" type="number" min="0" max="59">
+      <label for="sun_min">min</label>
+    </form>
   </div>
 
   <div id="medication">
