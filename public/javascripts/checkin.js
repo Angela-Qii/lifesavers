@@ -21,7 +21,11 @@ function showSection(event) {
   let targetSection = event.target.id.replace('-btn', '');
   if (targetSection && targetSection !== currSection) {
     id(currSection).style.display = 'none';
+    id(currSection + '-btn').style.border = 'none';
     id(targetSection).style.display = 'block';
+    id(targetSection + '-btn').style.borderLeft = '5px solid #5d7d9b';
+    id(currSection + '-btn').style.color = '#c4cade';
+    id(targetSection + '-btn').style.color = '#000';
     currSection = targetSection;
   }
 }

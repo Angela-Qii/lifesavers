@@ -1,28 +1,61 @@
-/* Example CSS */
-
 body {
-  padding: 50px;
+  display: flex;
+  height: 100vh;
+  flex-direction: row;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: #F9F1FF;
-  color: #333333;
+  background-color: #ffffff;
 }
 
 h1 {
   text-align: center;
 }
 
-.post {
+.sidenav {
+  background-color: #f1f9ff;
+}
+
+.sidenav li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidenav a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+#content {
   display: flex;
-  flex-direction: column;
-  width: 45%;
-  background-color: #E5D5F1;
-  outline-style: solid;
-  outline-width: 3px;
-  outline-color: purple;
-  align-items: center;
-  margin: 10px;
-  padding: 10px;
-  border-radius: 15px;
+  flex: 1;
+  padding: 20px;
+}
+
+#main_nav {
+  flex: 0 0 200px;
+  padding: 20px;
+}
+
+#checkin_nav {
+  flex: 0 0 200px;
+  padding: 20px;
+}
+
+#checkin_nav li {
+  outline: 1px solid #e0f2ff;
+}
+
+#checkin_nav button {
+  border: none;
+  padding: 1em 0;
+  background-color: #e7f5ff;
+  width: 100%;
+  color: #c4cade;
+}
+
+#checkin_nav #lesion-btn {
+  border-left: 5px solid #5d7d9b;
+  color: #000;
 }
 
 #stress {

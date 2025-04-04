@@ -11,54 +11,56 @@
 </head>
 
 <body>
-  <div id="main-nav"></div>
+  <div id="main_nav" class="sidenav"></div>
 
-  <p>Daily-Check in for __</p>
+  <div id="content">
+    <p>Daily-Check in for __</p>
 
-  <div id="lesion">
-    <!-- starts visible, will be hidden when other sections shown -->
-    <h1>Lesions</h1>
-  </div>
+    <div id="lesion">
+      <!-- starts visible, will be hidden when other sections shown -->
+      <h1>Lesions</h1>
+    </div>
 
-  <div id="stress">
-    <h1>Stress</h1>
-    <p>1 = Not at all,  2 = A little,  3 = Moderately,  4 = Quite a bit,  5 = Extremely</p>
-    <form>
-      <label for="up_data">Data: </label>
-      <input name="up_data" id="up_data" maxlength="20" required>
-      <button>Next</button>
-    </form>
-  </div>
+    <div id="stress">
+      <h1>Stress</h1>
+      <p>1 = Not at all,  2 = A little,  3 = Moderately,  4 = Quite a bit,  5 = Extremely</p>
+      <form>
+        <label for="up_data">Data: </label>
+        <input name="up_data" id="up_data" maxlength="20" required>
+        <button>Next</button>
+      </form>
+    </div>
 
-  <div id="hormone">
-    <h1>Hormone Cycle</h1>
-  </div>
+    <div id="hormone">
+      <h1>Hormone Cycle</h1>
+    </div>
 
-  <div id="sun">
-    <h1>Sun Exposure</h1>
-    <form>
-      <p>How long did you stay out directly in the sun?</p>
-      <input name="sun_hr" id="sun_hr" type="number" min="0" max="24">
-      <label for="sun_hr">hr</label>
-      <input name="sun_min" id="sun_min" type="number" min="0" max="59">
-      <label for="sun_min">min</label>
-    </form>
-  </div>
+    <div id="sun">
+      <h1>Sun Exposure</h1>
+      <form>
+        <p>How long did you stay out directly in the sun?</p>
+        <input name="sun_hr" id="sun_hr" type="number" min="0" max="24">
+        <label for="sun_hr">hr</label>
+        <input name="sun_min" id="sun_min" type="number" min="0" max="59">
+        <label for="sun_min">min</label>
+      </form>
+    </div>
 
-  <div id="medication">
-    <h1>Medication</h1>
-  </div>
+    <div id="medication">
+      <h1>Medication</h1>
+    </div>
 
-  <div id="routine">
-    <h1>Skin Care Routine</h1>
-  </div>
+    <div id="routine">
+      <h1>Skin Care Routine</h1>
+    </div>
 
-  <div id="diet">
-    <h1>Diet</h1>
-  </div>
+    <div id="diet">
+      <h1>Diet</h1>
+    </div>
 
-  <div id="weather">
-    <h1>Weather</h1>
+    <div id="weather">
+      <h1>Weather</h1>
+    </div>
   </div>
 
   <nav id="checkin_nav" class="sidenav">
