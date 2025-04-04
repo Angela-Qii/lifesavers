@@ -14,7 +14,7 @@ h1 {
   background-color: #f1f9ff;
 }
 
-.sidenav li {
+.sidenav ul {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -38,11 +38,21 @@ h1 {
 
 #checkin_nav {
   flex: 0 0 200px;
-  padding: 20px;
 }
 
 #checkin_nav li {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e7f5ff;
   outline: 1px solid #e0f2ff;
+}
+
+#checkin_nav img {
+  height: 100%;
+  width: auto;
+  object-fit: cover;
 }
 
 #checkin_nav button {
