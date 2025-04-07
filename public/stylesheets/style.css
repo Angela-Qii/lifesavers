@@ -10,6 +10,82 @@ h1 {
   text-align: center;
 }
 
+.big_num {
+  border: 2px solid black;
+  border-radius: 10px;
+  background: #f5f799;
+  height: 150px;
+  width: 150px;
+  font-size: 5em;
+  text-align: center;
+  line-height: 150px;
+  margin: 0;
+}
+
+.big_word {
+  font-size: 4em;
+}
+
+.lightblue_btn, .darkblue_btn {
+  color: white;
+  border-radius: 15px;
+  border: none;
+}
+
+.lightblue_btn {
+  background: #30a0cd;
+}
+
+.darkblue_btn {
+  background: #004081;
+}
+
+.single-choice {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  list-style-type: none;
+  margin: 25px 0 0 0;
+  padding: 0;
+}
+
+.single-choice li {
+  float: left;
+  margin: 0 5px 0 0;
+  width: 40px;
+  height: 40px;
+  position: relative;
+}
+
+.single-choice label, .single-choice input {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.single-choice input {
+  opacity: 0.01;
+  z-index: 100;
+  border: none;
+}
+
+.single-choice input:checked+label, .Checked+label {
+  background: #004081;
+}
+
+.single-choice label {
+  padding: 5px;
+  cursor: pointer;
+  z-index: 90;
+  border-radius: 50%;
+  background: #30a0cd;
+  text-align: center;
+  line-height: 30px;
+}
+
 .sidenav {
   background-color: #f1f9ff;
 }
@@ -27,8 +103,21 @@ h1 {
 
 #content {
   display: flex;
+  flex-direction: column;
   flex: 1;
   padding: 20px;
+}
+
+#content p, #content label, .big_word {
+  color: #808080;
+}
+
+#content .big_num {
+  color: black;
+}
+
+#content li label {
+  color: white;
 }
 
 #main_nav {
@@ -68,6 +157,16 @@ h1 {
   color: #000;
 }
 
+#checkin_stress {
+  display: flex;
+  flex-direction: column;
+}
+
+#calc_stress {
+  display: none;
+  justify-content: space-between;
+}
+
 #stress {
   display: none;
 }
@@ -94,4 +193,10 @@ h1 {
 
 #weather {
   display: none;
+}
+
+#buttons {
+  display: none;
+  flex-direction: column;
+  margin-top: 20px;
 }

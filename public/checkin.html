@@ -22,13 +22,94 @@
     </div>
 
     <div id="stress">
-      <h1>Stress</h1>
-      <p>1 = Not at all,  2 = A little,  3 = Moderately,  4 = Quite a bit,  5 = Extremely</p>
-      <form>
-        <label for="up_data">Data: </label>
-        <input name="up_data" id="up_data" maxlength="20" required>
-        <button>Next</button>
+      <form id="checkin_stress">
+        <h1>Stress</h1>
+        <p>1 = Not at all,  2 = A little,  3 = Moderately,  4 = Quite a bit,  5 = Extremely</p>
+        <label for="stress_1">1. How stressed did you feel about your responsibilities today (work, school, personal tasks)?</label>
+        <ul class="single-choice">
+          <li>
+            <input type="radio" id="stress1-1" name="stress_1" value="1" />
+            <label for="stress1-1">1</label>
+          </li>
+          <li>
+            <input type="radio" id="stress1-2" name="stress_1" value="2" />
+            <label for="stress1-2">2</label>
+          </li>
+          <li>
+            <input type="radio" id="stress1-3" name="stress_1" value="3" />
+            <label for="stress1-3">3</label>
+          </li>
+          <li>
+            <input type="radio" id="stress1-4" name="stress_1" value="4" />
+            <label for="stress1-4">4</label>
+          </li>
+          <li>
+            <input type="radio" id="stress1-5" name="stress_1" value="5" />
+            <label for="stress1-5">5</label>
+          </li>
+        </ul>
+        <label for="stress_2">2. How much emotional stress did you experience today (e.g., anxiety, irritability)?</label>
+        <ul class="single-choice">
+          <li>
+            <input type="radio" id="stress2-1" name="stress_2" value="1" />
+            <label for="stress2-1">1</label>
+          </li>
+          <li>
+            <input type="radio" id="stress2-2" name="stress_2" value="2" />
+            <label for="stress2-2">2</label>
+          </li>
+          <li>
+            <input type="radio" id="stress2-3" name="stress_2" value="3" />
+            <label for="stress2-3">3</label>
+          </li>
+          <li>
+            <input type="radio" id="stress2-4" name="stress_2" value="4" />
+            <label for="stress2-4">4</label>
+          </li>
+          <li>
+            <input type="radio" id="stress2-5" name="stress_2" value="5" />
+            <label for="stress2-5">5</label>
+          </li>
+        </ul>
+        <label for="stress_3">3. How much physical tension (e.g., headaches, muscle tightness) did you feel today?</label>
+        <ul class="single-choice">
+          <li>
+            <input type="radio" id="stress3-1" name="stress_3" value="1" />
+            <label for="stress3-1">1</label>
+          </li>
+          <li>
+            <input type="radio" id="stress3-2" name="stress_3" value="2" />
+            <label for="stress3-2">2</label>
+          </li>
+          <li>
+            <input type="radio" id="stress3-3" name="stress_3" value="3" />
+            <label for="stress3-3">3</label>
+          </li>
+          <li>
+            <input type="radio" id="stress3-4" name="stress_3" value="4" />
+            <label for="stress3-4">4</label>
+          </li>
+          <li>
+            <input type="radio" id="stress3-5" name="stress_3" value="5" />
+            <label for="stress3-5">5</label>
+          </li>
+        </ul>
+        <button type="button" class="lightblue_btn">Calculate Stress Level</button>
       </form>
+      <div id="calc_stress">
+        <div>
+          <p>Average Stress Score:</p>
+          <p class="big_num">0</p>
+        </div>
+        <h2 class="big_word">Moderate</h2>
+        <div>
+          <p>Key:</p>
+          <br>
+          <p>0-2: Low stress level</p>
+          <p>2-4: Moderate stress level</p>
+          <p>4-5: High stress level</p>
+        </div>
+      </div>
     </div>
 
     <div id="hormone">
@@ -60,6 +141,11 @@
 
     <div id="weather">
       <h1>Weather</h1>
+    </div>
+
+    <div id="buttons">
+      <button class="darkblue_btn" id="go_next">Record </button>
+      <button class="lightblue_btn" id="submit_checkin">Complete Daily-Check In</button>
     </div>
   </div>
 

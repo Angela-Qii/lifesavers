@@ -9,16 +9,31 @@ window.addEventListener("load", init);
  * Sets up event listeners for website's buttons.
  */
 async function init() {
-  qsa('button').forEach(button => {
+  qsa('#checkin_nav button').forEach(button => {
     button.addEventListener('click', showSection);
   });
+  id('go_next').addEventListener('click', showSection);
+  qs('#checkin_stress button').addEventListener('click', calcStress);
 }
 
 /**
- * Shows Checkin section for the specific button clicked.
+ * When Checkin sidenav button clicked, shows that section and hides previous section.
+ * If the button is for "next section", shows the next section.
+ * @param {object} event - Information about the clicked button.
  */
 function showSection(event) {
-  let targetSection = event.target.id.replace('-btn', '');
+  let targetSection = '';
+  if (event.target.id == 'go_next') {
+    if (event.target.innerText == 'Record Hormone Cycle') {
+      targetSection = 'hormone';
+    } else if (event.target.innerText == 'Record Sun Exposure') {
+      targetSection = 'sun';
+    } else {
+      targetSection = event.target.innerText.replace('Record ', '').toLowerCase();
+    }
+  } else {
+    targetSection = event.target.id.replace('-btn', '');
+  }
   if (targetSection && targetSection !== currSection) {
     id(currSection).style.display = 'none';
     id(currSection + '-btn').style.border = 'none';
@@ -27,6 +42,43 @@ function showSection(event) {
     id(currSection + '-btn').style.color = '#c4cade';
     id(targetSection + '-btn').style.color = '#000';
     currSection = targetSection;
+    if (currSection == 'stress') {
+      id('checkin_stress').style.display = 'block';
+      id('calc_stress').style.display = 'none';
+    }
+    id('buttons').style.display = 'none';
+  }
+}
+
+/**
+ * Shows 2nd stress page with stress calculations.
+ */
+function calcStress() {
+  id('checkin_stress').style.display = 'none';
+  id('calc_stress').style.display = 'flex';
+  id('buttons').style.display = 'flex';
+  id('go_next').innerText = 'Record Hormone Cycle';
+  let stress1 = qs('input[name="stress_1"]:checked')?.value;
+  let stress2 = qs('input[name="stress_2"]:checked')?.value;
+  let stress3 = qs('input[name="stress_3"]:checked')?.value;
+  if (stress1 == null) {
+    stress1 = 0;
+  }
+  if (stress2 == null) {
+    stress2 = 0;
+  }
+  if (stress3 == null) {
+    stress3 = 0;
+  }
+  let avg_stress = (Number(stress1) + Number(stress2) + Number(stress3)) / 3;
+  avg_stress = Math.round(avg_stress * 10) / 10;
+  qs('#calc_stress .big_num').innerText = avg_stress;
+  if (avg_stress <= 2) {
+    qs('#calc_stress .big_word').innerText = 'Low';
+  } else if (avg_stress >= 4) {
+    qs('#calc_stress .big_word').innerText = 'High';
+  } else {
+    qs('#calc_stress .big_word').innerText = 'Moderate';
   }
 }
 
