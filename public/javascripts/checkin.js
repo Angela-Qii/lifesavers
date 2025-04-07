@@ -52,6 +52,7 @@ function showSection(event) {
 
 /**
  * Shows 2nd stress page with stress calculations.
+ * Not selecting is 0 by default, but it isn't used in calculations unless there are no selections.
  */
 function calcStress() {
   id('checkin_stress').style.display = 'none';
@@ -70,7 +71,17 @@ function calcStress() {
   if (stress3 == null) {
     stress3 = 0;
   }
-  let avg_stress = (Number(stress1) + Number(stress2) + Number(stress3)) / 3;
+  let avg_stress = 0;
+  let zeroCount = [stress1, stress2, stress3].filter(value => value === 0).length;
+  if (zeroCount == 0) {
+    avg_stress = (Number(stress1) + Number(stress2) + Number(stress3)) / 3;
+  } else if (zeroCount == 1) {
+    avg_stress = (Number(stress1) + Number(stress2) + Number(stress3)) / 2;
+  } else if (zeroCount == 2) {
+    avg_stress = (Number(stress1) + Number(stress2) + Number(stress3));
+  } else {
+    avg_stress = 0;
+  }
   avg_stress = Math.round(avg_stress * 10) / 10;
   qs('#calc_stress .big_num').innerText = avg_stress;
   if (avg_stress <= 2) {
