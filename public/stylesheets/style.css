@@ -1,19 +1,17 @@
 body {
   display: flex;
   height: 100vh;
-  flex-direction: row;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: #ffffff;
 }
 
-h1 {
-  text-align: center;
+.bold {
+  font-weight:bold;
 }
 
 .big_num {
   border: 2px solid black;
   border-radius: 10px;
-  background: #f5f799;
   height: 150px;
   width: 150px;
   font-size: 5em;
@@ -24,6 +22,12 @@ h1 {
 
 .big_word {
   font-size: 4em;
+}
+
+.rounded_corners {
+  height: 50px;
+  width: 50px;
+  border-radius: 15px;
 }
 
 .lightblue_btn, .darkblue_btn {
@@ -40,11 +44,74 @@ h1 {
   background: #004081;
 }
 
-.single-choice {
+/* radio is the class used for the Lesion Checkin section's small, circular buttons. */
+.radio li {
   display: flex;
-  justify-content: space-between;
-  width: 80%;
+}
+
+.radio, .select-choice, .single-choice {
+  display: flex;
   list-style-type: none;
+}
+
+/* upload-image is the class used for the Lesion Checkin section's image file upload button. */
+.upload-image input {
+  display: none;
+}
+
+.upload-image label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.upload-image img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+/* select-choice is the class used for the Lesion Checkin section's rectangular buttons. */
+.select-choice {
+  padding: 0;
+  margin: 0;
+}
+
+.select-choice input {
+  display: none;
+}
+
+.select-choice label {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 1px solid black;
+}
+
+.select-choice li:not(:last-child) label {
+  border-right: none;
+}
+
+#lesion .select-choice input:checked + label {
+  background-color: #3473c1;
+  color: white;
+}
+
+.select-choice li:first-child label {
+  border-radius: 10px 0 0 10px;
+}
+
+.select-choice li:last-child label {
+  border-radius: 0 10px 10px 0;
+}
+
+/* single-choice is the class used for the Stress Checkin section's circle-shaped buttons. */
+.single-choice {
+  justify-content: space-evenly;
+  width: 80%;
   margin: 25px 0 0 0;
   padding: 0;
 }
@@ -57,8 +124,11 @@ h1 {
   position: relative;
 }
 
-.single-choice label, .single-choice input {
+.radio label, .single-choice label, .single-choice input {
   display: block;
+}
+
+.single-choice label, .single-choice input {
   position: absolute;
   top: 0;
   left: 0;
@@ -86,6 +156,7 @@ h1 {
   line-height: 30px;
 }
 
+
 .sidenav {
   background-color: #f1f9ff;
 }
@@ -101,9 +172,42 @@ h1 {
   text-decoration: inherit;
 }
 
-#content {
+.horizontal {
+  justify-content: space-evenly;
+  gap: 20px;
+}
+
+.horizontal div {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.horizontal, .lesion_part {
+  display: flex;
+  flex-direction: row;
+}
+
+.lesion_part {
+  justify-content: space-evenly;
+}
+
+.lesion_part > img {
+  height: 200px;
+  width: auto;
+}
+
+.checkin_lesion {
+  justify-content: space-between;
+}
+
+#content, .checkin_lesion, #checkin_stress {
+  display: flex;
+  flex-direction: column;
+}
+
+#content {
   flex: 1;
   padding: 20px;
 }
@@ -112,11 +216,11 @@ h1 {
   color: #808080;
 }
 
-#content .big_num {
+#content .big_num, #checkin_nav #lesion-btn, #lesion li label, #sun label {
   color: black;
 }
 
-#content li label {
+#stress li label {
   color: white;
 }
 
@@ -154,49 +258,20 @@ h1 {
 
 #checkin_nav #lesion-btn {
   border-left: 5px solid #5d7d9b;
-  color: #000;
-}
-
-#checkin_stress {
-  display: flex;
-  flex-direction: column;
 }
 
 #calc_stress {
-  display: none;
   justify-content: space-between;
 }
 
-#stress {
-  display: none;
-}
-
-#hormone {
-  display: none;
-}
-
-#sun {
-  display: none;
-}
-
-#medication {
-  display: none;
-}
-
-#routine {
-  display: none;
-}
-
-#diet {
-  display: none;
-}
-
-#weather {
-  display: none;
+#stress button, #buttons {
+  margin-top: 20px;
 }
 
 #buttons {
-  display: none;
   flex-direction: column;
-  margin-top: 20px;
+}
+
+#lesion_head, #lesion_arms, #lesion_body, #lesion_legs, #calc_stress, #stress, #hormone, #sun, #medication, #routine, #diet, #weather, #buttons, #error_info {
+  display: none;
 }

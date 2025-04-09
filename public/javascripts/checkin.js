@@ -13,6 +13,8 @@ async function init() {
     button.addEventListener('click', showSection);
   });
   id('go_next').addEventListener('click', showSection);
+  id('show_calc_lesion').addEventListener('click', calcLesion);
+  id('lesion_next').addEventListener('click', lesionNext);
   qs('#checkin_stress button').addEventListener('click', calcStress);
 }
 
@@ -34,6 +36,7 @@ function showSection(event) {
   } else {
     targetSection = event.target.id.replace('-btn', '');
   }
+  id('buttons').style.display = 'none';
   if (targetSection && targetSection !== currSection) {
     id(currSection).style.display = 'none';
     id(currSection + '-btn').style.border = 'none';
@@ -42,12 +45,56 @@ function showSection(event) {
     id(currSection + '-btn').style.color = '#c4cade';
     id(targetSection + '-btn').style.color = '#000';
     currSection = targetSection;
-    if (currSection == 'stress') {
+    if (currSection == 'lesion') {
+      id('lesion_start').style.display = 'block';
+      id('lesion_head').style.display = 'none';
+      id('lesion_arms').style.display = 'none';
+      id('lesion_body').style.display = 'none';
+      id('lesion_legs').style.display = 'none';
+      id('calc_lesion').style.display = 'none';
+      id('lesion_buttons').style.display = 'flex';
+    } else if (currSection == 'stress') {
       id('checkin_stress').style.display = 'block';
       id('calc_stress').style.display = 'none';
+    } else if (currSection == 'sun') {
+      id('buttons').style.display = 'flex';
+      id('go_next').innerText = 'Record Medication';
     }
-    id('buttons').style.display = 'none';
   }
+}
+
+/**
+ * Navigates to next part of lesion section.
+ */
+function lesionNext() {
+  if (shown(id('lesion_start'))) {
+    id('lesion_start').style.display = 'none';
+    id('lesion_head').style.display = 'flex';
+  } else if (shown(id('lesion_head'))) {
+    id('lesion_head').style.display = 'none';
+    id('lesion_arms').style.display = 'flex';
+  } else if (shown(id('lesion_arms'))) {
+    id('lesion_arms').style.display = 'none';
+    id('lesion_body').style.display = 'flex';
+  } else if (shown(id('lesion_body'))) {
+    id('lesion_body').style.display = 'none';
+    id('lesion_legs').style.display = 'flex';
+  } else {
+    calcLesion();
+  }
+}
+
+/**
+ * Shows lesion section's calculations.
+ */
+function calcLesion() {
+  id('lesion_start').style.display = 'none';
+  id('lesion_head').style.display = 'none';
+  id('lesion_arms').style.display = 'none';
+  id('lesion_body').style.display = 'none';
+  id('lesion_legs').style.display = 'none';
+  id('calc_lesion').style.display = 'flex';
+  id('lesion_buttons').style.display = 'none';
 }
 
 /**
@@ -86,10 +133,13 @@ function calcStress() {
   qs('#calc_stress .big_num').innerText = avg_stress;
   if (avg_stress <= 2) {
     qs('#calc_stress .big_word').innerText = 'Low';
+    qs('#calc_stress .big_num').style.background = '#aef993';
   } else if (avg_stress >= 4) {
     qs('#calc_stress .big_word').innerText = 'High';
+    qs('#calc_stress .big_num').style.background = '#ff9d9d';
   } else {
     qs('#calc_stress .big_word').innerText = 'Moderate';
+    qs('#calc_stress .big_num').style.background = '#f5f799';
   }
 }
 
@@ -151,6 +201,16 @@ async function deleteData(dataID) {
 }
 
 // COMMENT: Helpful functions below
+
+/**
+ * Returns if the given element is shown via CSS.
+ * @param {object} element - Given element.
+ * @returns {boolean} Whether the element is shown.
+ */
+function shown(element) {
+  let style = window.getComputedStyle(element);
+  return style.display !== 'none' && style.visibility !== 'hidden';
+}
 
 /**
  * Returns the element that has the ID attribute with the specified value.
