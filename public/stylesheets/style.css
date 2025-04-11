@@ -30,10 +30,18 @@ body {
   border-radius: 15px;
 }
 
+.lightblue_btn, .darkblue_btn, .lightblue_bg {
+  border-radius: 10px;
+  border: none;
+}
+
+.lightblue_bg {
+  background: #f0f8ff;
+  width: 200px;
+}
+
 .lightblue_btn, .darkblue_btn {
   color: white;
-  border-radius: 15px;
-  border: none;
 }
 
 .lightblue_btn {
@@ -42,6 +50,12 @@ body {
 
 .darkblue_btn {
   background: #004081;
+}
+
+.white_btn {
+  border-radius: 10px;
+  border: 1px solid black;
+  background-color: white;
 }
 
 /* radio is the class used for the Lesion Checkin section's small, circular buttons. */
@@ -108,6 +122,44 @@ body {
   border-radius: 0 10px 10px 0;
 }
 
+/* Changing the Lesion Checkin section's sliders */
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  background: #d9d9d9;
+  color: #004081;
+  height: 8px;
+  border-radius: 5px;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb, input[type="range"]::-moz-range-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #004081;
+  background-color: #004081;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+#slider_itchy_val, #slider_pain_val {
+  position: absolute;
+  top: 35px;
+  transform: translateX(-50%);
+  z-index: 100;
+  background: white;
+  font-size: 1.6em;
+  color: black;
+  border: 1px solid black;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 40px;
+  pointer-events: none;
+}
+
 /* single-choice is the class used for the Stress Checkin section's circle-shaped buttons. */
 .single-choice {
   justify-content: space-evenly;
@@ -155,7 +207,6 @@ body {
   text-align: center;
   line-height: 30px;
 }
-
 
 .sidenav {
   background-color: #f1f9ff;
@@ -260,7 +311,31 @@ body {
   border-left: 5px solid #5d7d9b;
 }
 
-#calc_stress {
+#calc_stress, #calc_lesion > div {
+  justify-content: space-between;
+}
+
+#calc_lesion form {
+  width: 80%;
+  align-self: center;
+}
+
+#calc_lesion, #calc_lesion form div {
+  display: flex;
+  flex-direction: column;
+}
+
+#calc_lesion form div {
+  position: relative;
+}
+
+#calc_lesion > div {
+  display: flex;
+}
+
+#calc_lesion form div div {
+  display: flex;
+  flex-direction: row;
   justify-content: space-between;
 }
 
@@ -268,10 +343,20 @@ body {
   margin-top: 20px;
 }
 
+#hormone img {
+  width: 500px;
+  height: auto;
+}
+
+#routine > div {
+  display: flex;
+  flex-direction: column;
+}
+
 #buttons {
   flex-direction: column;
 }
 
-#lesion_head, #lesion_arms, #lesion_body, #lesion_legs, #calc_stress, #stress, #hormone, #sun, #medication, #routine, #diet, #weather, #buttons, #error_info {
+.aria_described, .horizontal .aria_described, #lesion_head, #lesion_arms, #lesion_body, #lesion_legs, #calc_lesion, #calc_stress, #stress, #hormone, #sun, #medication, #routine, #diet, #weather, #buttons, #error_info {
   display: none;
 }

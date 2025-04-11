@@ -16,6 +16,19 @@ async function init() {
   id('show_calc_lesion').addEventListener('click', calcLesion);
   id('lesion_next').addEventListener('click', lesionNext);
   qs('#checkin_stress button').addEventListener('click', calcStress);
+  // Handles Lesion section's sliders
+  let slider1 = id("slider_itchy");
+  let output1 = id("slider_itchy_val");
+  slider1.addEventListener("input", () => {
+    lesionSlider(slider1, output1);
+  });
+  let slider2 = id("slider_pain");
+  let output2 = id("slider_pain_val");
+  slider2.addEventListener("input", () => {
+    lesionSlider(slider2, output2);
+  });
+  lesionSlider(slider1, output1);
+  lesionSlider(slider2, output2);
 }
 
 /**
@@ -45,26 +58,32 @@ function showSection(event) {
     id(currSection + '-btn').style.color = '#c4cade';
     id(targetSection + '-btn').style.color = '#000';
     currSection = targetSection;
-    if (currSection == 'lesion') {
-      id('lesion_start').style.display = 'block';
-      id('lesion_head').style.display = 'none';
-      id('lesion_arms').style.display = 'none';
-      id('lesion_body').style.display = 'none';
-      id('lesion_legs').style.display = 'none';
-      id('calc_lesion').style.display = 'none';
-      id('lesion_buttons').style.display = 'flex';
-    } else if (currSection == 'stress') {
-      id('checkin_stress').style.display = 'block';
-      id('calc_stress').style.display = 'none';
-    } else if (currSection == 'sun') {
-      id('buttons').style.display = 'flex';
-      id('go_next').innerText = 'Record Medication';
-    }
+  }
+  if (currSection == 'lesion') {
+    id('lesion_start').style.display = 'block';
+    id('lesion_head').style.display = 'none';
+    id('lesion_arms').style.display = 'none';
+    id('lesion_body').style.display = 'none';
+    id('lesion_legs').style.display = 'none';
+    id('calc_lesion').style.display = 'none';
+    id('lesion_buttons').style.display = 'flex';
+  } else if (currSection == 'stress') {
+    id('checkin_stress').style.display = 'block';
+    id('calc_stress').style.display = 'none';
+  } else if (currSection == 'hormone') {
+    id('buttons').style.display = 'flex';
+    id('go_next').innerText = 'Record Sun Exposure';
+  } else if (currSection == 'sun') {
+    id('buttons').style.display = 'flex';
+    id('go_next').innerText = 'Record Medication';
+  } else if (currSection == 'routine') {
+    id('buttons').style.display = 'flex';
+    id('go_next').innerText = 'Record Diet';
   }
 }
 
 /**
- * Navigates to next part of lesion section.
+ * Navigates to next part of Lesion section.
  */
 function lesionNext() {
   if (shown(id('lesion_start'))) {
@@ -85,7 +104,7 @@ function lesionNext() {
 }
 
 /**
- * Shows lesion section's calculations.
+ * Shows Lesion section's calculations.
  */
 function calcLesion() {
   id('lesion_start').style.display = 'none';
@@ -95,10 +114,51 @@ function calcLesion() {
   id('lesion_legs').style.display = 'none';
   id('calc_lesion').style.display = 'flex';
   id('lesion_buttons').style.display = 'none';
+  id('buttons').style.display = 'flex';
+  id('go_next').innerText = 'Record Stress';
+  let lesion_1_1 = parseInt(qs('input[name="lesion_1-1"]:checked')?.value ?? 0);
+  let lesion_1_2 = parseInt(qs('input[name="lesion_1-2"]:checked')?.value ?? 0);
+  let lesion_1_3 = parseInt(qs('input[name="lesion_1-3"]:checked')?.value ?? 0);
+  let lesion_1_4 = parseInt(qs('input[name="lesion_1-4"]:checked')?.value ?? 0);
+  let lesion_2_1 = parseInt(qs('input[name="lesion_2-1"]:checked')?.value ?? 0);
+  let lesion_2_2 = parseInt(qs('input[name="lesion_2-2"]:checked')?.value ?? 0);
+  let lesion_2_3 = parseInt(qs('input[name="lesion_2-3"]:checked')?.value ?? 0);
+  let lesion_2_4 = parseInt(qs('input[name="lesion_2-4"]:checked')?.value ?? 0);
+  let lesion_3_1 = parseInt(qs('input[name="lesion_3-1"]:checked')?.value ?? 0);
+  let lesion_3_2 = parseInt(qs('input[name="lesion_3-2"]:checked')?.value ?? 0);
+  let lesion_3_3 = parseInt(qs('input[name="lesion_3-3"]:checked')?.value ?? 0);
+  let lesion_3_4 = parseInt(qs('input[name="lesion_3-4"]:checked')?.value ?? 0);
+  let lesion_4_1 = parseInt(qs('input[name="lesion_4-1"]:checked')?.value ?? 0);
+  let lesion_4_2 = parseInt(qs('input[name="lesion_4-2"]:checked')?.value ?? 0);
+  let lesion_4_3 = parseInt(qs('input[name="lesion_4-3"]:checked')?.value ?? 0);
+  let lesion_4_4 = parseInt(qs('input[name="lesion_4-4"]:checked')?.value ?? 0);
+  let pasi = lesion_1_1 + lesion_1_2 + lesion_1_3 + lesion_1_4 + lesion_2_1 + lesion_2_2 + lesion_2_3 + lesion_2_4 + lesion_3_1 + lesion_3_2 + lesion_3_3 + lesion_3_4 + lesion_4_1 + lesion_4_2 + lesion_4_3 + lesion_4_4;
+  qs('#calc_lesion .big_num').innerText = pasi;
+  if (pasi <= 4) {
+    qs('#calc_lesion .big_word').innerText = 'Low';
+  } else if (pasi >= 11) {
+    qs('#calc_lesion .big_word').innerText = 'High';
+  } else {
+    qs('#calc_lesion .big_word').innerText = 'Moderate';
+  }
 }
 
 /**
- * Shows 2nd stress page with stress calculations.
+ * Handles the movement of Lesion section's slider circles.
+ * @param {object} slider - The slider.
+ * @param {object} output - The slider circle.
+ */
+function lesionSlider(slider, output) {
+  let min = parseFloat(slider.min);
+  let max = parseFloat(slider.max);
+  let value = parseFloat(slider.value);
+  let percent = ((value - min) / (max - min)) * 100;
+  output.textContent = value.toFixed(1);
+  output.style.left = `${percent}%`;
+}
+
+/**
+ * Shows 2nd Stress page with stress calculations.
  * Not selecting is 0 by default, but it isn't used in calculations unless there are no selections.
  */
 function calcStress() {
