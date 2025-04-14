@@ -5,700 +5,705 @@
   <link rel="stylesheet" href="stylesheets/style.css">
   <script src="javascripts/checkin.js"></script>
   <script src="javascripts/nav.js"></script>
-  <script src="javascripts/identity.js"></script>
   <script src="javascripts/api_version.js"></script>
   <script src="javascripts/utils.js"></script>
 </head>
 
 <body>
-  <div id="main_nav" class="sidenav"></div>
+  <div id="top_nav" class="topbar"></div>
 
-  <div id="content">
-    <p>Daily-Check in for __</p>
+  <div class="container">
+    <div id="main_nav" class="sidenav"></div>
 
-    <!-- Will only display info when an error occurs -->
-    <p id="error_info"></p>
+    <div id="content">
+      <p>Daily-Check in for __</p>
 
-    <div id="lesion">
-      <h1>Lesions</h1>
-      <div id="lesion_start">
-        <h2>Section 1   -    Filling PASI Score</h2>
-        <p>The <span class="bold">Psoriasis Area and Severity Index (PASI)</span> score is a tool dermatologists use to classify psoriasis and help determine treatment. It helps classify severity of your psoriasis.</p>
-        <p>In general, <span class="bold">a PASI score of 5 to 10 is considered moderate disease</span>, and a score over 10 is considered severe.</p>
-        <p>In order to calculate PASI score, you will need to input information for these parts of the body:</p>
-        <div class="horizontal">
-          <div>
-            <img src="imgs/lesion-head.png" alt="Stick figure with colored head">
-            <h2>Head</h2>
-          </div>
-          <div>
-            <img src="imgs/lesion-arms.png" alt="Stick figure with colored arms">
-            <h2>Arms</h2>
-          </div>
-          <div>
-            <img src="imgs/lesion-body.png" alt="Stick figure with colored body">
-            <h2>Trunk</h2>
-          </div>
-          <div>
-            <img src="imgs/lesion-legs.png" alt="Stick figure with colored legs">
-            <h2>Legs</h2>
+      <!-- Will only display info when an error occurs -->
+      <p id="error_info"></p>
+
+      <div id="lesion">
+        <h1>Lesions</h1>
+        <div id="lesion_start">
+          <h2>Section 1   -    Filling PASI Score</h2>
+          <p>The <span class="bold">Psoriasis Area and Severity Index (PASI)</span> score is a tool dermatologists use to classify psoriasis and help determine treatment. It helps classify severity of your psoriasis.</p>
+          <p>In general, <span class="bold">a PASI score of 5 to 10 is considered moderate disease</span>, and a score over 10 is considered severe.</p>
+          <p>In order to calculate PASI score, you will need to input information for these parts of the body:</p>
+          <div class="horizontal">
+            <div>
+              <img src="imgs/lesion-head.png" alt="Stick figure with colored head">
+              <h2>Head</h2>
+            </div>
+            <div>
+              <img src="imgs/lesion-arms.png" alt="Stick figure with colored arms">
+              <h2>Arms</h2>
+            </div>
+            <div>
+              <img src="imgs/lesion-body.png" alt="Stick figure with colored body">
+              <h2>Trunk</h2>
+            </div>
+            <div>
+              <img src="imgs/lesion-legs.png" alt="Stick figure with colored legs">
+              <h2>Legs</h2>
+            </div>
           </div>
         </div>
-      </div>
-      <div id="lesion_head" class="lesion_part">
-        <form class="checkin_lesion">
-          <h2>Head ( 1/4 ) - Inputting PASI Scores</h2>
-          <label for="lesion_1-1">Area: % indicates the lesion's area coverage of the affected body part.</label>
-          <ul class="radio">
-            <li>
-              <input type="radio" id="lesion1-1_0" name="lesion_1-1" value="0" />
-              <label for="lesion1-1_0">0%</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion1-1_1" name="lesion_1-1" value="1" />
-              <label for="lesion1-1_1">&lt;10%</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion1-1_2" name="lesion_1-1" value="2" />
-              <label for="lesion1-1_2">10-29%</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion1-1_3" name="lesion_1-1" value="3" />
-              <label for="lesion1-1_3">30-49%</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion1-1_4" name="lesion_1-1" value="4" />
-              <label for="lesion1-1_4">50-69%</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion1-1_5" name="lesion_1-1" value="5" />
-              <label for="lesion1-1_5">70-89%</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion1-1_6" name="lesion_1-1" value="6" />
-              <label for="lesion1-1_6">90-100%</label>
-            </li>
-          </ul>
-          <label for="lesion_1-2">Induration/Thickness</label>
-          <ul class="select-choice">
-            <li>
-              <input type="radio" id="lesion1-2_0" name="lesion_1-2" value="0" />
-              <label for="lesion1-2_0">None</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion1-2_1" name="lesion_1-2" value="1" />
-              <label for="lesion1-2_1">Slight</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion1-2_2" name="lesion_1-2" value="2" />
-              <label for="lesion1-2_2">Moderate</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion1-2_3" name="lesion_1-2" value="3" />
-              <label for="lesion1-2_3">Severe</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion1-2_4" name="lesion_1-2" value="4" />
-              <label for="lesion1-2_4">Very Severe</label>
-            </li>
-          </ul>
-          <label for="lesion_1-3">Erythema/Redness</label>
-          <ul class="select-choice">
-            <li>
-              <input type="radio" id="lesion1-3_0" name="lesion_1-3" value="0" />
-              <label for="lesion1-3_0">None</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion1-3_1" name="lesion_1-3" value="1" />
-              <label for="lesion1-3_1">Slight</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion1-3_2" name="lesion_1-3" value="2" />
-              <label for="lesion1-3_2">Moderate</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion1-3_3" name="lesion_1-3" value="3" />
-              <label for="lesion1-3_3">Severe</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion1-3_4" name="lesion_1-3" value="4" />
-              <label for="lesion1-3_4">Very Severe</label>
-            </li>
-          </ul>
-          <label for="lesion_1-4">Desquamation/Scaling</label>
-          <ul class="select-choice">
-            <li>
-              <input type="radio" id="lesion1-4_0" name="lesion_1-4" value="0" />
-              <label for="lesion1-4_0">None</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion1-4_1" name="lesion_1-4" value="1" />
-              <label for="lesion1-4_1">Slight</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion1-4_2" name="lesion_1-4" value="2" />
-              <label for="lesion1-4_2">Moderate</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion1-4_3" name="lesion_1-4" value="3" />
-              <label for="lesion1-4_3">Severe</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion1-4_4" name="lesion_1-4" value="4" />
-              <label for="lesion1-4_4">Very Severe</label>
-            </li>
-          </ul>
-          <p>Upload Pictures  ( optional )</p>
-          <div class="upload-image">
-            <input type="file" id="lesion_1-5" name="image" accept="image/*" />
-            <label for="lesion_1-5"><img src="imgs/image-icon.png" alt="Upload image icon" /></label>
-          </div>
-        </form>
-        <img src="imgs/lesion-head.png" alt="Stick figure with colored head">
-      </div>
-      <div id="lesion_arms" class="lesion_part">
-        <form class="checkin_lesion">
-          <h2>Arms ( 2/4 ) - Inputting PASI Scores</h2>
-          <label for="lesion_2-1">Area: % indicates the lesion's area coverage of the affected body part.</label>
-          <ul class="radio">
-            <li>
-              <input type="radio" id="lesion2-1_0" name="lesion_2-1" value="0" />
-              <label for="lesion2-1_0">0%</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion2-1_1" name="lesion_2-1" value="1" />
-              <label for="lesion2-1_1">&lt;10%</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion2-1_2" name="lesion_2-1" value="2" />
-              <label for="lesion2-1_2">10-29%</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion2-1_3" name="lesion_2-1" value="3" />
-              <label for="lesion2-1_3">30-49%</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion2-1_4" name="lesion_2-1" value="4" />
-              <label for="lesion2-1_4">50-69%</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion2-1_5" name="lesion_2-1" value="5" />
-              <label for="lesion2-1_5">70-89%</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion2-1_6" name="lesion_2-1" value="6" />
-              <label for="lesion2-1_6">90-100%</label>
-            </li>
-          </ul>
-          <label for="lesion_2-2">Induration/Thickness</label>
-          <ul class="select-choice">
-            <li>
-              <input type="radio" id="lesion2-2_0" name="lesion_2-2" value="0" />
-              <label for="lesion2-2_0">None</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion2-2_1" name="lesion_2-2" value="1" />
-              <label for="lesion2-2_1">Slight</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion2-2_2" name="lesion_2-2" value="2" />
-              <label for="lesion2-2_2">Moderate</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion2-2_3" name="lesion_2-2" value="3" />
-              <label for="lesion2-2_3">Severe</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion2-2_4" name="lesion_2-2" value="4" />
-              <label for="lesion2-2_4">Very Severe</label>
-            </li>
-          </ul>
-          <label for="lesion_2-3">Erythema/Redness</label>
-          <ul class="select-choice">
-            <li>
-              <input type="radio" id="lesion2-3_0" name="lesion_2-3" value="0" />
-              <label for="lesion2-3_0">None</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion2-3_1" name="lesion_2-3" value="1" />
-              <label for="lesion2-3_1">Slight</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion2-3_2" name="lesion_2-3" value="2" />
-              <label for="lesion2-3_2">Moderate</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion2-3_3" name="lesion_2-3" value="3" />
-              <label for="lesion2-3_3">Severe</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion2-3_4" name="lesion_2-3" value="4" />
-              <label for="lesion2-3_4">Very Severe</label>
-            </li>
-          </ul>
-          <label for="lesion_2-4">Desquamation/Scaling</label>
-          <ul class="select-choice">
-            <li>
-              <input type="radio" id="lesion2-4_0" name="lesion_2-4" value="0" />
-              <label for="lesion2-4_0">None</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion2-4_1" name="lesion_2-4" value="1" />
-              <label for="lesion2-4_1">Slight</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion2-4_2" name="lesion_2-4" value="2" />
-              <label for="lesion2-4_2">Moderate</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion2-4_3" name="lesion_2-4" value="3" />
-              <label for="lesion2-4_3">Severe</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion2-4_4" name="lesion_2-4" value="4" />
-              <label for="lesion2-4_4">Very Severe</label>
-            </li>
-          </ul>
-          <p>Upload Pictures  ( optional )</p>
-          <div class="upload-image">
-            <input type="file" id="lesion_2-5" name="image" accept="image/*" />
-            <label for="lesion_2-5"><img src="imgs/image-icon.png" alt="Upload image icon" /></label>
-          </div>
-        </form>
-        <img src="imgs/lesion-arms.png" alt="Stick figure with colored arms">
-      </div>
-      <div id="lesion_body" class="lesion_part">
-        <form class="checkin_lesion">
-          <h2>Trunk ( 3/4 ) - Inputting PASI Scores</h2>
-          <label for="lesion_3-1">Area: % indicates the lesion's area coverage of the affected body part.</label>
-          <ul class="radio">
-            <li>
-              <input type="radio" id="lesion3-1_0" name="lesion_3-1" value="0" />
-              <label for="lesion3-1_0">0%</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion3-1_1" name="lesion_3-1" value="1" />
-              <label for="lesion3-1_1">&lt;10%</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion3-1_2" name="lesion_3-1" value="2" />
-              <label for="lesion3-1_2">10-29%</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion3-1_3" name="lesion_3-1" value="3" />
-              <label for="lesion3-1_3">30-49%</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion3-1_4" name="lesion_3-1" value="4" />
-              <label for="lesion3-1_4">50-69%</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion3-1_5" name="lesion_3-1" value="5" />
-              <label for="lesion3-1_5">70-89%</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion3-1_6" name="lesion_3-1" value="6" />
-              <label for="lesion3-1_6">90-100%</label>
-            </li>
-          </ul>
-          <label for="lesion_3-2">Induration/Thickness</label>
-          <ul class="select-choice">
-            <li>
-              <input type="radio" id="lesion3-2_0" name="lesion_3-2" value="0" />
-              <label for="lesion3-2_0">None</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion3-2_1" name="lesion_3-2" value="1" />
-              <label for="lesion3-2_1">Slight</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion3-2_2" name="lesion_3-2" value="2" />
-              <label for="lesion3-2_2">Moderate</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion3-2_3" name="lesion_3-2" value="3" />
-              <label for="lesion3-2_3">Severe</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion3-2_4" name="lesion_3-2" value="4" />
-              <label for="lesion3-2_4">Very Severe</label>
-            </li>
-          </ul>
-          <label for="lesion_3-3">Erythema/Redness</label>
-          <ul class="select-choice">
-            <li>
-              <input type="radio" id="lesion3-3_0" name="lesion_3-3" value="0" />
-              <label for="lesion3-3_0">None</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion3-3_1" name="lesion_3-3" value="1" />
-              <label for="lesion3-3_1">Slight</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion3-3_2" name="lesion_3-3" value="2" />
-              <label for="lesion3-3_2">Moderate</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion3-3_3" name="lesion_3-3" value="3" />
-              <label for="lesion3-3_3">Severe</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion3-3_4" name="lesion_3-3" value="4" />
-              <label for="lesion3-3_4">Very Severe</label>
-            </li>
-          </ul>
-          <label for="lesion_3-4">Desquamation/Scaling</label>
-          <ul class="select-choice">
-            <li>
-              <input type="radio" id="lesion3-4_0" name="lesion_3-4" value="0" />
-              <label for="lesion3-4_0">None</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion3-4_1" name="lesion_3-4" value="1" />
-              <label for="lesion3-4_1">Slight</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion3-4_2" name="lesion_3-4" value="2" />
-              <label for="lesion3-4_2">Moderate</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion3-4_3" name="lesion_3-4" value="3" />
-              <label for="lesion3-4_3">Severe</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion3-4_4" name="lesion_3-4" value="4" />
-              <label for="lesion3-4_4">Very Severe</label>
-            </li>
-          </ul>
-          <p>Upload Pictures  ( optional )</p>
-          <div class="upload-image">
-            <input type="file" id="lesion_3-5" name="image" accept="image/*" />
-            <label for="lesion_3-5"><img src="imgs/image-icon.png" alt="Upload image icon" /></label>
-          </div>
-        </form>
-        <img src="imgs/lesion-body.png" alt="Stick figure with colored body">
-      </div>
-      <div id="lesion_legs" class="lesion_part">
-        <form class="checkin_lesion">
-          <h2>Legs ( 4/4 ) - Inputting PASI Scores</h2>
-          <label for="lesion_4-1">Area: % indicates the lesion's area coverage of the affected body part.</label>
-          <ul class="radio">
-            <li>
-              <input type="radio" id="lesion4-1_0" name="lesion_4-1" value="0" />
-              <label for="lesion4-1_0">0%</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion4-1_1" name="lesion_4-1" value="1" />
-              <label for="lesion4-1_1">&lt;10%</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion4-1_2" name="lesion_4-1" value="2" />
-              <label for="lesion4-1_2">10-29%</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion4-1_3" name="lesion_4-1" value="3" />
-              <label for="lesion4-1_3">30-49%</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion4-1_4" name="lesion_4-1" value="4" />
-              <label for="lesion4-1_4">50-69%</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion4-1_5" name="lesion_4-1" value="5" />
-              <label for="lesion4-1_5">70-89%</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion4-1_6" name="lesion_4-1" value="6" />
-              <label for="lesion4-1_6">90-100%</label>
-            </li>
-          </ul>
-          <label for="lesion_4-2">Induration/Thickness</label>
-          <ul class="select-choice">
-            <li>
-              <input type="radio" id="lesion4-2_0" name="lesion_4-2" value="0" />
-              <label for="lesion4-2_0">None</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion4-2_1" name="lesion_4-2" value="1" />
-              <label for="lesion4-2_1">Slight</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion4-2_2" name="lesion_4-2" value="2" />
-              <label for="lesion4-2_2">Moderate</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion4-2_3" name="lesion_4-2" value="3" />
-              <label for="lesion4-2_3">Severe</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion4-2_4" name="lesion_4-2" value="4" />
-              <label for="lesion4-2_4">Very Severe</label>
-            </li>
-          </ul>
-          <label for="lesion_4-3">Erythema/Redness</label>
-          <ul class="select-choice">
-            <li>
-              <input type="radio" id="lesion4-3_0" name="lesion_4-3" value="0" />
-              <label for="lesion4-3_0">None</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion4-3_1" name="lesion_4-3" value="1" />
-              <label for="lesion4-3_1">Slight</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion4-3_2" name="lesion_4-3" value="2" />
-              <label for="lesion4-3_2">Moderate</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion4-3_3" name="lesion_4-3" value="3" />
-              <label for="lesion4-3_3">Severe</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion4-3_4" name="lesion_4-3" value="4" />
-              <label for="lesion4-3_4">Very Severe</label>
-            </li>
-          </ul>
-          <label for="lesion_4-4">Desquamation/Scaling</label>
-          <ul class="select-choice">
-            <li>
-              <input type="radio" id="lesion4-4_0" name="lesion_4-4" value="0" />
-              <label for="lesion4-4_0">None</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion4-4_1" name="lesion_4-4" value="1" />
-              <label for="lesion4-4_1">Slight</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion4-4_2" name="lesion_4-4" value="2" />
-              <label for="lesion4-4_2">Moderate</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion4-4_3" name="lesion_4-4" value="3" />
-              <label for="lesion4-4_3">Severe</label>
-            </li>
-            <li>
-              <input type="radio" id="lesion4-4_4" name="lesion_4-4" value="4" />
-              <label for="lesion4-4_4">Very Severe</label>
-            </li>
-          </ul>
-          <p>Upload Pictures  ( optional )</p>
-          <div class="upload-image">
-            <input type="file" id="lesion_4-5" name="image" accept="image/*" />
-            <label for="lesion_4-5"><img src="imgs/image-icon.png" alt="Upload image icon" /></label>
-          </div>
-        </form>
-        <img src="imgs/lesion-legs.png" alt="Stick figure with colored legs">
-      </div>
-      <div id="calc_lesion">
-        <div>
+        <div id="lesion_head" class="lesion_part">
+          <form class="checkin_lesion">
+            <h2>Head ( 1/4 ) - Inputting PASI Scores</h2>
+            <label for="lesion_1-1">Area: % indicates the lesion's area coverage of the affected body part.</label>
+            <ul class="radio">
+              <li>
+                <input type="radio" id="lesion1-1_0" name="lesion_1-1" value="0" />
+                <label for="lesion1-1_0">0%</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion1-1_1" name="lesion_1-1" value="1" />
+                <label for="lesion1-1_1">&lt;10%</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion1-1_2" name="lesion_1-1" value="2" />
+                <label for="lesion1-1_2">10-29%</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion1-1_3" name="lesion_1-1" value="3" />
+                <label for="lesion1-1_3">30-49%</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion1-1_4" name="lesion_1-1" value="4" />
+                <label for="lesion1-1_4">50-69%</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion1-1_5" name="lesion_1-1" value="5" />
+                <label for="lesion1-1_5">70-89%</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion1-1_6" name="lesion_1-1" value="6" />
+                <label for="lesion1-1_6">90-100%</label>
+              </li>
+            </ul>
+            <label for="lesion_1-2">Induration/Thickness</label>
+            <ul class="select-choice">
+              <li>
+                <input type="radio" id="lesion1-2_0" name="lesion_1-2" value="0" />
+                <label for="lesion1-2_0">None</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion1-2_1" name="lesion_1-2" value="1" />
+                <label for="lesion1-2_1">Slight</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion1-2_2" name="lesion_1-2" value="2" />
+                <label for="lesion1-2_2">Moderate</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion1-2_3" name="lesion_1-2" value="3" />
+                <label for="lesion1-2_3">Severe</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion1-2_4" name="lesion_1-2" value="4" />
+                <label for="lesion1-2_4">Very Severe</label>
+              </li>
+            </ul>
+            <label for="lesion_1-3">Erythema/Redness</label>
+            <ul class="select-choice">
+              <li>
+                <input type="radio" id="lesion1-3_0" name="lesion_1-3" value="0" />
+                <label for="lesion1-3_0">None</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion1-3_1" name="lesion_1-3" value="1" />
+                <label for="lesion1-3_1">Slight</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion1-3_2" name="lesion_1-3" value="2" />
+                <label for="lesion1-3_2">Moderate</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion1-3_3" name="lesion_1-3" value="3" />
+                <label for="lesion1-3_3">Severe</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion1-3_4" name="lesion_1-3" value="4" />
+                <label for="lesion1-3_4">Very Severe</label>
+              </li>
+            </ul>
+            <label for="lesion_1-4">Desquamation/Scaling</label>
+            <ul class="select-choice">
+              <li>
+                <input type="radio" id="lesion1-4_0" name="lesion_1-4" value="0" />
+                <label for="lesion1-4_0">None</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion1-4_1" name="lesion_1-4" value="1" />
+                <label for="lesion1-4_1">Slight</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion1-4_2" name="lesion_1-4" value="2" />
+                <label for="lesion1-4_2">Moderate</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion1-4_3" name="lesion_1-4" value="3" />
+                <label for="lesion1-4_3">Severe</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion1-4_4" name="lesion_1-4" value="4" />
+                <label for="lesion1-4_4">Very Severe</label>
+              </li>
+            </ul>
+            <p>Upload Pictures  ( optional )</p>
+            <div class="upload-image">
+              <input type="file" id="lesion_1-5" name="image" accept="image/*" />
+              <label for="lesion_1-5"><img src="imgs/image-icon.png" alt="Upload image icon" /></label>
+            </div>
+          </form>
+          <img src="imgs/lesion-head.png" alt="Stick figure with colored head">
+        </div>
+        <div id="lesion_arms" class="lesion_part">
+          <form class="checkin_lesion">
+            <h2>Arms ( 2/4 ) - Inputting PASI Scores</h2>
+            <label for="lesion_2-1">Area: % indicates the lesion's area coverage of the affected body part.</label>
+            <ul class="radio">
+              <li>
+                <input type="radio" id="lesion2-1_0" name="lesion_2-1" value="0" />
+                <label for="lesion2-1_0">0%</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion2-1_1" name="lesion_2-1" value="1" />
+                <label for="lesion2-1_1">&lt;10%</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion2-1_2" name="lesion_2-1" value="2" />
+                <label for="lesion2-1_2">10-29%</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion2-1_3" name="lesion_2-1" value="3" />
+                <label for="lesion2-1_3">30-49%</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion2-1_4" name="lesion_2-1" value="4" />
+                <label for="lesion2-1_4">50-69%</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion2-1_5" name="lesion_2-1" value="5" />
+                <label for="lesion2-1_5">70-89%</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion2-1_6" name="lesion_2-1" value="6" />
+                <label for="lesion2-1_6">90-100%</label>
+              </li>
+            </ul>
+            <label for="lesion_2-2">Induration/Thickness</label>
+            <ul class="select-choice">
+              <li>
+                <input type="radio" id="lesion2-2_0" name="lesion_2-2" value="0" />
+                <label for="lesion2-2_0">None</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion2-2_1" name="lesion_2-2" value="1" />
+                <label for="lesion2-2_1">Slight</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion2-2_2" name="lesion_2-2" value="2" />
+                <label for="lesion2-2_2">Moderate</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion2-2_3" name="lesion_2-2" value="3" />
+                <label for="lesion2-2_3">Severe</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion2-2_4" name="lesion_2-2" value="4" />
+                <label for="lesion2-2_4">Very Severe</label>
+              </li>
+            </ul>
+            <label for="lesion_2-3">Erythema/Redness</label>
+            <ul class="select-choice">
+              <li>
+                <input type="radio" id="lesion2-3_0" name="lesion_2-3" value="0" />
+                <label for="lesion2-3_0">None</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion2-3_1" name="lesion_2-3" value="1" />
+                <label for="lesion2-3_1">Slight</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion2-3_2" name="lesion_2-3" value="2" />
+                <label for="lesion2-3_2">Moderate</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion2-3_3" name="lesion_2-3" value="3" />
+                <label for="lesion2-3_3">Severe</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion2-3_4" name="lesion_2-3" value="4" />
+                <label for="lesion2-3_4">Very Severe</label>
+              </li>
+            </ul>
+            <label for="lesion_2-4">Desquamation/Scaling</label>
+            <ul class="select-choice">
+              <li>
+                <input type="radio" id="lesion2-4_0" name="lesion_2-4" value="0" />
+                <label for="lesion2-4_0">None</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion2-4_1" name="lesion_2-4" value="1" />
+                <label for="lesion2-4_1">Slight</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion2-4_2" name="lesion_2-4" value="2" />
+                <label for="lesion2-4_2">Moderate</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion2-4_3" name="lesion_2-4" value="3" />
+                <label for="lesion2-4_3">Severe</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion2-4_4" name="lesion_2-4" value="4" />
+                <label for="lesion2-4_4">Very Severe</label>
+              </li>
+            </ul>
+            <p>Upload Pictures  ( optional )</p>
+            <div class="upload-image">
+              <input type="file" id="lesion_2-5" name="image" accept="image/*" />
+              <label for="lesion_2-5"><img src="imgs/image-icon.png" alt="Upload image icon" /></label>
+            </div>
+          </form>
+          <img src="imgs/lesion-arms.png" alt="Stick figure with colored arms">
+        </div>
+        <div id="lesion_body" class="lesion_part">
+          <form class="checkin_lesion">
+            <h2>Trunk ( 3/4 ) - Inputting PASI Scores</h2>
+            <label for="lesion_3-1">Area: % indicates the lesion's area coverage of the affected body part.</label>
+            <ul class="radio">
+              <li>
+                <input type="radio" id="lesion3-1_0" name="lesion_3-1" value="0" />
+                <label for="lesion3-1_0">0%</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion3-1_1" name="lesion_3-1" value="1" />
+                <label for="lesion3-1_1">&lt;10%</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion3-1_2" name="lesion_3-1" value="2" />
+                <label for="lesion3-1_2">10-29%</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion3-1_3" name="lesion_3-1" value="3" />
+                <label for="lesion3-1_3">30-49%</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion3-1_4" name="lesion_3-1" value="4" />
+                <label for="lesion3-1_4">50-69%</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion3-1_5" name="lesion_3-1" value="5" />
+                <label for="lesion3-1_5">70-89%</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion3-1_6" name="lesion_3-1" value="6" />
+                <label for="lesion3-1_6">90-100%</label>
+              </li>
+            </ul>
+            <label for="lesion_3-2">Induration/Thickness</label>
+            <ul class="select-choice">
+              <li>
+                <input type="radio" id="lesion3-2_0" name="lesion_3-2" value="0" />
+                <label for="lesion3-2_0">None</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion3-2_1" name="lesion_3-2" value="1" />
+                <label for="lesion3-2_1">Slight</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion3-2_2" name="lesion_3-2" value="2" />
+                <label for="lesion3-2_2">Moderate</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion3-2_3" name="lesion_3-2" value="3" />
+                <label for="lesion3-2_3">Severe</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion3-2_4" name="lesion_3-2" value="4" />
+                <label for="lesion3-2_4">Very Severe</label>
+              </li>
+            </ul>
+            <label for="lesion_3-3">Erythema/Redness</label>
+            <ul class="select-choice">
+              <li>
+                <input type="radio" id="lesion3-3_0" name="lesion_3-3" value="0" />
+                <label for="lesion3-3_0">None</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion3-3_1" name="lesion_3-3" value="1" />
+                <label for="lesion3-3_1">Slight</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion3-3_2" name="lesion_3-3" value="2" />
+                <label for="lesion3-3_2">Moderate</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion3-3_3" name="lesion_3-3" value="3" />
+                <label for="lesion3-3_3">Severe</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion3-3_4" name="lesion_3-3" value="4" />
+                <label for="lesion3-3_4">Very Severe</label>
+              </li>
+            </ul>
+            <label for="lesion_3-4">Desquamation/Scaling</label>
+            <ul class="select-choice">
+              <li>
+                <input type="radio" id="lesion3-4_0" name="lesion_3-4" value="0" />
+                <label for="lesion3-4_0">None</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion3-4_1" name="lesion_3-4" value="1" />
+                <label for="lesion3-4_1">Slight</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion3-4_2" name="lesion_3-4" value="2" />
+                <label for="lesion3-4_2">Moderate</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion3-4_3" name="lesion_3-4" value="3" />
+                <label for="lesion3-4_3">Severe</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion3-4_4" name="lesion_3-4" value="4" />
+                <label for="lesion3-4_4">Very Severe</label>
+              </li>
+            </ul>
+            <p>Upload Pictures  ( optional )</p>
+            <div class="upload-image">
+              <input type="file" id="lesion_3-5" name="image" accept="image/*" />
+              <label for="lesion_3-5"><img src="imgs/image-icon.png" alt="Upload image icon" /></label>
+            </div>
+          </form>
+          <img src="imgs/lesion-body.png" alt="Stick figure with colored body">
+        </div>
+        <div id="lesion_legs" class="lesion_part">
+          <form class="checkin_lesion">
+            <h2>Legs ( 4/4 ) - Inputting PASI Scores</h2>
+            <label for="lesion_4-1">Area: % indicates the lesion's area coverage of the affected body part.</label>
+            <ul class="radio">
+              <li>
+                <input type="radio" id="lesion4-1_0" name="lesion_4-1" value="0" />
+                <label for="lesion4-1_0">0%</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion4-1_1" name="lesion_4-1" value="1" />
+                <label for="lesion4-1_1">&lt;10%</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion4-1_2" name="lesion_4-1" value="2" />
+                <label for="lesion4-1_2">10-29%</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion4-1_3" name="lesion_4-1" value="3" />
+                <label for="lesion4-1_3">30-49%</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion4-1_4" name="lesion_4-1" value="4" />
+                <label for="lesion4-1_4">50-69%</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion4-1_5" name="lesion_4-1" value="5" />
+                <label for="lesion4-1_5">70-89%</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion4-1_6" name="lesion_4-1" value="6" />
+                <label for="lesion4-1_6">90-100%</label>
+              </li>
+            </ul>
+            <label for="lesion_4-2">Induration/Thickness</label>
+            <ul class="select-choice">
+              <li>
+                <input type="radio" id="lesion4-2_0" name="lesion_4-2" value="0" />
+                <label for="lesion4-2_0">None</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion4-2_1" name="lesion_4-2" value="1" />
+                <label for="lesion4-2_1">Slight</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion4-2_2" name="lesion_4-2" value="2" />
+                <label for="lesion4-2_2">Moderate</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion4-2_3" name="lesion_4-2" value="3" />
+                <label for="lesion4-2_3">Severe</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion4-2_4" name="lesion_4-2" value="4" />
+                <label for="lesion4-2_4">Very Severe</label>
+              </li>
+            </ul>
+            <label for="lesion_4-3">Erythema/Redness</label>
+            <ul class="select-choice">
+              <li>
+                <input type="radio" id="lesion4-3_0" name="lesion_4-3" value="0" />
+                <label for="lesion4-3_0">None</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion4-3_1" name="lesion_4-3" value="1" />
+                <label for="lesion4-3_1">Slight</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion4-3_2" name="lesion_4-3" value="2" />
+                <label for="lesion4-3_2">Moderate</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion4-3_3" name="lesion_4-3" value="3" />
+                <label for="lesion4-3_3">Severe</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion4-3_4" name="lesion_4-3" value="4" />
+                <label for="lesion4-3_4">Very Severe</label>
+              </li>
+            </ul>
+            <label for="lesion_4-4">Desquamation/Scaling</label>
+            <ul class="select-choice">
+              <li>
+                <input type="radio" id="lesion4-4_0" name="lesion_4-4" value="0" />
+                <label for="lesion4-4_0">None</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion4-4_1" name="lesion_4-4" value="1" />
+                <label for="lesion4-4_1">Slight</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion4-4_2" name="lesion_4-4" value="2" />
+                <label for="lesion4-4_2">Moderate</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion4-4_3" name="lesion_4-4" value="3" />
+                <label for="lesion4-4_3">Severe</label>
+              </li>
+              <li>
+                <input type="radio" id="lesion4-4_4" name="lesion_4-4" value="4" />
+                <label for="lesion4-4_4">Very Severe</label>
+              </li>
+            </ul>
+            <p>Upload Pictures  ( optional )</p>
+            <div class="upload-image">
+              <input type="file" id="lesion_4-5" name="image" accept="image/*" />
+              <label for="lesion_4-5"><img src="imgs/image-icon.png" alt="Upload image icon" /></label>
+            </div>
+          </form>
+          <img src="imgs/lesion-legs.png" alt="Stick figure with colored legs">
+        </div>
+        <div id="calc_lesion">
           <div>
-            <p>Current PASI Score</p>
+            <div>
+              <p>Current PASI Score</p>
+              <p class="big_num">0</p>
+            </div>
+            <h2 class="big_word">Moderate</h2>
+            <div>
+              <p>Key:</p>
+              <br>
+              <p>0-4: Low psoriasis level</p>
+              <p>5-10: Moderate psoriasis level</p>
+              <p>10-72: High psoriasis level</p>
+            </div>
+          </div>
+          <h2>Section 2   -    Filling out itchiness and pain of leisons</h2>
+          <form>
+            <div>
+              <label for="slider_itchy">Itchiness</label>
+              <input type="range" min="0" max="10" value="5" step="0.5" id="slider_itchy">
+              <span id="slider_itchy_val">5.0</span>
+              <div>
+                <p>0</p>
+                <p>10</p>
+              </div>
+            </div>
+            <div>
+              <label for="slider_pain">Pain</label>
+              <input type="range" min="0" max="10" value="5" step="0.5" id="slider_pain">
+              <span id="slider_pain_val">5.0</span>
+              <div>
+                <p>0</p>
+                <p>10</p>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div id="lesion_buttons">
+          <button class="lightblue_btn" id="show_calc_lesion">Skip to Lesions Section 2</button>
+          <button class="darkblue_btn" id="lesion_next">Next</button>
+        </div>
+      </div>
+
+      <div id="stress">
+        <form id="checkin_stress">
+          <h1>Stress</h1>
+          <p>1 = Not at all,  2 = A little,  3 = Moderately,  4 = Quite a bit,  5 = Extremely</p>
+          <label for="stress_1">1. How stressed did you feel about your responsibilities today (work, school, personal tasks)?</label>
+          <ul class="single-choice">
+            <li>
+              <input type="radio" id="stress1-1" name="stress_1" value="1" />
+              <label for="stress1-1">1</label>
+            </li>
+            <li>
+              <input type="radio" id="stress1-2" name="stress_1" value="2" />
+              <label for="stress1-2">2</label>
+            </li>
+            <li>
+              <input type="radio" id="stress1-3" name="stress_1" value="3" />
+              <label for="stress1-3">3</label>
+            </li>
+            <li>
+              <input type="radio" id="stress1-4" name="stress_1" value="4" />
+              <label for="stress1-4">4</label>
+            </li>
+            <li>
+              <input type="radio" id="stress1-5" name="stress_1" value="5" />
+              <label for="stress1-5">5</label>
+            </li>
+          </ul>
+          <label for="stress_2">2. How much emotional stress did you experience today (e.g., anxiety, irritability)?</label>
+          <ul class="single-choice">
+            <li>
+              <input type="radio" id="stress2-1" name="stress_2" value="1" />
+              <label for="stress2-1">1</label>
+            </li>
+            <li>
+              <input type="radio" id="stress2-2" name="stress_2" value="2" />
+              <label for="stress2-2">2</label>
+            </li>
+            <li>
+              <input type="radio" id="stress2-3" name="stress_2" value="3" />
+              <label for="stress2-3">3</label>
+            </li>
+            <li>
+              <input type="radio" id="stress2-4" name="stress_2" value="4" />
+              <label for="stress2-4">4</label>
+            </li>
+            <li>
+              <input type="radio" id="stress2-5" name="stress_2" value="5" />
+              <label for="stress2-5">5</label>
+            </li>
+          </ul>
+          <label for="stress_3">3. How much physical tension (e.g., headaches, muscle tightness) did you feel today?</label>
+          <ul class="single-choice">
+            <li>
+              <input type="radio" id="stress3-1" name="stress_3" value="1" />
+              <label for="stress3-1">1</label>
+            </li>
+            <li>
+              <input type="radio" id="stress3-2" name="stress_3" value="2" />
+              <label for="stress3-2">2</label>
+            </li>
+            <li>
+              <input type="radio" id="stress3-3" name="stress_3" value="3" />
+              <label for="stress3-3">3</label>
+            </li>
+            <li>
+              <input type="radio" id="stress3-4" name="stress_3" value="4" />
+              <label for="stress3-4">4</label>
+            </li>
+            <li>
+              <input type="radio" id="stress3-5" name="stress_3" value="5" />
+              <label for="stress3-5">5</label>
+            </li>
+          </ul>
+          <button type="button" class="lightblue_btn">Calculate Stress Level</button>
+        </form>
+        <div id="calc_stress">
+          <div>
+            <p>Average Stress Score:</p>
             <p class="big_num">0</p>
           </div>
           <h2 class="big_word">Moderate</h2>
           <div>
             <p>Key:</p>
             <br>
-            <p>0-4: Low psoriasis level</p>
-            <p>5-10: Moderate psoriasis level</p>
-            <p>10-72: High psoriasis level</p>
+            <p>0-2: Low stress level</p>
+            <p>2-4: Moderate stress level</p>
+            <p>4-5: High stress level</p>
           </div>
         </div>
-        <h2>Section 2   -    Filling out itchiness and pain of leisons</h2>
+      </div>
+
+      <div id="hormone">
+        <h1>Hormone Cycle</h1>
+        <div>
+          <p>Rise in <span class="bold">estrogen</span> levels may decrease symptoms of psoriasis</p>
+          <p>Rise in <span class="bold">progesterone</span> levels may increase symptoms of psoriasis</p>
+          <p>Period cycles, puberty, pregnancy and menopause all have an effect on psoriasis symptoms due to the fluctuations of these hormones.</p>
+        </div>
+        <div class="horizontal">
+          <div>
+            <h2>Last Recorded Period Start Date</h2>
+            <h2 id="period_start" class="lightblue_bg">Date</h2>
+            <button class="white_btn">my period started today</button>
+            <h2>Current Phase</h2>
+            <h2 id="period_phase" class="lightblue_bg">Phase</h2>
+          </div>
+          <img src="imgs/hormone-cycle.png" alt="Hormone cycle" aria-describedby="hormone_desc">
+          <div id="hormone_desc" class="aria_described">An image of the hormone cycle and its 4 phases. Menstrual phase is days 1-7 with low estrogen and high progesterone. Follicular phase is days 1-12 with high estrogen and low progesterone. Ovulation phase is days 13-15 with highest estrogen and low progesterone. Menstrual phase is days 16-28 with low estrogen and high progesterone.</div>
+        </div>
+      </div>
+
+      <div id="sun">
+        <h1>Sun Exposure</h1>
         <form>
-          <div>
-            <label for="slider_itchy">Itchiness</label>
-            <input type="range" min="0" max="10" value="5" step="0.5" id="slider_itchy">
-            <span id="slider_itchy_val">5.0</span>
-            <div>
-              <p>0</p>
-              <p>10</p>
-            </div>
-          </div>
-          <div>
-            <label for="slider_pain">Pain</label>
-            <input type="range" min="0" max="10" value="5" step="0.5" id="slider_pain">
-            <span id="slider_pain_val">5.0</span>
-            <div>
-              <p>0</p>
-              <p>10</p>
-            </div>
-          </div>
+          <p>How long did you stay out directly in the sun?</p>
+          <input class="rounded_corners" name="sun_hr" id="sun_hr" type="number" min="0" max="24">
+          <label for="sun_hr">hr</label>
+          <input class="rounded_corners" name="sun_min" id="sun_min" type="number" min="0" max="59">
+          <label for="sun_min">min</label>
         </form>
       </div>
-      <div id="lesion_buttons">
-        <button class="lightblue_btn" id="show_calc_lesion">Skip to Lesions Section 2</button>
-        <button class="darkblue_btn" id="lesion_next">Next</button>
+
+      <div id="medication">
+        <h1>Medication</h1>
+      </div>
+
+      <div id="routine">
+        <h1>Skin Care Routine</h1>
+        <div>
+          <p>How did you treat your skin today?</p>
+          <div>
+            <h3 class="white_btn">Cleansing/Bathing</h3>
+            <h3 class="white_btn">Moisturizer</h3>
+          </div>
+          <div>
+            <button id="routine_1" class="white_btn">Neutrogena T/Gel Therapeutic Shampoo</button>
+            <button id="routine_2" class="white_btn">La Roche Urea</button>
+          </div>
+          <button class="white_btn">Add a step</button>
+        </div>
+      </div>
+
+      <div id="diet">
+        <h1>Diet</h1>
+      </div>
+
+      <div id="weather">
+        <h1>Weather</h1>
+      </div>
+
+      <div id="buttons">
+        <button class="darkblue_btn" id="go_next">Record </button>
+        <button class="lightblue_btn" id="submit_checkin">Complete Daily-Check In</button>
       </div>
     </div>
 
-    <div id="stress">
-      <form id="checkin_stress">
-        <h1>Stress</h1>
-        <p>1 = Not at all,  2 = A little,  3 = Moderately,  4 = Quite a bit,  5 = Extremely</p>
-        <label for="stress_1">1. How stressed did you feel about your responsibilities today (work, school, personal tasks)?</label>
-        <ul class="single-choice">
-          <li>
-            <input type="radio" id="stress1-1" name="stress_1" value="1" />
-            <label for="stress1-1">1</label>
-          </li>
-          <li>
-            <input type="radio" id="stress1-2" name="stress_1" value="2" />
-            <label for="stress1-2">2</label>
-          </li>
-          <li>
-            <input type="radio" id="stress1-3" name="stress_1" value="3" />
-            <label for="stress1-3">3</label>
-          </li>
-          <li>
-            <input type="radio" id="stress1-4" name="stress_1" value="4" />
-            <label for="stress1-4">4</label>
-          </li>
-          <li>
-            <input type="radio" id="stress1-5" name="stress_1" value="5" />
-            <label for="stress1-5">5</label>
-          </li>
-        </ul>
-        <label for="stress_2">2. How much emotional stress did you experience today (e.g., anxiety, irritability)?</label>
-        <ul class="single-choice">
-          <li>
-            <input type="radio" id="stress2-1" name="stress_2" value="1" />
-            <label for="stress2-1">1</label>
-          </li>
-          <li>
-            <input type="radio" id="stress2-2" name="stress_2" value="2" />
-            <label for="stress2-2">2</label>
-          </li>
-          <li>
-            <input type="radio" id="stress2-3" name="stress_2" value="3" />
-            <label for="stress2-3">3</label>
-          </li>
-          <li>
-            <input type="radio" id="stress2-4" name="stress_2" value="4" />
-            <label for="stress2-4">4</label>
-          </li>
-          <li>
-            <input type="radio" id="stress2-5" name="stress_2" value="5" />
-            <label for="stress2-5">5</label>
-          </li>
-        </ul>
-        <label for="stress_3">3. How much physical tension (e.g., headaches, muscle tightness) did you feel today?</label>
-        <ul class="single-choice">
-          <li>
-            <input type="radio" id="stress3-1" name="stress_3" value="1" />
-            <label for="stress3-1">1</label>
-          </li>
-          <li>
-            <input type="radio" id="stress3-2" name="stress_3" value="2" />
-            <label for="stress3-2">2</label>
-          </li>
-          <li>
-            <input type="radio" id="stress3-3" name="stress_3" value="3" />
-            <label for="stress3-3">3</label>
-          </li>
-          <li>
-            <input type="radio" id="stress3-4" name="stress_3" value="4" />
-            <label for="stress3-4">4</label>
-          </li>
-          <li>
-            <input type="radio" id="stress3-5" name="stress_3" value="5" />
-            <label for="stress3-5">5</label>
-          </li>
-        </ul>
-        <button type="button" class="lightblue_btn">Calculate Stress Level</button>
-      </form>
-      <div id="calc_stress">
-        <div>
-          <p>Average Stress Score:</p>
-          <p class="big_num">0</p>
-        </div>
-        <h2 class="big_word">Moderate</h2>
-        <div>
-          <p>Key:</p>
-          <br>
-          <p>0-2: Low stress level</p>
-          <p>2-4: Moderate stress level</p>
-          <p>4-5: High stress level</p>
-        </div>
-      </div>
-    </div>
-
-    <div id="hormone">
-      <h1>Hormone Cycle</h1>
-      <div>
-        <p>Rise in <span class="bold">estrogen</span> levels may decrease symptoms of psoriasis</p>
-        <p>Rise in <span class="bold">progesterone</span> levels may increase symptoms of psoriasis</p>
-        <p>Period cycles, puberty, pregnancy and menopause all have an effect on psoriasis symptoms due to the fluctuations of these hormones.</p>
-      </div>
-      <div class="horizontal">
-        <div>
-          <h2>Last Recorded Period Start Date</h2>
-          <h2 id="period_start" class="lightblue_bg">Date</h2>
-          <button class="white_btn">my period started today</button>
-          <h2>Current Phase</h2>
-          <h2 id="period_phase" class="lightblue_bg">Phase</h2>
-        </div>
-        <img src="imgs/hormone-cycle.png" alt="Hormone cycle" aria-describedby="hormone_desc">
-        <div id="hormone_desc" class="aria_described">An image of the hormone cycle and its 4 phases. Menstrual phase is days 1-7 with low estrogen and high progesterone. Follicular phase is days 1-12 with high estrogen and low progesterone. Ovulation phase is days 13-15 with highest estrogen and low progesterone. Menstrual phase is days 16-28 with low estrogen and high progesterone.</div>
-      </div>
-    </div>
-
-    <div id="sun">
-      <h1>Sun Exposure</h1>
-      <form>
-        <p>How long did you stay out directly in the sun?</p>
-        <input class="rounded_corners" name="sun_hr" id="sun_hr" type="number" min="0" max="24">
-        <label for="sun_hr">hr</label>
-        <input class="rounded_corners" name="sun_min" id="sun_min" type="number" min="0" max="59">
-        <label for="sun_min">min</label>
-      </form>
-    </div>
-
-    <div id="medication">
-      <h1>Medication</h1>
-    </div>
-
-    <div id="routine">
-      <h1>Skin Care Routine</h1>
-      <div>
-        <p>How did you treat your skin today?</p>
-        <div>
-          <h3 class="white_btn">Cleansing/Bathing</h3>
-          <h3 class="white_btn">Moisturizer</h3>
-        </div>
-        <div>
-          <button id="routine_1" class="white_btn">Neutrogena T/Gel Therapeutic Shampoo</button>
-          <button id="routine_2" class="white_btn">La Roche Urea</button>
-        </div>
-        <button class="white_btn">Add a step</button>
-      </div>
-    </div>
-
-    <div id="diet">
-      <h1>Diet</h1>
-    </div>
-
-    <div id="weather">
-      <h1>Weather</h1>
-    </div>
-
-    <div id="buttons">
-      <button class="darkblue_btn" id="go_next">Record </button>
-      <button class="lightblue_btn" id="submit_checkin">Complete Daily-Check In</button>
-    </div>
+    <nav id="checkin_nav" class="sidenav">
+      <ul>
+        <li><p>Tracking Sections</p></li>
+        <li><button id="lesion-btn">Lesions</button><img src="imgs/blank-dot.png" alt="Unfilled dot"></li>
+        <li><button id="stress-btn">Stress</button></li>
+        <li><button id="hormone-btn">Hormone Cycle</button></li>
+        <li><button id="sun-btn">Sun Exposure</button></li>
+        <li><button id="medication-btn">Medication</button></li>
+        <li><button id="routine-btn">Skin Care Routine</button></li>
+        <li><button id="diet-btn">Diet</button></li>
+        <li><button id="weather-btn">Weather</button></li>
+      </ul>
+    </nav>
   </div>
 
-  <nav id="checkin_nav" class="sidenav">
-    <ul>
-      <li><p>Tracking Sections</p></li>
-      <li><button id="lesion-btn">Lesions</button><img src="imgs/blank-dot.png" alt="Unfilled dot"></li>
-      <li><button id="stress-btn">Stress</button></li>
-      <li><button id="hormone-btn">Hormone Cycle</button></li>
-      <li><button id="sun-btn">Sun Exposure</button></li>
-      <li><button id="medication-btn">Medication</button></li>
-      <li><button id="routine-btn">Skin Care Routine</button></li>
-      <li><button id="diet-btn">Diet</button></li>
-      <li><button id="weather-btn">Weather</button></li>
-    </ul>
-  </nav>
+
 </html>
