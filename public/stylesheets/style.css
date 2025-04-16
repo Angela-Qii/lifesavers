@@ -28,6 +28,14 @@ a {
   font-weight:bold;
 }
 
+.border_right {
+  border-right: 1px solid #C8CBD9;
+}
+
+.margin_left {
+  margin-left: 10px;
+}
+
 .big_num {
   border: 2px solid black;
   border-radius: 10px;
@@ -75,14 +83,40 @@ a {
   background: #004081;
 }
 
-.white_btn {
+.white_btn, .rec_btn {
   width: 95%;
   border-radius: 10px;
   border: 1px solid black;
-  background-color: white;
   text-align: center;
   align-items: center;
   word-wrap: break-word;
+  margin: 5px 0px;
+}
+
+.white_btn {
+  background: white;
+}
+
+.rec_btn {
+  background: #30A0CD;
+}
+
+#content .rec_btn p {
+  color: white;
+}
+
+/* Search bar styling */
+.search_bar {
+  width: 90%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: none;
+  background: #ececec;
+  border-radius: 10px;
+}
+
+.search_bar::placeholder {
+  color: #a5a5a5;
 }
 
 /* Boxes used on home page */
@@ -153,7 +187,7 @@ a {
 }
 
 #lesion .select-choice input:checked + label {
-  background-color: #3473c1;
+  background: #3473c1;
   color: white;
 }
 
@@ -291,7 +325,7 @@ input[type="range"]::-webkit-slider-thumb, input[type="range"]::-moz-range-thumb
 }
 
 .sidenav {
-  background-color: #f1f9ff;
+  background: #f1f9ff;
 }
 
 .sidenav ul {
@@ -416,6 +450,16 @@ input[type="range"]::-webkit-slider-thumb, input[type="range"]::-moz-range-thumb
   justify-content: space-between;
 }
 
+#diet > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+#diet > div > div {
+  flex-basis: 100%;
+}
+
 #stress button, #buttons {
   margin-top: 20px;
 }
@@ -425,15 +469,45 @@ input[type="range"]::-webkit-slider-thumb, input[type="range"]::-moz-range-thumb
   height: auto;
 }
 
-#routine > div {
+#routine > div, #diet > div > div, #diet div form {
   display: flex;
   flex-direction: column;
 }
 
-#buttons, #popup {
+#diet form div {
+  display: flex;
+  align-items: center;
+}
+
+#diet form img {
+  height: 33px;
+  width: 36px;
+}
+
+#diet h1, #diet h4 {
+  color: black;
+}
+
+#diets_add {
+  height: 200px;
+  overflow-y: auto;
+}
+
+#diets_ate {
+  height: 250px;
+  overflow-y: auto;
+}
+
+#diet_notes {
+  padding: 8px;
+  height: 200px;
+  resize: none;
+}
+
+#buttons, .popup {
   flex-direction: column;
 }
 
-#popup, .aria_described, .horizontal .aria_described, #lesion_head, #lesion_arms, #lesion_body, #lesion_legs, #calc_lesion, #calc_stress, #stress, #hormone, #sun, #medication, #routine, #diet, #weather, #buttons, #error_info {
+.hidden, .popup, .aria_described, .horizontal .aria_described, #lesion_head, #lesion_arms, #lesion_body, #lesion_legs, #calc_lesion, #calc_stress, #stress, #hormone, #sun, #medication, #routine, #diet, #weather, #buttons, #error_info {
   display: none;
 }

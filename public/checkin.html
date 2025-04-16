@@ -670,14 +670,14 @@
           </div>
           <button id="add_routine" class="white_btn">Add a step<img src="imgs/add_circle.png" alt="Plus symbol"></button>
         </div>
-        <form id="popup">
+        <form class="popup">
           <label for="routine_select">What type of product is it?</label>
           <select id="routine_select" name="routine_select">
             <option value="cleansing">Cleansing/Bathing</option>
             <option value="moisturizer">Moisturizer</option>
           </select>
           <label for="routine_name">What is the name of the product?</label>
-          <input name="routine_name" id="routine_name" maxlength="20" required>
+          <input name="routine_name" id="routine_name" maxlength="20">
           <button id="submit_routine" class="darkblue_btn">Submit Step</button>
           <button id="hide_routine" class="lightblue_btn">Cancel</button>
         </form>
@@ -685,6 +685,35 @@
 
       <div id="diet">
         <h1>Diet</h1>
+        <div>
+          <div class="border_right">
+            <p>Add a food you ate from the following list.</p>
+            <input type="text" class="search_bar" placeholder="search food">
+            <div id="diets_add"></div>
+            <button id="add_diet" class="white_btn">Add New Food<img src="imgs/add_circle.png" alt="Plus symbol"></button>
+          </div>
+          <div class="margin_left">
+            <p>What did you eat today?</p>
+            <div id="diets_ate"></div>
+          </div>
+          <div>
+            <form>
+              <div>
+                <label for="diet_notes"><h1>Notes</h1></label>
+                <img src="imgs/notes-icon.png" alt="Notes icon">
+              </div>
+              <textarea name="diet_notes" id="diet_notes" placeholder="Type any thoughts or changes you made in your diet today..." maxlength="200"></textarea>
+              <label for="diet_weight"><h4>Today's Weight:</h4></label>
+              <input name="diet_weight" id="diet_weight" placeholder="Lbs/Kg" type="number" min="0" max="1000">
+            </form>
+          </div>
+        </div>
+        <form class="popup">
+          <label for="diet_name"><h1>Food Label</h1></label>
+          <input name="diet_name" id="diet_name" maxlength="20">
+          <button id="submit_diet" class="darkblue_btn">Add</button>
+          <button id="hide_diet" class="lightblue_btn">Cancel</button>
+        </form>
       </div>
 
       <div id="weather">

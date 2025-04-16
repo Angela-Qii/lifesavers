@@ -16,12 +16,28 @@ async function init() {
   id('show_calc_lesion').addEventListener('click', calcLesion);
   id('lesion_next').addEventListener('click', lesionNext);
   qs('#checkin_stress button').addEventListener('click', calcStress);
-  id('add_routine').addEventListener('click', togglePopup);
-  id('hide_routine').addEventListener('click', togglePopup);
+  qs('.search_bar').addEventListener('input', filterDiets);
+  id('add_routine').addEventListener('click', () => {
+    togglePopup('routine');
+  });
+  id('hide_routine').addEventListener('click', (evt) => {
+    evt.preventDefault();
+    togglePopup('routine');
+  });
   id('submit_routine').addEventListener('click', (evt) => {
     evt.preventDefault();
-    console.log(id('routine_select').value);
     addRoutine(id('routine_select').value);
+  });
+  id('add_diet').addEventListener('click', () => {
+    togglePopup('diet');
+  });
+  id('hide_diet').addEventListener('click', (evt) => {
+    evt.preventDefault();
+    togglePopup('diet');
+  });
+  id('submit_diet').addEventListener('click', (evt) => {
+    evt.preventDefault();
+    addDiet();
   });
   // Handles Lesion section's sliders
   let slider1 = id("slider_itchy");
@@ -36,51 +52,6 @@ async function init() {
   });
   lesionSlider(slider1, output1);
   lesionSlider(slider2, output2);
-}
-
-/**
- * Hides "add routine" popup if shown, or shows it if hidden.
- */
-function togglePopup() {
-  if (shown(id('popup'))) {
-    id('popup').style.display = 'none';
-    qs('#routine > div').style.display = 'flex';
-    id('buttons').style.display = 'flex';
-  } else {
-    id('popup').style.display = 'flex';
-    qs('#routine > div').style.display = 'none';
-    id('buttons').style.display = 'none';
-  }
-}
-
-function addRoutine(whichDiv) {
-  togglePopup();
-  let word = id('routine_name').value;
-  if (word === '') return;
-
-  let elem = gen('div');
-  elem.classList.add('white_btn');
-  elem.classList.add('single_routine');
-  let newId = id(whichDiv).childElementCount + 1
-  elem.id = whichDiv + newId;
-  let addWord = gen('p');
-  addWord.textContent = word;
-  elem.appendChild(addWord);
-  let addBtn = gen('img');
-  addBtn.src = 'imgs/delete_circle.png';
-  addBtn.alt = 'Deletion icon';
-  addBtn.addEventListener('click', () => {
-    del(elem.id);
-  });
-  elem.appendChild(addBtn);
-  id(whichDiv).appendChild(elem);
-
-  id('routine_name').value = '';
-  id('routine_amt').value = '';
-}
-
-async function loadRoutines() {
-
 }
 
 /**
@@ -131,6 +102,37 @@ function showSection(event) {
   } else if (currSection == 'routine') {
     id('buttons').style.display = 'flex';
     id('go_next').innerText = 'Record Diet';
+  } else if (currSection == 'diet') {
+    id('buttons').style.display = 'flex';
+    id('go_next').innerText = 'Record Weather';
+  }
+}
+
+/**
+ * Hides given popup if shown, or shows it if hidden.
+ * @param {string} whichPop - "routine" or "diet" depending on which button clicked.
+ */
+function togglePopup(whichPop) {
+  if (whichPop == 'routine') {
+    if (shown(qs('#routine .popup'))) {
+      qs('#routine .popup').style.display = 'none';
+      qs('#routine > div').style.display = 'flex';
+      id('buttons').style.display = 'flex';
+    } else {
+      qs('#routine .popup').style.display = 'flex';
+      qs('#routine > div').style.display = 'none';
+      id('buttons').style.display = 'none';
+    }
+  } else {
+    if (shown(qs('#diet .popup'))) {
+      qs('#diet .popup').style.display = 'none';
+      qs('#diet > div').style.display = 'flex';
+      id('buttons').style.display = 'flex';
+    } else {
+      qs('#diet .popup').style.display = 'flex';
+      qs('#diet > div').style.display = 'none';
+      id('buttons').style.display = 'none';
+    }
   }
 }
 
@@ -256,6 +258,120 @@ function calcStress() {
 }
 
 /**
+ * Adds a routine step to the Routine checkin section.
+ * @param {string} whichDiv - "cleasing" or "moisturizer" depending on user's choice.
+ */
+function addRoutine(whichDiv) {
+  togglePopup('routine');
+  let word = id('routine_name').value;
+  if (word === '') return;
+  let elem = gen('div');
+  elem.classList.add('white_btn');
+  elem.classList.add('single_routine');
+  let newId = id(whichDiv).childElementCount;
+  elem.id = whichDiv + newId;
+  let addWord = gen('p');
+  addWord.textContent = word;
+  elem.appendChild(addWord);
+  let addBtn = gen('img');
+  addBtn.src = 'imgs/delete_circle.png';
+  addBtn.alt = 'Deletion icon';
+  addBtn.addEventListener('click', () => {
+    del(elem.id);
+  });
+  elem.appendChild(addBtn);
+  id(whichDiv).appendChild(elem);
+  id('routine_name').value = '';
+}
+
+/**
+ * Filters diet items depending on search term.
+ */
+function filterDiets() {
+  let term = qs('.search_bar').value.toLowerCase();
+  let items = qsa('#diets_add .single_routine');
+  items.forEach(item => {
+    let word = item.textContent.toLowerCase();
+    item.classList.toggle('hidden', !word.includes(term));
+});
+}
+
+/**
+ * Adds a possible diet item to the Diet checkin section.
+ */
+function addDiet() {
+  togglePopup('diet');
+  let word = id('diet_name').value;
+  if (word === '') return;
+  dietHelper(word);
+  id('diet_name').value = '';
+}
+
+/**
+ * Creates an element in the left Diet section.
+ * @param {string} word - Name of the diet.
+ */
+function dietHelper(word) {
+  let elem = gen('div');
+  elem.classList.add('white_btn');
+  elem.classList.add('single_routine');
+  let newId = id('diets_add').childElementCount + id('diets_ate').childElementCount + 1;
+  elem.id = 'diet' + newId;
+  let addWord = gen('p');
+  addWord.textContent = word;
+  elem.appendChild(addWord);
+  let addBtn = gen('img');
+  addBtn.src = 'imgs/delete_circle.png';
+  addBtn.alt = 'Deletion icon';
+  addBtn.addEventListener('click', () => {
+    del(elem.id);
+  });
+  elem.appendChild(addBtn);
+  let addBtn2 = gen('img');
+  addBtn2.src = 'imgs/add_circle.png';
+  addBtn2.alt = 'Plus icon';
+  addBtn2.addEventListener('click', () => {
+    ateDiet(elem.id);
+  });
+  elem.appendChild(addBtn2);
+  id('diets_add').appendChild(elem);
+}
+
+/**
+ * Adds given diet item to eaten list and removes it from diets list.
+ * @param {string} newId - ID of the given element.
+ */
+function ateDiet(newId) {
+  let word = qs('#' + newId + ' p').textContent;
+  del(newId);
+  let elem = gen('div');
+  elem.classList.add('rec_btn');
+  elem.classList.add('single_routine');
+  elem.id = newId;
+  let addWord = gen('p');
+  addWord.textContent = word;
+  elem.appendChild(addWord);
+  let addBtn = gen('img');
+  addBtn.src = 'imgs/minus_circle.png';
+  addBtn.alt = 'Minus icon';
+  addBtn.addEventListener('click', () => {
+    notAteDiet(elem.id);
+  });
+  elem.appendChild(addBtn);
+  id('diets_ate').appendChild(elem);
+}
+
+/**
+ * Removes given diet item from eaten list and adds it to diets list.
+ * @param {string} newId - ID of the given element.
+ */
+function notAteDiet(newId) {
+  let word = qs('#' + newId + ' p').textContent;
+  del(newId);
+  dietHelper(word);
+}
+
+/**
  * Uploads data from form to database.
  * COMMENT: Replace fetchJSON with normal fetch?
  */
@@ -272,6 +388,14 @@ async function uploadData() {
 
   id('art_url').value = '';
   loadData();
+}
+
+async function loadRoutines() {
+
+}
+
+async function loadDiets() {
+
 }
 
 /**
