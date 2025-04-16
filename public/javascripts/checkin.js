@@ -73,13 +73,6 @@ function addRoutine(whichDiv) {
     del(elem.id);
   });
   elem.appendChild(addBtn);
-  let addBtn2 = gen('img');
-  addBtn2.src = 'imgs/check_circle.png'
-  addBtn2.alt = 'Unfilled circle';
-  addBtn2.addEventListener('click', () => {
-    //
-  });
-  elem.appendChild(addBtn2);
   id(whichDiv).appendChild(elem);
 
   id('routine_name').value = '';
