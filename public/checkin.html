@@ -664,16 +664,27 @@
         <h1>Skin Care Routine</h1>
         <div>
           <p>How did you treat your skin today?</p>
-          <div>
-            <h3 class="white_btn">Cleansing/Bathing</h3>
-            <h3 class="white_btn">Moisturizer</h3>
+          <div class="routines">
+            <div id="cleansing"><h3 class="white_btn">Cleansing/Bathing</h3></div>
+            <div id="moisturizer"><h3 class="white_btn">Moisturizer</h3></div>
           </div>
-          <div>
-            <button id="routine_1" class="white_btn">Neutrogena T/Gel Therapeutic Shampoo</button>
-            <button id="routine_2" class="white_btn">La Roche Urea</button>
-          </div>
-          <button class="white_btn">Add a step</button>
+          <button id="add_routine" class="white_btn">Add a step<img src="imgs/add_circle.png" alt="Plus symbol"></button>
         </div>
+        <form id="popup">
+          <label for="routine_select">What type of product is it?</label>
+          <select id="routine_select" name="routine_select">
+            <option value="cleansing">Cleansing/Bathing</option>
+            <option value="moisturizer">Moisturizer</option>
+          </select>
+          <label for="routine_name">What is the name of the product?</label>
+          <input name="routine_name" id="routine_name" maxlength="20" required>
+          <label for="routine_amt">How much did you put on?</label>
+          <input name="routine_amt" id="routine_amt" type="number" min="0" max="100" required>
+          <label for="routine_name">Additional Comments?</label>
+          <input name="routine_name" id="routine_name" maxlength="200">
+          <button id="submit_routine" class="darkblue_btn">Submit Step</button>
+          <button id="hide_routine" class="lightblue_btn">Cancel</button>
+        </form>
       </div>
 
       <div id="diet">

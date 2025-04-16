@@ -16,6 +16,13 @@ async function init() {
   id('show_calc_lesion').addEventListener('click', calcLesion);
   id('lesion_next').addEventListener('click', lesionNext);
   qs('#checkin_stress button').addEventListener('click', calcStress);
+  id('add_routine').addEventListener('click', togglePopup);
+  id('hide_routine').addEventListener('click', togglePopup);
+  id('submit_routine').addEventListener('click', (evt) => {
+    evt.preventDefault();
+    console.log(id('routine_select').value);
+    addRoutine(id('routine_select').value);
+  });
   // Handles Lesion section's sliders
   let slider1 = id("slider_itchy");
   let output1 = id("slider_itchy_val");
@@ -29,6 +36,58 @@ async function init() {
   });
   lesionSlider(slider1, output1);
   lesionSlider(slider2, output2);
+}
+
+/**
+ * Hides "add routine" popup if shown, or shows it if hidden.
+ */
+function togglePopup() {
+  if (shown(id('popup'))) {
+    id('popup').style.display = 'none';
+    qs('#routine > div').style.display = 'flex';
+    id('buttons').style.display = 'flex';
+  } else {
+    id('popup').style.display = 'flex';
+    qs('#routine > div').style.display = 'none';
+    id('buttons').style.display = 'none';
+  }
+}
+
+function addRoutine(whichDiv) {
+  togglePopup();
+  let word = id('routine_name').value;
+  if (word === '') return;
+
+  let elem = gen('div');
+  elem.classList.add('white_btn');
+  elem.classList.add('single_routine');
+  let newId = id(whichDiv).childElementCount + 1
+  elem.id = whichDiv + newId;
+  let addWord = gen('p');
+  addWord.textContent = word;
+  elem.appendChild(addWord);
+  let addBtn = gen('img');
+  addBtn.src = 'imgs/delete_circle.png';
+  addBtn.alt = 'Deletion icon';
+  addBtn.addEventListener('click', () => {
+    del(elem.id);
+  });
+  elem.appendChild(addBtn);
+  let addBtn2 = gen('img');
+  addBtn2.src = 'imgs/check_circle.png'
+  addBtn2.alt = 'Unfilled circle';
+  addBtn2.addEventListener('click', () => {
+    //
+  });
+  elem.appendChild(addBtn2);
+  id(whichDiv).appendChild(elem);
+
+  id('routine_name').value = '';
+  id('routine_amt').value = '';
+}
+
+async function loadRoutines() {
+
 }
 
 /**
@@ -270,6 +329,14 @@ async function deleteData(dataID) {
 function shown(element) {
   let style = window.getComputedStyle(element);
   return style.display !== 'none' && style.visibility !== 'hidden';
+}
+
+/**
+ * Deletes element with the given ID.
+ * @param {string} newId - ID of the element.
+ */
+function del(newId) {
+  id(newId).remove();
 }
 
 /**

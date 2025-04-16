@@ -13,6 +13,8 @@ a {
 /* Makes sure content isn't covered by the topbar */
 .container {
   display: flex;
+  justify-content: space-between;
+  width: 100%;
   margin-top: 80px;
   min-height: calc(100vh - 60px);
 }
@@ -74,9 +76,13 @@ a {
 }
 
 .white_btn {
+  width: 95%;
   border-radius: 10px;
   border: 1px solid black;
   background-color: white;
+  text-align: center;
+  align-items: center;
+  word-wrap: break-word;
 }
 
 /* Boxes used on home page */
@@ -245,6 +251,28 @@ input[type="range"]::-webkit-slider-thumb, input[type="range"]::-moz-range-thumb
   line-height: 30px;
 }
 
+/* single_routine is used for routines that can be added by users */
+.single_routine, #routine > div > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.single_routine img {
+  width: 34px;
+  height: 34px;
+}
+
+.routines {
+  width: 100%;
+}
+
+#cleansing, #moisturizer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
 .topbar {
   background: white;
   color: black;
@@ -402,10 +430,10 @@ input[type="range"]::-webkit-slider-thumb, input[type="range"]::-moz-range-thumb
   flex-direction: column;
 }
 
-#buttons {
+#buttons, #popup {
   flex-direction: column;
 }
 
-.aria_described, .horizontal .aria_described, #lesion_head, #lesion_arms, #lesion_body, #lesion_legs, #calc_lesion, #calc_stress, #stress, #hormone, #sun, #medication, #routine, #diet, #weather, #buttons, #error_info {
+#popup, .aria_described, .horizontal .aria_described, #lesion_head, #lesion_arms, #lesion_body, #lesion_legs, #calc_lesion, #calc_stress, #stress, #hormone, #sun, #medication, #routine, #diet, #weather, #buttons, #error_info {
   display: none;
 }
