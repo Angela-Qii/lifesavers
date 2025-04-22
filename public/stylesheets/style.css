@@ -108,11 +108,16 @@ a {
 /* Search bar styling */
 .search_bar {
   width: 90%;
-  padding: 8px;
   margin-bottom: 10px;
   border: none;
   background: #ececec;
   border-radius: 10px;
+  padding: 10px 10px 10px 35px;
+  font-size: 16px;
+  background-image: url('../imgs/search-icon.png'); /* Replace with your icon URL */
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  background-size: 20px;
 }
 
 .search_bar::placeholder {

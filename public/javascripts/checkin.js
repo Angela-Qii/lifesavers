@@ -280,8 +280,40 @@ function addRoutine(whichDiv) {
     del(elem.id);
   });
   elem.appendChild(addBtn);
+  let addBtn2 = gen('img');
+  addBtn2.src = 'imgs/unchecked_circle.png';
+  addBtn2.alt = 'Unchecked circle';
+  addBtn2.classList.add('unchecked');
+  addBtn2.addEventListener('click', () => {
+    checkRoutine(elem.id);
+  });
+  elem.appendChild(addBtn2);
   id(whichDiv).appendChild(elem);
   id('routine_name').value = '';
+}
+
+/**
+ * Adds a routine step to the Routine checkin section.
+ * @param {string} whichDiv - "cleasing" or "moisturizer" depending on user's choice.
+ */
+function checkRoutine(newId) {
+  let parent = id(newId);
+  let img = parent.querySelector('img:nth-child(3)');
+  let oldSrc = 'imgs/unchecked_circle.png';
+  let oldAlt = 'Unchecked circle';
+  let newSrc = 'imgs/checked_circle.png';
+  let newAlt = 'Checked circle';
+  if (img.src.includes(oldSrc) && img.alt === oldAlt) {
+    img.src = newSrc;
+    img.alt = newAlt;
+    img.classList.remove('unchecked');
+    img.classList.add('checked');
+  } else {
+    img.src = oldSrc;
+    img.alt = oldAlt;
+    img.classList.remove('checked');
+    img.classList.add('unchecked');
+  }
 }
 
 /**
