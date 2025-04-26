@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
-import './css/login.css';
+// import './css/login.css';
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { getDatabase, ref, serverTimestamp, set, update } from 'firebase/database';
-import { auth, database, app } from '../firebase/config';
+import { auth, database, app } from './firebase';
 
 function Signup() {
     const navigateTo = useNavigate();
@@ -13,17 +13,16 @@ function Signup() {
     const [confirmedPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-  
-    // used AI to figure out how to validate email for this
+
     const validateEmail = (email) => {
       const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       return re.test(String(email).toLowerCase());
     };
-  
+
     // creating an accounts
     const createAccount = async (event) => {
       event.preventDefault();
-  
+
       // check to see if email is valid
       if (!validateEmail(email)) {
         setError('Invalid email format');
@@ -34,7 +33,7 @@ function Signup() {
         setError("Passwords don't match!");
         return;
       }
-  
+
       // empty errors
       setError('');
       setLoading(true);
@@ -56,9 +55,9 @@ function Signup() {
       } catch (error) {
         setLoading(false);
         setError(error.message);
-      } 
+      }
     };
-  
+
     return (
       <div className="container">
         <div className="center">
@@ -87,5 +86,5 @@ function Signup() {
       </div>
     );
   }
-  
+
   export default Signup;

@@ -1,23 +1,8 @@
-<html>
-
-<head>
-  <title>Lifesavers</title>
-  <link rel="stylesheet" href="stylesheets/style.css">
-  <script src="javascripts/nav.js"></script>
-  <script src="javascripts/api_version.js"></script>
-  <script src="javascripts/utils.js"></script>
-</head>
-
-<body>
-  <div id="top_nav" class="topbar"></div>
-
-  <div class="container">
-    <div id="main_nav" class="sidenav"></div>
-
-    <div id="content">
-      <!-- Will only display info when an error occurs -->
+function ContentDashboard() {
+    return (
+      <div id="content">
+      {/* Will only display info when an error occurs */}
       <p id="error_info"></p>
-
       <h1>Dashboard</h1>
       <div class="horizontal">
         <div>
@@ -39,5 +24,7 @@
         </div>
       </div>
     </div>
-  </div>
-</html>
+    );
+}
+
+export default ContentDashboard;

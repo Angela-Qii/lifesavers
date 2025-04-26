@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { auth, database, app } from '../firebase/config';
-import './css/login.css';
+import { auth, database } from './firebase';
+// import './css/login.css';
 
 function Login() {
   const navigateTo = useNavigate();
@@ -11,18 +11,17 @@ function Login() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const auth = getAuth(app);
+  // const auth = getAuth(app);
 
   // handling users logging in
   const userLogin = async (event) => {
     event.preventDefault();
     setLoading(true);
-    
+
     try {
-      // gpted this part
       await signInWithEmailAndPassword(auth, email, password);
       setLoading(false);
-      navigateTo('/gratitude');
+      navigateTo('/');
     } catch (error) {
       setLoading(false);
       setError(error.message);
@@ -48,7 +47,6 @@ function Login() {
           </div>
         </form>
       </div>
-      <img src="/img/welcome-cat.jpg" alt="Cat holding Welcome sign" className="welcome-image" />
     </div>
   );
 }

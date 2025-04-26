@@ -1,21 +1,7 @@
-<html>
-
-<head>
-  <title>Lifesavers</title>
-  <link rel="stylesheet" href="stylesheets/style.css">
-  <script src="javascripts/nav.js"></script>
-  <script src="javascripts/api_version.js"></script>
-  <script src="javascripts/utils.js"></script>
-</head>
-
-<body>
-  <div id="top_nav" class="topbar"></div>
-
-  <div class="container">
-    <div id="main_nav" class="sidenav"></div>
-
+function Info() {
+  return (
     <div id="content">
-      <!-- Will only display info when an error occurs -->
+      {/* <!-- Will only display info when an error occurs --> */}
       <p id="error_info"></p>
 
       <h1 class="blue_font">Find Communities And Resources</h1>
@@ -54,5 +40,7 @@
         </div>
       </div>
     </div>
-  </div>
-</html>
+    );
+  }
+
+  export default Info;
