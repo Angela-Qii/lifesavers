@@ -1,5 +1,5 @@
 import CheckinNavbar from './checkin_navbar';
-import { fetchCheckin } from './mongo';
+// import { fetchCheckin } from './mongo';
 import React, { useEffect } from 'react';
 
 function Checkin({user}) {

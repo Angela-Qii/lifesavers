@@ -1,6 +1,4 @@
-// MongoDB code
-import dotenv from 'dotenv';
-dotenv.config();
+// MongoDB codeW
 import { MongoClient, ServerApiVersion } from 'mongodb';
 const uri = "mongodb+srv://UserGuy:${process.env.DB_PASSWORD}@cluster0.5mbj5pg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
@@ -25,13 +23,13 @@ async function run() {
 }
 run().catch(console.dir);
 
-async function fetchCheckin() {
-  try {
-    const collection = db.collection('myCollection');
-    const data = await collection.find({}).toArray();
-    return res.json(data);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch data' });
-    return null;
-  }
-}
+// async function fetchCheckin() {
+//   try {
+//     const collection = db.collection('myCollection');
+//     const data = await collection.find({}).toArray();
+//     return res.json(data);
+//   } catch (error) {
+//     res.status(500).json({ error: 'Failed to fetch data' });
+//     return null;
+//   }
+// }
