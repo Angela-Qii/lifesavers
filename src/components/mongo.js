@@ -1,6 +1,6 @@
 // MongoDB codeW
 import { MongoClient, ServerApiVersion } from 'mongodb';
-const uri = "mongodb+srv://UserGuy:${process.env.DB_PASSWORD}@cluster0.5mbj5pg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const uri = "mongodb+srv://UserGuy:${process.env.REACT_APP_DB_PASSWORD}@cluster0.5mbj5pg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {

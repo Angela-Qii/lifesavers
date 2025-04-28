@@ -48,7 +48,15 @@ function Checkin({user}) {
     });
     lesionSlider(slider1, output1);
     lesionSlider(slider2, output2);
+    id('submit_checkin').addEventListener('click', submitCheckin);
   }, []); // Empty dependency array ensures this runs only on mount/unmount
+
+  /**
+ * Submits Checkin.
+ */
+async function submitCheckin() {
+
+}
 
   /**
  * When Checkin sidenav button clicked, shows that section and hides previous section.
