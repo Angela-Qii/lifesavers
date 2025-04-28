@@ -1,8 +1,9 @@
 import CheckinNavbar from './checkin_navbar';
-// import { fetchCheckin } from './mongo';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 function Checkin({user}) {
+  const [message, setMessage] = useState('');
+
   let currSection = 'lesion';
   useEffect(() => {
     qsa('#checkin_nav button').forEach(button => {
@@ -55,7 +56,24 @@ function Checkin({user}) {
  * Submits Checkin.
  */
 async function submitCheckin() {
-
+  let lesion_1_1 = parseInt(qs('input[name="lesion_1-1"]:checked')?.value ?? 0);
+  let lesion_1_2 = parseInt(qs('input[name="lesion_1-2"]:checked')?.value ?? 0);
+  try {
+    const res = await fetch('/api/handleSubmitCheckin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        lesion_1_1: lesion_1_1,
+        lesion_1_2: lesion_1_2
+      }),
+    });
+    const result = await res.json();
+    setMessage(result.message);
+  } catch (err) {
+    console.error('Error:', err);
+  }
 }
 
   /**
