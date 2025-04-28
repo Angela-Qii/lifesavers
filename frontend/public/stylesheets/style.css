@@ -1,0 +1,528 @@
+body {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #ffffff;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+#overall_container {
+  margin-top: 80px;
+}
+
+/* Makes sure content isn't covered by the topbar */
+.container {
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
+  min-height: calc(100vh - 60px);
+}
+
+.checkin_container {
+  display: flex;
+  width: 100%;
+}
+
+.icon {
+  height: 20px;
+  width: 20px;
+}
+
+.bold {
+  font-weight:bold;
+}
+
+.border_right {
+  border-right: 1px solid #C8CBD9;
+}
+
+.margin_left {
+  margin-left: 10px;
+}
+
+.big_num {
+  border: 2px solid black;
+  border-radius: 10px;
+  height: 150px;
+  width: 150px;
+  font-size: 5em;
+  text-align: center;
+  line-height: 150px;
+  margin: 0;
+}
+
+.big_word {
+  font-size: 4em;
+}
+
+.rounded_corners {
+  height: 50px;
+  width: 50px;
+  border-radius: 15px;
+}
+
+.blue_font {
+  color: #005AB4;
+}
+
+.lightblue_btn, .darkblue_btn, .lightblue_bg {
+  border-radius: 10px;
+  border: none;
+}
+
+.lightblue_bg {
+  background: #f0f8ff;
+  width: 200px;
+}
+
+.lightblue_btn, .darkblue_btn {
+  color: white;
+}
+
+.lightblue_btn {
+  background: #30a0cd;
+}
+
+.darkblue_btn {
+  background: #004081;
+}
+
+.white_btn, .rec_btn {
+  width: 95%;
+  border-radius: 10px;
+  border: 1px solid black;
+  text-align: center;
+  align-items: center;
+  word-wrap: break-word;
+  margin: 5px 0px;
+}
+
+.white_btn {
+  background: white;
+}
+
+.rec_btn {
+  background: #30A0CD;
+}
+
+#content .rec_btn p {
+  color: white;
+}
+
+/* Search bar styling */
+.search_bar {
+  width: 90%;
+  margin-bottom: 10px;
+  border: none;
+  background: #ececec;
+  border-radius: 10px;
+  padding: 10px 10px 10px 35px;
+  font-size: 16px;
+  background-image: url('../imgs/search-icon.png'); /* Replace with your icon URL */
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  background-size: 20px;
+}
+
+.search_bar::placeholder {
+  color: #a5a5a5;
+}
+
+/* Boxes used on home page */
+.gray_box {
+  border-radius: 8px;
+  border: 1px solid #cccccc;
+}
+
+/* Boxes used on the info page */
+.box {
+  border: 1px solid black;
+  width: 30%;
+}
+
+.box a {
+  text-decoration: underline;
+}
+
+/* radio is the class used for the Lesion Checkin section's small, circular buttons. */
+.radio li {
+  display: flex;
+}
+
+.radio, .select-choice, .single-choice {
+  display: flex;
+  list-style-type: none;
+}
+
+/* upload-image is the class used for the Lesion Checkin section's image file upload button. */
+.upload-image input {
+  display: none;
+}
+
+.upload-image label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.upload-image img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+/* select-choice is the class used for the Lesion Checkin section's rectangular buttons. */
+.select-choice {
+  padding: 0;
+  margin: 0;
+}
+
+.select-choice input {
+  display: none;
+}
+
+.select-choice label {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 1px solid black;
+}
+
+.select-choice li:not(:last-child) label {
+  border-right: none;
+}
+
+#lesion .select-choice input:checked + label {
+  background: #3473c1;
+  color: white;
+}
+
+.select-choice li:first-child label {
+  border-radius: 10px 0 0 10px;
+}
+
+.select-choice li:last-child label {
+  border-radius: 0 10px 10px 0;
+}
+
+/* Changing the Lesion Checkin section's sliders */
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  background: #d9d9d9;
+  color: #004081;
+  height: 8px;
+  border-radius: 5px;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb, input[type="range"]::-moz-range-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #004081;
+  background-color: #004081;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+#slider_itchy_val, #slider_pain_val {
+  position: absolute;
+  top: 35px;
+  transform: translateX(-50%);
+  z-index: 100;
+  background: white;
+  font-size: 1.6em;
+  color: black;
+  border: 1px solid black;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 40px;
+  pointer-events: none;
+}
+
+/* single-choice is the class used for the Stress Checkin section's circle-shaped buttons. */
+.single-choice {
+  justify-content: space-evenly;
+  width: 80%;
+  margin: 25px 0 0 0;
+  padding: 0;
+}
+
+.single-choice li {
+  float: left;
+  margin: 0 5px 0 0;
+  width: 40px;
+  height: 40px;
+  position: relative;
+}
+
+.radio label, .single-choice label, .single-choice input {
+  display: block;
+}
+
+.single-choice label, .single-choice input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.single-choice input {
+  opacity: 0.01;
+  z-index: 100;
+  border: none;
+}
+
+.single-choice input:checked+label, .Checked+label {
+  background: #004081;
+}
+
+.single-choice label {
+  padding: 5px;
+  cursor: pointer;
+  z-index: 90;
+  border-radius: 50%;
+  background: #30a0cd;
+  text-align: center;
+  line-height: 30px;
+}
+
+/* single_routine is used for routines that can be added by users */
+.single_routine, #routine > div > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.single_routine img {
+  width: 34px;
+  height: 34px;
+}
+
+.routines {
+  width: 100%;
+}
+
+#cleansing, #moisturizer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.topbar {
+  background: white;
+  color: black;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 5px 0;
+  z-index: 1000;
+  border-bottom: 1px solid #C8CBD9;
+}
+
+.topbar ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sidenav {
+  background: #f1f9ff;
+}
+
+.sidenav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.horizontal {
+  justify-content: space-evenly;
+  gap: 20px;
+}
+
+.horizontal div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.horizontal, .lesion_part {
+  display: flex;
+  flex-direction: row;
+}
+
+.lesion_part {
+  justify-content: space-evenly;
+}
+
+.lesion_part > img {
+  height: 200px;
+  width: auto;
+}
+
+.checkin_lesion {
+  justify-content: space-between;
+}
+
+#content, .checkin_lesion, #checkin_stress {
+  display: flex;
+  flex-direction: column;
+}
+
+#content {
+  flex: 1;
+  padding: 20px;
+}
+
+#content p, #content label, .big_word {
+  color: #808080;
+}
+
+#content .big_num, #checkin_nav #lesion-btn, #lesion li label, #sun label {
+  color: black;
+}
+
+#stress li label {
+  color: white;
+}
+
+#main_nav {
+  flex: 0 0 200px;
+  padding: 20px;
+}
+
+#checkin_nav {
+  flex: 0 0 200px;
+  margin-left: auto;
+}
+
+#checkin_nav li {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e7f5ff;
+  outline: 1px solid #e0f2ff;
+}
+
+#checkin_nav img {
+  height: 100%;
+  width: auto;
+  object-fit: cover;
+}
+
+#checkin_nav button {
+  border: none;
+  padding: 1em 0;
+  background-color: #e7f5ff;
+  width: 100%;
+  color: #c4cade;
+}
+
+#checkin_nav #lesion-btn {
+  border-left: 5px solid #5d7d9b;
+}
+
+#calc_stress, #calc_lesion > div {
+  justify-content: space-between;
+}
+
+#calc_lesion form {
+  width: 80%;
+  align-self: center;
+}
+
+#calc_lesion, #calc_lesion form div {
+  display: flex;
+  flex-direction: column;
+}
+
+#calc_lesion form div {
+  position: relative;
+}
+
+#calc_lesion > div {
+  display: flex;
+}
+
+#calc_lesion form div div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#diet > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+#diet > div > div {
+  flex-basis: 100%;
+}
+
+#stress button, #buttons {
+  margin-top: 20px;
+}
+
+#hormone img {
+  width: 500px;
+  height: auto;
+}
+
+#routine > div, #diet > div > div, #diet div form {
+  display: flex;
+  flex-direction: column;
+}
+
+#diet form div {
+  display: flex;
+  align-items: center;
+}
+
+#diet form img {
+  height: 33px;
+  width: 36px;
+}
+
+#diet h1, #diet h4 {
+  color: black;
+}
+
+#diets_add {
+  height: 200px;
+  overflow-y: auto;
+}
+
+#diets_ate {
+  height: 250px;
+  overflow-y: auto;
+}
+
+#diet_notes {
+  padding: 8px;
+  height: 200px;
+  resize: none;
+}
+
+#buttons, .popup {
+  flex-direction: column;
+}
+
+.hidden, .popup, .aria_described, .horizontal .aria_described, #lesion_head, #lesion_arms, #lesion_body, #lesion_legs, #calc_lesion, #calc_stress, #stress, #hormone, #sun, #medication, #routine, #diet, #weather, #buttons, #error_info {
+  display: none;
+}

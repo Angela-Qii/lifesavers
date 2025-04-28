@@ -1,5 +1,6 @@
 import CheckinNavbar from './checkin_navbar';
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function Checkin({user}) {
   const [message, setMessage] = useState('');
@@ -49,28 +50,34 @@ function Checkin({user}) {
     });
     lesionSlider(slider1, output1);
     lesionSlider(slider2, output2);
-    id('submit_checkin').addEventListener('click', submitCheckin);
+    id('submit_checkin').addEventListener("click", (evt) => {
+      submitCheckin(evt);
+    });
   }, []); // Empty dependency array ensures this runs only on mount/unmount
 
   /**
  * Submits Checkin.
  */
-async function submitCheckin() {
+async function submitCheckin(evt) {
+  evt.preventDefault();
   let lesion_1_1 = parseInt(qs('input[name="lesion_1-1"]:checked')?.value ?? 0);
   let lesion_1_2 = parseInt(qs('input[name="lesion_1-2"]:checked')?.value ?? 0);
   try {
-    const res = await fetch('/api/handleSubmitCheckin', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
+    const res = await axios.post(
+      `/api/checkin/${encodeURIComponent(user.displayName)}`,
+      {
+        date: new Date(),
         lesion_1_1: lesion_1_1,
-        lesion_1_2: lesion_1_2
-      }),
-    });
+        lesion_1_2: lesion_1_2,
+      }
+    );
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData.message || `HTTP error ${res.status}`);
+    }
     const result = await res.json();
     setMessage(result.message);
+    // COMMENT: Switch pages
   } catch (err) {
     console.error('Error:', err);
   }
