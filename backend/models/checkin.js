@@ -2,8 +2,36 @@ const mongoose = require('mongoose');
 
 const checkinSchema = new mongoose.Schema({
   date: { type: Date, default: Date.now },
-  lesion_1_1: { type: Number, default: 0 },
-  lesion_1_2: { type: Number, default: 0 }
+  lesion_1_1: Number,
+  lesion_1_2: Number,
+  lesion_1_3: Number,
+  lesion_1_4: Number,
+  lesion_2_1: Number,
+  lesion_2_2: Number,
+  lesion_2_3: Number,
+  lesion_2_4: Number,
+  lesion_3_1: Number,
+  lesion_3_2: Number,
+  lesion_3_3: Number,
+  lesion_3_4: Number,
+  lesion_4_1: Number,
+  lesion_4_2: Number,
+  lesion_4_3: Number,
+  lesion_4_4: Number,
+  lesion_itchy: Number,
+  lesion_pain: Number,
+  stress: [String], // stress_1, stress_2, stress_3
+  sunExposure: {
+    hours: String,
+    minutes: String,
+  },
+  images: [
+    {
+      data: Buffer,
+      contentType: String,
+      name: String,
+    },
+  ],
 })
 
 const userSchema = new mongoose.Schema({
