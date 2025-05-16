@@ -1,0 +1,51 @@
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  height: 70px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-bottom: 1px solid #e0e0e0;
+  z-index: 1000;
+  font-family: 'Inter', sans-serif;
+}
+
+.topbar ul {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  list-style: none;
+  margin: 0;
+}
+
+.topbar li {
+  display: flex;
+  align-items: center;
+}
+
+.topbar .left-section {
+  background-color: #f0f8ff;
+  height: 100%;
+  width: 200px; /* Match #navbar width */
+  display: flex;
+  align-items: center;
+}
+
+.topbar .left-section img {
+  height: 30px;
+}
+
+.topbar a {
+  text-decoration: none;
+  color: #334155;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.topbar li:last-child img {
+  height: 25px;
+  margin-right: 5px;
+}
