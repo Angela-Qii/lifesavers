@@ -6,6 +6,7 @@ function Checkin({user}) {
   const [message, setMessage] = useState('');
 
   let currSection = 'lesion';
+  let period_today = false;
   useEffect(() => {
     qsa('#checkin_nav button').forEach(button => {
       button.addEventListener('click', showSection);
@@ -15,6 +16,10 @@ function Checkin({user}) {
     id('lesion_next').addEventListener('click', lesionNext);
     qs('#checkin_stress button').addEventListener('click', calcStress);
     qs('.search_bar').addEventListener('input', filterDiets);
+    id('period_start').addEventListener('click', (evt) => {
+      evt.preventDefault();
+      periodToday();
+    });
     id('add_routine').addEventListener('click', () => {
       togglePopup('routine');
     });
@@ -60,15 +65,80 @@ function Checkin({user}) {
  */
 async function submitCheckin(evt) {
   evt.preventDefault();
-  let lesion_1_1 = parseInt(qs('input[name="lesion_1-1"]:checked')?.value ?? 0);
-  let lesion_1_2 = parseInt(qs('input[name="lesion_1-2"]:checked')?.value ?? 0);
+  // submitRoutines();
+  // submitDiets();
+  let formData = new FormData();
+  const lesionRatings = {
+    lesion_1_1: parseInt(qs('input[name="lesion_1-1"]:checked')?.value),
+    lesion_1_2: parseInt(qs('input[name="lesion_1-2"]:checked')?.value),
+    lesion_1_3: parseInt(qs('input[name="lesion_1-3"]:checked')?.value),
+    lesion_1_4: parseInt(qs('input[name="lesion_1-4"]:checked')?.value),
+    lesion_2_1: parseInt(qs('input[name="lesion_2-1"]:checked')?.value),
+    lesion_2_2: parseInt(qs('input[name="lesion_2-2"]:checked')?.value),
+    lesion_2_3: parseInt(qs('input[name="lesion_2-3"]:checked')?.value),
+    lesion_2_4: parseInt(qs('input[name="lesion_2-4"]:checked')?.value),
+    lesion_3_1: parseInt(qs('input[name="lesion_3-1"]:checked')?.value),
+    lesion_3_2: parseInt(qs('input[name="lesion_3-2"]:checked')?.value),
+    lesion_3_3: parseInt(qs('input[name="lesion_3-3"]:checked')?.value),
+    lesion_3_4: parseInt(qs('input[name="lesion_3-4"]:checked')?.value),
+    lesion_4_1: parseInt(qs('input[name="lesion_4-1"]:checked')?.value),
+    lesion_4_2: parseInt(qs('input[name="lesion_4-2"]:checked')?.value),
+    lesion_4_3: parseInt(qs('input[name="lesion_4-3"]:checked')?.value),
+    lesion_4_4: parseInt(qs('input[name="lesion_4-4"]:checked')?.value),
+  };
+  const itchyValue = parseFloat(id('slider_itchy').value);
+  const painValue = parseFloat(id('slider_pain').value);
+  if (!isNaN(itchyValue)) {
+    formData.append('lesion_itchy', itchyValue.toString());
+  }
+  if (!isNaN(painValue)) {
+    formData.append('lesion_pain', painValue.toString());
+  }
+  Object.entries(lesionRatings).forEach(([key, value]) => {
+    if (!isNaN(value)) {
+      formData.append(key, value.toString());
+    }
+  });
+  let inputs = [
+      id('lesion_1-5'),
+      id('lesion_2-5'),
+      id('lesion_3-5'),
+      id('lesion_4-5'),
+    ];
+  let fileCount = 0;
+  inputs.forEach((input, index) => {
+    if (input.files[0]) {
+      formData.append(`image${index + 1}`, input.files[0]);
+      fileCount++;
+    }
+  });
+  const stressRatings = {
+    stress_1: qs('input[name="stress_1"]:checked')?.value,
+    stress_2: qs('input[name="stress_2"]:checked')?.value,
+    stress_3: qs('input[name="stress_3"]:checked')?.value,
+  };
+  Object.entries(stressRatings).forEach(([key, value]) => {
+    if (value !== undefined) {
+      formData.append(key, value);
+    }
+  });
+  const sun_hr = id('sun_hr')?.value;
+  const sun_min = id('sun_min')?.value;
+  if (sun_hr !== undefined && sun_hr !== '') {
+    formData.append('sun_hr', sun_hr);
+  }
+  if (sun_min !== undefined && sun_min !== '') {
+    formData.append('sun_min', sun_min);
+  }
+  // routines + diets 2
   try {
     const res = await axios.post(
       `/api/checkin/${encodeURIComponent(user.displayName)}`,
+      formData,
       {
-        date: new Date(),
-        lesion_1_1: lesion_1_1,
-        lesion_1_2: lesion_1_2,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       }
     );
     if (!res.ok) {
@@ -77,9 +147,29 @@ async function submitCheckin(evt) {
     }
     const result = await res.json();
     setMessage(result.message);
-    // COMMENT: Switch pages
+    id(currSection).style.display = 'none';
+    id('buttons').style.display = 'none';
+    id('checkin_nav').style.display = 'none';
+    id('done').style.display = 'display';
   } catch (err) {
     console.error('Error:', err);
+  }
+}
+
+function submitRoutines() {
+
+}
+
+/**
+ * When user clicks button to mark their period today, it toggles whether their period started.
+ */
+function periodToday() {
+  if (period_today) {
+    period_today = false;
+    id('period_start').textContent = 'my period did not start today';
+  } else {
+    period_today = true;
+    id('period_start').textContent = 'my period started today';
   }
 }
 
@@ -1109,8 +1199,8 @@ function gen(tagName) {
         <div class="horizontal">
           <div>
             <h2>Last Recorded Period Start Date</h2>
-            <h2 id="period_start" class="lightblue_bg">Date</h2>
-            <button class="white_btn">my period started today</button>
+            <h2 class="lightblue_bg">Date</h2>
+            <button id="period_start" class="white_btn">my period started today</button>
             <h2>Current Phase</h2>
             <h2 id="period_phase" class="lightblue_bg">Phase</h2>
           </div>
@@ -1198,6 +1288,8 @@ function gen(tagName) {
         <button class="darkblue_btn" id="go_next">Record </button>
         <button class="lightblue_btn" id="submit_checkin">Complete Daily-Check In</button>
       </div>
+
+      <h1 id="done">Daily Check-in Submitted</h1>
     </div>
     <CheckinNavbar />
     </div>

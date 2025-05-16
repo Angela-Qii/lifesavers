@@ -19,11 +19,6 @@ mongoose.connect(uri, {
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.error('MongoDB connection error:', err));
 
-// Sample Route
-// app.get('/api', (req, res) => {
-//   res.json({ message: 'Hello from Express!' });
-// });
-
 const checkinRouter = require('./routes/checkin');
 app.use('/api/checkin', checkinRouter);
 
