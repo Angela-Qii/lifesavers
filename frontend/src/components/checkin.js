@@ -522,6 +522,257 @@ function notAteDiet(newId) {
   dietHelper(word);
 }
 
+/* weather stuff*/
+
+function AddWeather() {
+  const [location, setLocation] = useState('');
+  const [weatherDataList, setWeatherDataList] = useState([]);
+  const [error, setError] = useState('');
+  const [currentLocationId, setCurrentLocationId] = useState(null);
+ 
+ 
+  const apiKey = '895284fb2d2c50a520ea537456963d9c';
+ 
+ 
+  const searchWeather = (event) => {
+    if (event.key === 'Enter') {
+      if (!location.trim()) return;
+ 
+ 
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(location)}&units=imperial&appid=${apiKey}`;
+ 
+ 
+      axios.get(url)
+        .then(response => {
+          setWeatherDataList(prev => [...prev, response.data]);
+          setError('');
+        })
+        .catch(error => {
+          console.error('Error fetching weather:', error);
+          setError('Location not found.');
+        });
+ 
+ 
+      setLocation('');
+    }
+  };
+ 
+ 
+  const setAsCurrent = (id) => {
+    setCurrentLocationId(id);
+  };
+ 
+ 
+  return (
+    <>
+      {/* Import Inter font */}
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
+ 
+ 
+      <style>{`
+  * {
+    box-sizing: border-box;
+  }
+ 
+ 
+  .inter-font {
+    font-family: 'Inter', sans-serif !important;
+  }
+ 
+ 
+  #weather {
+    background-color: #fffff;
+    padding: 0.1rem;
+    margin-top: 0.1px;
+  }
+ 
+ 
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+ 
+ 
+  .question {
+    color: #444;
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+ 
+ 
+  .search_container {
+    position: relative;
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+ 
+ 
+  .search_icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa;
+    pointer-events: none;
+    font-size: 16px;
+  }
+ 
+ 
+  .search_bar {
+    font-family: 'Inter', sans-serif;
+    width: 100%;
+    padding: 12px 16px 12px 36px;
+    font-size: 15px;
+    border: 1px solid #ececec;
+    border-radius: 10px;
+    background-color: #ececec;
+    color: #333;
+    outline: none;
+  }
+ 
+ 
+  .search_bar::placeholder {
+    color: #aaa;
+  }
+ 
+ 
+  .white_btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #292a2a;
+    background-color: white;
+    padding: 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+ 
+ 
+  .white_btn:hover {
+    background-color: #f0f8ff;
+  }
+ 
+ 
+  .weather_text {
+    margin: 0;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #222;
+  }
+ 
+ 
+  .question {
+    font-size: 13px;
+    color: #808080;
+  }
+  .weather_text.inter-font {
+    font-size: 20px;
+ 
+ 
+ 
+ 
+  }
+ 
+ 
+  .weather_detail {
+    margin: 0;
+    color: #333;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+  }
+ 
+ 
+ 
+ 
+  .set_btn {
+    background-color: #39a0cd;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 13px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-top: 8px;
+  }
+ 
+ 
+  .set_btn:hover {
+    background-color: #004086;
+  }
+ 
+ 
+  .current-tag {
+    font-size: 13px;
+    color: green;
+    font-weight: bold;
+    margin-left: 8px;
+  }
+ 
+ 
+  #weather_add {
+    margin-top: 1rem;
+  }
+ 
+ 
+  .weather_info {
+    flex: 1;
+  }
+ `}</style>
+ 
+ 
+ 
+ 
+      <div id="weather2">
+        <h1>Weather</h1>
+        <p className="question inter-font">What was the weather like in your location today?</p>
+ 
+ 
+        <div className="search_container">
+          <input
+            type="text"
+            className="search_bar"
+            id="weather_search"
+            placeholder="Search Location"
+            value={location}
+            onChange={e => setLocation(e.target.value)}
+            onKeyDown={searchWeather}
+          />
+        </div>
+ 
+ 
+        <div id="weather_add">
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+          {weatherDataList.map((weatherData, index) => (
+            <div key={index} className="white_btn">
+              <div className="weather_info">
+                <p className="weather_text inter-font">
+                  Weather Today in {weatherData.name}
+                  {currentLocationId === index && (
+                    <span className="current-tag"> (Current)</span>
+                  )}
+                </p>
+                <p className="weather_detail">
+                  {weatherData.main.temp}°F, {weatherData.weather[0].description}
+                </p>
+              </div>
+              <button className="set_btn" onClick={() => setAsCurrent(index)}>
+                Current Location
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+ }
+ 
+
 // COMMENT: Helpful functions below
 
 /**
@@ -1281,7 +1532,7 @@ function gen(tagName) {
       </div>
 
       <div id="weather">
-        <h1>Weather</h1>
+        <AddWeather />
       </div>
 
       <div id="buttons">
