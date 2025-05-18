@@ -20,23 +20,21 @@ const checkinSchema = new mongoose.Schema({
   lesion_4_4: Number,
   lesion_itchy: Number,
   lesion_pain: Number,
-  stress: [String], // stress_1, stress_2, stress_3
+  stress_1: Number,
+  stress_2: Number,
+  stress_3: Number,
   sunExposure: {
     hours: String,
     minutes: String,
   },
-  images: [
-    {
-      data: Buffer,
-      contentType: String,
-      name: String,
-    },
-  ],
+  images: [Buffer],
+  diets: [String]
 })
 
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true },
-  checkins: [checkinSchema]
+  checkins: [checkinSchema],
+  diets: [String]
 })
 
 // const taskSchema = new mongoose.Schema({

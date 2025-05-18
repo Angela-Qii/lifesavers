@@ -523,6 +523,6 @@ input[type="range"]::-webkit-slider-thumb, input[type="range"]::-moz-range-thumb
   flex-direction: column;
 }
 
-.hidden, #done, .popup, .aria_described, .horizontal .aria_described, #lesion_head, #lesion_arms, #lesion_body, #lesion_legs, #calc_lesion, #calc_stress, #stress, #hormone, #sun, #medication, #routine, #diet, #weather, #buttons, #error_info {
+.hidden, #done, .popup, .aria_described, .horizontal .aria_described, #lesion_head, #lesion_arms, #lesion_body, #lesion_legs, #calc_lesion, #calc_stress, #stress, #hormone, #sun, #medication, #routine, #diet, #weather, #buttons {
   display: none;
 }

@@ -8,6 +8,8 @@ function Checkin({user}) {
   let currSection = 'lesion';
   let period_today = false;
   useEffect(() => {
+    // TODO: Make page not usable if user isn't logged in?
+    loadRoutines();
     qsa('#checkin_nav button').forEach(button => {
       button.addEventListener('click', showSection);
     });
@@ -60,13 +62,29 @@ function Checkin({user}) {
     });
   }, []); // Empty dependency array ensures this runs only on mount/unmount
 
+    /**
+ * Fetches user's routines and diets from database and shows them in their sections.
+ */
+async function loadRoutines() {
+  try {
+    const res = await axios.get(
+      `/api/checkin/routines/${encodeURIComponent(user.displayName)}`,
+    );
+    const result = res.data;
+    for (let i = 0; i < result.diets.length; i++) {
+      dietHelper(result.diets[i], `diet${i}`);
+    }
+  } catch (err) {
+    handleError('Routines error: ' + err);
+    console.error('Error:', err);
+  }
+}
+
   /**
- * Submits Checkin.
+ * Submits daily checkin.
  */
 async function submitCheckin(evt) {
   evt.preventDefault();
-  // submitRoutines();
-  // submitDiets();
   let formData = new FormData();
   const lesionRatings = {
     lesion_1_1: parseInt(qs('input[name="lesion_1-1"]:checked')?.value),
@@ -106,9 +124,9 @@ async function submitCheckin(evt) {
       id('lesion_4-5'),
     ];
   let fileCount = 0;
-  inputs.forEach((input, index) => {
+  inputs.forEach((input) => {
     if (input.files[0]) {
-      formData.append(`image${index + 1}`, input.files[0]);
+      formData.append('image', input.files[0]);
       fileCount++;
     }
   });
@@ -130,7 +148,16 @@ async function submitCheckin(evt) {
   if (sun_min !== undefined && sun_min !== '') {
     formData.append('sun_min', sun_min);
   }
-  // routines + diets 2
+  const diets_add = id('diets_add');
+  const diets_ate = id('diets_ate');
+  const add_diets = diets_add.querySelectorAll('div p');;
+  const ate_diets = diets_ate.querySelectorAll('div p');
+  const add_diets_2 = Array.from(add_diets).map(p => p.textContent.trim());
+  const ate_diets_2 = Array.from(ate_diets).map(p => p.textContent.trim());
+  const both_diets = add_diets_2.concat(ate_diets_2);
+  formData.append('user_diets', JSON.stringify(both_diets));
+  formData.append('daily_diets', JSON.stringify(ate_diets_2));
+  // TODO: Finish diets, routines, period, medication, weather
   try {
     const res = await axios.post(
       `/api/checkin/${encodeURIComponent(user.displayName)}`,
@@ -141,23 +168,17 @@ async function submitCheckin(evt) {
         },
       }
     );
-    if (!res.ok) {
-      const errorData = await res.json();
-      throw new Error(errorData.message || `HTTP error ${res.status}`);
-    }
-    const result = await res.json();
-    setMessage(result.message);
+    // const result = await res.json();
+    // setMessage(result.message);
+    // TODO: WHY ISN'T THIS WORKING?
     id(currSection).style.display = 'none';
     id('buttons').style.display = 'none';
     id('checkin_nav').style.display = 'none';
     id('done').style.display = 'display';
   } catch (err) {
+    handleError(err);
     console.error('Error:', err);
   }
-}
-
-function submitRoutines() {
-
 }
 
 /**
@@ -454,7 +475,9 @@ function addDiet() {
   togglePopup('diet');
   let word = id('diet_name').value;
   if (word === '') return;
-  dietHelper(word);
+  let newId = id('diets_add').childElementCount + id('diets_ate').childElementCount + 1;
+  newId = 'diet' + newId;
+  dietHelper(word, newId);
   id('diet_name').value = '';
 }
 
@@ -462,12 +485,11 @@ function addDiet() {
  * Creates an element in the left Diet section.
  * @param {string} word - Name of the diet.
  */
-function dietHelper(word) {
+function dietHelper(word, newId) {
   let elem = gen('div');
   elem.classList.add('white_btn');
   elem.classList.add('single_routine');
-  let newId = id('diets_add').childElementCount + id('diets_ate').childElementCount + 1;
-  elem.id = 'diet' + newId;
+  elem.id = newId;
   let addWord = gen('p');
   addWord.textContent = word;
   elem.appendChild(addWord);
@@ -519,7 +541,7 @@ function ateDiet(newId) {
 function notAteDiet(newId) {
   let word = qs('#' + newId + ' p').textContent;
   del(newId);
-  dietHelper(word);
+  dietHelper(word, newId);
 }
 
 /* weather stuff*/
@@ -529,19 +551,19 @@ function AddWeather() {
   const [weatherDataList, setWeatherDataList] = useState([]);
   const [error, setError] = useState('');
   const [currentLocationId, setCurrentLocationId] = useState(null);
- 
- 
+
+
   const apiKey = '895284fb2d2c50a520ea537456963d9c';
- 
- 
+
+
   const searchWeather = (event) => {
     if (event.key === 'Enter') {
       if (!location.trim()) return;
- 
- 
+
+
       const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(location)}&units=imperial&appid=${apiKey}`;
- 
- 
+
+
       axios.get(url)
         .then(response => {
           setWeatherDataList(prev => [...prev, response.data]);
@@ -551,64 +573,64 @@ function AddWeather() {
           console.error('Error fetching weather:', error);
           setError('Location not found.');
         });
- 
- 
+
+
       setLocation('');
     }
   };
- 
- 
+
+
   const setAsCurrent = (id) => {
     setCurrentLocationId(id);
   };
- 
- 
+
+
   return (
     <>
       {/* Import Inter font */}
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
       <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
- 
- 
+
+
       <style>{`
   * {
     box-sizing: border-box;
   }
- 
- 
+
+
   .inter-font {
     font-family: 'Inter', sans-serif !important;
   }
- 
- 
+
+
   #weather {
     background-color: #fffff;
     padding: 0.1rem;
     margin-top: 0.1px;
   }
- 
- 
+
+
   h1 {
     font-size: 28px;
     font-weight: 700;
     margin-bottom: 0.5rem;
   }
- 
- 
+
+
   .question {
     color: #444;
     font-size: 16px;
     margin-bottom: 20px;
   }
- 
- 
+
+
   .search_container {
     position: relative;
     width: 100%;
     margin-bottom: 1.5rem;
   }
- 
- 
+
+
   .search_icon {
     position: absolute;
     left: 12px;
@@ -618,8 +640,8 @@ function AddWeather() {
     pointer-events: none;
     font-size: 16px;
   }
- 
- 
+
+
   .search_bar {
     font-family: 'Inter', sans-serif;
     width: 100%;
@@ -631,13 +653,13 @@ function AddWeather() {
     color: #333;
     outline: none;
   }
- 
- 
+
+
   .search_bar::placeholder {
     color: #aaa;
   }
- 
- 
+
+
   .white_btn {
     display: flex;
     justify-content: space-between;
@@ -650,44 +672,44 @@ function AddWeather() {
     margin-bottom: 1rem;
     flex-wrap: wrap;
   }
- 
- 
+
+
   .white_btn:hover {
     background-color: #f0f8ff;
   }
- 
- 
+
+
   .weather_text {
     margin: 0;
     margin-bottom: 6px;
     font-weight: 600;
     color: #222;
   }
- 
- 
+
+
   .question {
     font-size: 13px;
     color: #808080;
   }
   .weather_text.inter-font {
     font-size: 20px;
- 
- 
- 
- 
+
+
+
+
   }
- 
- 
+
+
   .weather_detail {
     margin: 0;
     color: #333;
     font-size: 14px;
     font-family: 'Inter', sans-serif;
   }
- 
- 
- 
- 
+
+
+
+
   .set_btn {
     background-color: #39a0cd;
     color: white;
@@ -700,39 +722,39 @@ function AddWeather() {
     margin-left: auto;
     margin-top: 8px;
   }
- 
- 
+
+
   .set_btn:hover {
     background-color: #004086;
   }
- 
- 
+
+
   .current-tag {
     font-size: 13px;
     color: green;
     font-weight: bold;
     margin-left: 8px;
   }
- 
- 
+
+
   #weather_add {
     margin-top: 1rem;
   }
- 
- 
+
+
   .weather_info {
     flex: 1;
   }
  `}</style>
- 
- 
- 
- 
+
+
+
+
       <div id="weather2">
         <h1>Weather</h1>
         <p className="question inter-font">What was the weather like in your location today?</p>
- 
- 
+
+
         <div className="search_container">
           <input
             type="text"
@@ -744,8 +766,8 @@ function AddWeather() {
             onKeyDown={searchWeather}
           />
         </div>
- 
- 
+
+
         <div id="weather_add">
           {error && <p style={{ color: 'red' }}>{error}</p>}
           {weatherDataList.map((weatherData, index) => (
@@ -771,7 +793,7 @@ function AddWeather() {
     </>
   );
  }
- 
+
 
 // COMMENT: Helpful functions below
 
@@ -829,6 +851,14 @@ function gen(tagName) {
   return document.createElement(tagName);
 }
 
+/**
+ * Shows error message.
+ * @param {string} err - Error message.
+ */
+function handleError(err) {
+  id('error_info').textContent = 'Error: ' + err;
+}
+
   return (
     <div className="checkin_container">
     <div id="content">
@@ -865,7 +895,7 @@ function gen(tagName) {
         <div id="lesion_head" class="lesion_part">
           <form class="checkin_lesion">
             <h2>Head ( 1/4 ) - Inputting PASI Scores</h2>
-            <label for="lesion_1-1">Area: % indicates the lesion's area coverage of the affected body part.</label>
+            <label>Area: % indicates the lesion's area coverage of the affected body part.</label>
             <ul class="radio">
               <li>
                 <input type="radio" id="lesion1-1_0" name="lesion_1-1" value="0" />
@@ -896,7 +926,7 @@ function gen(tagName) {
                 <label for="lesion1-1_6">90-100%</label>
               </li>
             </ul>
-            <label for="lesion_1-2">Induration/Thickness</label>
+            <label>Induration/Thickness</label>
             <ul class="select-choice">
               <li>
                 <input type="radio" id="lesion1-2_0" name="lesion_1-2" value="0" />
@@ -919,7 +949,7 @@ function gen(tagName) {
                 <label for="lesion1-2_4">Very Severe</label>
               </li>
             </ul>
-            <label for="lesion_1-3">Erythema/Redness</label>
+            <label>Erythema/Redness</label>
             <ul class="select-choice">
               <li>
                 <input type="radio" id="lesion1-3_0" name="lesion_1-3" value="0" />
@@ -942,7 +972,7 @@ function gen(tagName) {
                 <label for="lesion1-3_4">Very Severe</label>
               </li>
             </ul>
-            <label for="lesion_1-4">Desquamation/Scaling</label>
+            <label>Desquamation/Scaling</label>
             <ul class="select-choice">
               <li>
                 <input type="radio" id="lesion1-4_0" name="lesion_1-4" value="0" />
@@ -976,7 +1006,7 @@ function gen(tagName) {
         <div id="lesion_arms" class="lesion_part">
           <form class="checkin_lesion">
             <h2>Arms ( 2/4 ) - Inputting PASI Scores</h2>
-            <label for="lesion_2-1">Area: % indicates the lesion's area coverage of the affected body part.</label>
+            <label>Area: % indicates the lesion's area coverage of the affected body part.</label>
             <ul class="radio">
               <li>
                 <input type="radio" id="lesion2-1_0" name="lesion_2-1" value="0" />
@@ -1007,7 +1037,7 @@ function gen(tagName) {
                 <label for="lesion2-1_6">90-100%</label>
               </li>
             </ul>
-            <label for="lesion_2-2">Induration/Thickness</label>
+            <label>Induration/Thickness</label>
             <ul class="select-choice">
               <li>
                 <input type="radio" id="lesion2-2_0" name="lesion_2-2" value="0" />
@@ -1030,7 +1060,7 @@ function gen(tagName) {
                 <label for="lesion2-2_4">Very Severe</label>
               </li>
             </ul>
-            <label for="lesion_2-3">Erythema/Redness</label>
+            <label>Erythema/Redness</label>
             <ul class="select-choice">
               <li>
                 <input type="radio" id="lesion2-3_0" name="lesion_2-3" value="0" />
@@ -1053,7 +1083,7 @@ function gen(tagName) {
                 <label for="lesion2-3_4">Very Severe</label>
               </li>
             </ul>
-            <label for="lesion_2-4">Desquamation/Scaling</label>
+            <label>Desquamation/Scaling</label>
             <ul class="select-choice">
               <li>
                 <input type="radio" id="lesion2-4_0" name="lesion_2-4" value="0" />
@@ -1087,7 +1117,7 @@ function gen(tagName) {
         <div id="lesion_body" class="lesion_part">
           <form class="checkin_lesion">
             <h2>Trunk ( 3/4 ) - Inputting PASI Scores</h2>
-            <label for="lesion_3-1">Area: % indicates the lesion's area coverage of the affected body part.</label>
+            <label>Area: % indicates the lesion's area coverage of the affected body part.</label>
             <ul class="radio">
               <li>
                 <input type="radio" id="lesion3-1_0" name="lesion_3-1" value="0" />
@@ -1118,7 +1148,7 @@ function gen(tagName) {
                 <label for="lesion3-1_6">90-100%</label>
               </li>
             </ul>
-            <label for="lesion_3-2">Induration/Thickness</label>
+            <label>Induration/Thickness</label>
             <ul class="select-choice">
               <li>
                 <input type="radio" id="lesion3-2_0" name="lesion_3-2" value="0" />
@@ -1141,7 +1171,7 @@ function gen(tagName) {
                 <label for="lesion3-2_4">Very Severe</label>
               </li>
             </ul>
-            <label for="lesion_3-3">Erythema/Redness</label>
+            <label>Erythema/Redness</label>
             <ul class="select-choice">
               <li>
                 <input type="radio" id="lesion3-3_0" name="lesion_3-3" value="0" />
@@ -1164,7 +1194,7 @@ function gen(tagName) {
                 <label for="lesion3-3_4">Very Severe</label>
               </li>
             </ul>
-            <label for="lesion_3-4">Desquamation/Scaling</label>
+            <label>Desquamation/Scaling</label>
             <ul class="select-choice">
               <li>
                 <input type="radio" id="lesion3-4_0" name="lesion_3-4" value="0" />
@@ -1198,7 +1228,7 @@ function gen(tagName) {
         <div id="lesion_legs" class="lesion_part">
           <form class="checkin_lesion">
             <h2>Legs ( 4/4 ) - Inputting PASI Scores</h2>
-            <label for="lesion_4-1">Area: % indicates the lesion's area coverage of the affected body part.</label>
+            <label>Area: % indicates the lesion's area coverage of the affected body part.</label>
             <ul class="radio">
               <li>
                 <input type="radio" id="lesion4-1_0" name="lesion_4-1" value="0" />
@@ -1229,7 +1259,7 @@ function gen(tagName) {
                 <label for="lesion4-1_6">90-100%</label>
               </li>
             </ul>
-            <label for="lesion_4-2">Induration/Thickness</label>
+            <label>Induration/Thickness</label>
             <ul class="select-choice">
               <li>
                 <input type="radio" id="lesion4-2_0" name="lesion_4-2" value="0" />
@@ -1252,7 +1282,7 @@ function gen(tagName) {
                 <label for="lesion4-2_4">Very Severe</label>
               </li>
             </ul>
-            <label for="lesion_4-3">Erythema/Redness</label>
+            <label>Erythema/Redness</label>
             <ul class="select-choice">
               <li>
                 <input type="radio" id="lesion4-3_0" name="lesion_4-3" value="0" />
@@ -1275,7 +1305,7 @@ function gen(tagName) {
                 <label for="lesion4-3_4">Very Severe</label>
               </li>
             </ul>
-            <label for="lesion_4-4">Desquamation/Scaling</label>
+            <label>Desquamation/Scaling</label>
             <ul class="select-choice">
               <li>
                 <input type="radio" id="lesion4-4_0" name="lesion_4-4" value="0" />
