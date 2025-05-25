@@ -28,13 +28,19 @@ const checkinSchema = new mongoose.Schema({
     minutes: String,
   },
   images: [Buffer],
-  diets: [String]
+  diets: [String],
+  routines: [String],
+  period_today: Boolean,
+  weather_location: String
 })
 
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true },
   checkins: [checkinSchema],
-  diets: [String]
+  diets: [String],
+  clean_routines: [String],
+  mois_routines: [String],
+  last_period: Date
 })
 
 // const taskSchema = new mongoose.Schema({

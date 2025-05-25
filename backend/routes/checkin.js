@@ -4,6 +4,7 @@ const { User } = require('../models/checkin');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const checkin = require('../models/checkin');
 
 // Configure Multer storage
 const storage = multer.diskStorage({
@@ -44,7 +45,8 @@ router.post('/:username', upload.array('image', 4), async (req, res) => {
       lesion_4_1, lesion_4_2, lesion_4_3, lesion_4_4,
       lesion_itchy, lesion_pain,
       stress_1, stress_2, stress_3, sun_hr, sun_min,
-      user_diets, daily_diets,
+      user_diets, daily_diets, clean_user_routines, clean_daily_routines,
+      mois_user_routines, mois_daily_routines, period_today, weather_location
     } = req.body;
     let user_diets2;
     let daily_diets2;
@@ -54,7 +56,30 @@ router.post('/:username', upload.array('image', 4), async (req, res) => {
     if (daily_diets) {
       daily_diets2 = JSON.parse(daily_diets);
     }
+    let clean_user_routines2;
+    let clean_daily_routines2;
+    let mois_user_routines2;
+    let mois_daily_routines2;
+    if (clean_user_routines) {
+      clean_user_routines2 = JSON.parse(clean_user_routines);
+    }
+    if (clean_daily_routines) {
+      clean_daily_routines2 = JSON.parse(clean_daily_routines);
+    }
+    if (mois_user_routines) {
+      mois_user_routines2 = JSON.parse(mois_user_routines);
+    }
+    if (mois_daily_routines) {
+      mois_daily_routines2 = JSON.parse(mois_daily_routines);
+    }
     const files = req.files;
+
+    let new_last_period = undefined;
+    if (period_today != 'false') {
+      new_last_period = Date.now();
+    }
+    console.log(period_today);
+    console.log(new_last_period);
 
     let user = await User.findOne({ username: username });
     if (!user) {
@@ -62,6 +87,9 @@ router.post('/:username', upload.array('image', 4), async (req, res) => {
         username: username,
         checkins: [],
         diets: user_diets2 || undefined,
+        clean_routines: clean_user_routines2 || undefined,
+        mois_routines: mois_user_routines2 || undefined,
+        last_period: new_last_period || undefined
       })
     }
 
@@ -93,7 +121,11 @@ router.post('/:username', upload.array('image', 4), async (req, res) => {
         minutes: sun_min || undefined,
       },
       diets: daily_diets2 || undefined,
+      clean_routines: clean_daily_routines2 || undefined,
+      mois_routines: mois_daily_routines2 || undefined,
       images: files ? files.map(f => f.filename) : [],
+      period_today: period_today,
+      weather_location: weather_location
     };
 
     // Delete fields that are undefined (user didn't upload anything)
@@ -121,18 +153,24 @@ router.post('/:username', upload.array('image', 4), async (req, res) => {
         {
           $set: {
             [updatePath]: checkin,
-            diets: user_diets2
+            diets: user_diets2,
+            clean_routines: clean_user_routines2,
+            mois_routines: mois_user_routines2,
+            last_period: new_last_period,
           }
         },
         { new: true }
       );
     } else {
-      // Push new check-in and update diets
+      // Push new check-in, user already exists
       updatedUser = await User.findOneAndUpdate(
         { username },
         {
           $push: { checkins: checkin },
-          $set: { diets: user_diets2 }
+          $set: { diets: user_diets2 },
+          $set: { clean_routines: clean_user_routines2 },
+          $set: { mois_routines: mois_user_routines2 },
+          $set: { last_period: new_last_period }
         },
         { new: true }
       );
@@ -159,14 +197,14 @@ router.post('/:username', upload.array('image', 4), async (req, res) => {
   }
 });
 
-// Get routines and diets for a user
+// Get routines, diets, and last period date for a user
 router.get('/routines/:username', async (req, res) => {
   try {
     const user = await User.findOne({ username: req.params.username });
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return;
     }
-    res.json({diets: user.diets, routines: user.routines});
+    res.json({diets: user.diets, clean_routines: user.clean_routines, mois_routines: user.mois_routines, last_period: user.last_period});
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -177,11 +215,19 @@ router.get('/single/:username/:date', async (req, res) => {
   try {
     const user = await User.findOne({ username: req.params.username });
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return;
     }
-    res.json(user.checkins);
-    console.log(user.checkins);
+    const checkinDate = req.params.date;
+    for (const checkin of user.checkins) {
+      let checkDate0 = checkin.date;
+      let checkDate = new Date(checkDate0).toISOString().split('T')[0];
+      if (checkDate == checkinDate) {
+        res.json(checkin);
+      }
+    }
+    return;
   } catch (err) {
+    console.log(err);
     res.status(500).json({ message: err.message });
   }
 });
@@ -191,7 +237,7 @@ router.get('/all/:username', async (req, res) => {
   try {
     const user = await User.findOne({ username: req.params.username });
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return;
     }
     res.json(user.checkins);
     console.log(user.checkins);

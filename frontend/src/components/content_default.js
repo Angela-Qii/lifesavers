@@ -1,4 +1,8 @@
+import { Link } from 'react-router-dom';
+
 function ContentDefault() {
+    let checkinDate0 = Date.now(); // Timestamp, e.g., 1743035580000
+    let checkinDate = new Date(checkinDate0).toISOString().split('T')[0];
     return (
         <div id="content">
       {/* <!-- Will only display info when an error occurs --> */}
@@ -16,7 +20,11 @@ function ContentDefault() {
                     </div>
                     <div>
                         <h3>Calendar</h3>
-                        <div className="gray_box"></div>
+                        <div className="gray_box">
+                            <Link to={`/single/${checkinDate}`}>
+                                View Today's Checkin: ${checkinDate}
+                                </Link>
+                        </div>
                     </div>
                 </div>
             </div>

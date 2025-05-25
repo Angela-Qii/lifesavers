@@ -11,6 +11,7 @@ import TopBar from './components/topbar';
 import ContentDefault from './components/content_default';
 import ContentDashboard from './components/content_dashboard';
 import Account from './components/account';
+import SingleCheckin from './components/single_checkin';
 import './App.css';
 
 function App() {
@@ -51,6 +52,9 @@ function App() {
             />
             <Route
                 path="/info" element={<Info />}
+            />
+            <Route
+              path="/single/:checkinDate" element={user ? <SingleCheckin user={user} /> : <Navigate to="/login" />}
             />
             <Route
               path="/login"

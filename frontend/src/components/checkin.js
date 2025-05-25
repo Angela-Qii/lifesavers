@@ -2,11 +2,15 @@ import CheckinNavbar from './checkin_navbar';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+const PeriodPhaseLength = 28;
+
 function Checkin({user}) {
   const [message, setMessage] = useState('');
 
   let currSection = 'lesion';
   let period_today = false;
+  let weather_location = undefined;
+
   useEffect(() => {
     // TODO: Make page not usable if user isn't logged in?
     loadRoutines();
@@ -70,9 +74,37 @@ async function loadRoutines() {
     const res = await axios.get(
       `/api/checkin/routines/${encodeURIComponent(user.displayName)}`,
     );
+    if (!res) {
+      return;
+    }
     const result = res.data;
     for (let i = 0; i < result.diets.length; i++) {
       dietHelper(result.diets[i], `diet${i}`);
+    }
+    // for (let i = 0; i < result.clean_routines.length; i++) {
+    //   addRoutine(result.clean_routines[i], 'cleansing');
+    // }
+    // for (let i = 0; i < result.mois_routines.length; i++) {
+    //   addRoutine(result.mois_routines[i], 'moisturizer');
+    // }
+    if (result.last_period) {
+      const lastPeriodDate = new Date(result.last_period).setHours(0, 0, 0, 0);
+      const today = new Date().setHours(0, 0, 0, 0);
+      const diffInMs = today - lastPeriodDate;
+      let daysAgo = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+      daysAgo = daysAgo % PeriodPhaseLength;
+      let phase;
+      if (daysAgo <= 7) {
+        phase = 'Menstrual';
+      } else if (daysAgo <= 12) {
+        phase = 'Follicular';
+      } else if (daysAgo <= 15) {
+        phase = 'Ovulation';
+      } else {
+        phase = 'Luteal';
+      }
+      id('period_date').textContent = result.last_period;
+      id('period_phase').textContent = phase;
     }
   } catch (err) {
     handleError('Routines error: ' + err);
@@ -157,7 +189,21 @@ async function submitCheckin(evt) {
   const both_diets = add_diets_2.concat(ate_diets_2);
   formData.append('user_diets', JSON.stringify(both_diets));
   formData.append('daily_diets', JSON.stringify(ate_diets_2));
-  // TODO: Finish diets, routines, period, medication, weather
+  const all_clean_routines = id('cleansing');
+  const all_mois_routines = id('moisturizer');
+  const checked_clean_routines = all_clean_routines.querySelectorAll('div p');
+  const checked_mois_routines = all_mois_routines.querySelectorAll('div p');
+  const all_clean_routines2 = Array.from(all_clean_routines).map(p => p.textContent.trim());
+  const all_mois_routines2 = Array.from(all_mois_routines).map(p => p.textContent.trim());
+  const checked_clean_routines2 = Array.from(checked_clean_routines).map(p => p.textContent.trim());
+  const checked_mois_routines2 = Array.from(checked_mois_routines).map(p => p.textContent.trim());
+  formData.append('clean_user_routines', JSON.stringify(all_clean_routines2));
+  formData.append('clean_daily_routines', JSON.stringify(checked_clean_routines2));
+  formData.append('mois_user_routines', JSON.stringify(all_mois_routines2));
+  formData.append('mois_daily_routines', JSON.stringify(checked_mois_routines2));
+  formData.append('period_today', period_today);
+  formData.append('weather_location', weather_location);
+  // TODO: Finish routines, period, medication, weather
   try {
     const res = await axios.post(
       `/api/checkin/${encodeURIComponent(user.displayName)}`,
@@ -187,10 +233,10 @@ async function submitCheckin(evt) {
 function periodToday() {
   if (period_today) {
     period_today = false;
-    id('period_start').textContent = 'my period did not start today';
+    id('period_start').textContent = 'my period started today';
   } else {
     period_today = true;
-    id('period_start').textContent = 'my period started today';
+    id('period_start').textContent = 'my period did not start today';
   }
 }
 
@@ -399,7 +445,7 @@ function calcStress() {
 
 /**
  * Adds a routine step to the Routine checkin section.
- * @param {string} whichDiv - "cleasing" or "moisturizer" depending on user's choice.
+ * @param {string} whichDiv - "cleansing" or "moisturizer" depending on user's choice.
  */
 function addRoutine(whichDiv) {
   togglePopup('routine');
@@ -783,7 +829,10 @@ function AddWeather() {
                   {weatherData.main.temp}°F, {weatherData.weather[0].description}
                 </p>
               </div>
-              <button className="set_btn" onClick={() => setAsCurrent(index)}>
+              <button className="set_btn" onClick={() => {
+                weather_location = weatherData.name;
+                setAsCurrent(index);
+              }}>
                 Current Location
               </button>
             </div>
@@ -1480,10 +1529,10 @@ function handleError(err) {
         <div class="horizontal">
           <div>
             <h2>Last Recorded Period Start Date</h2>
-            <h2 class="lightblue_bg">Date</h2>
+            <h2 id="period_date" class="lightblue_bg">No data found</h2>
             <button id="period_start" class="white_btn">my period started today</button>
             <h2>Current Phase</h2>
-            <h2 id="period_phase" class="lightblue_bg">Phase</h2>
+            <h2 id="period_phase" class="lightblue_bg">No data found</h2>
           </div>
           <img src="imgs/hormone-cycle.png" alt="Hormone cycle" aria-describedby="hormone_desc" />
           <div id="hormone_desc" class="aria_described">An image of the hormone cycle and its 4 phases. Menstrual phase is days 1-7 with low estrogen and high progesterone. Follicular phase is days 1-12 with high estrogen and low progesterone. Ovulation phase is days 13-15 with highest estrogen and low progesterone. Menstrual phase is days 16-28 with low estrogen and high progesterone.</div>
