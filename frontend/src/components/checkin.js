@@ -590,6 +590,269 @@ function notAteDiet(newId) {
   dietHelper(word, newId);
 }
 
+/* medication stuff */ 
+
+function debounce(func, delay) {
+  let timeout;
+  return function (...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), delay);
+  };
+}
+
+function AddMedication() {
+  const [query, setQuery] = useState('');
+  const [debouncedQuery, setDebouncedQuery] = useState('');
+  const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [medications, setMedications] = useState([]);
+  const [selectedMedDetails, setSelectedMedDetails] = useState(null);
+  const [dailyNotes, setDailyNotes] = useState('');
+
+  useEffect(() => {
+    const debounced = debounce(function (val) {
+      setDebouncedQuery(val);
+    }, 500);
+
+    debounced(query);
+  }, [query]);
+
+  useEffect(() => {
+    if (debouncedQuery.trim() === '') {
+      setResults([]);
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+
+    fetch(`https://api.fda.gov/drug/label.json?search=openfda.brand_name:"${debouncedQuery}"&limit=5`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('API error');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setResults(data.results || []);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error('Fetch error:', err);
+        setError('No results or API error');
+        setLoading(false);
+      });
+  }, [debouncedQuery]);
+
+  function addMedication(item) {
+    const name = item.openfda.brand_name?.[0] || 'Unknown';
+    if (!medications.includes(name)) {
+      setMedications([...medications, name]);
+    }
+  }
+
+  function removeMedication(name) {
+    const updatedList = medications.filter((med) => med !== name);
+    setMedications(updatedList);
+  }
+
+  function showDetails(item) {
+    setSelectedMedDetails(item);
+  }
+
+  function closeModal() {
+    setSelectedMedDetails(null);
+  }
+
+  return (
+    <div>
+      <h1>Medication</h1>
+      <input
+        type="text"
+        placeholder="Search drug by brand name..."
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+      />
+      {loading && <p>Loading...</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+
+      <ul className="medicationOptions" style={{ paddingInlineStart: '0px' }}>
+        {results.map((item, index) => {
+          const name = item.openfda.brand_name?.[0] || 'Unknown';
+
+          return (
+            <li
+              className="medicationList"
+              key={index}
+              style={{
+                borderColor: 'solid #30A0CD',
+                borderWidth: '5px',
+                paddingLeft: '10px',
+                paddingRight: '10px',
+                paddingTop: '5px',
+                paddingBottom: '5px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                marginTop: '3px',
+                listStyle: 'none',
+                borderRadius: '10px',
+                backgroundColor: 'transparent',
+                fontFamily: '15px'
+              }}
+            >
+              <div><strong>{name}</strong></div>
+
+              <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                <button
+                  onClick={() => showDetails(item)}
+                  style={{
+                    backgroundColor: '#30A0CD',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '10px',
+                    padding: '5px 10px',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Read details
+                </button>
+
+                <button
+                  onClick={() => addMedication(item)}
+                  style={{
+                    backgroundColor: 'transparent',
+                    border: 'none',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <svg
+                    width="33"
+                    height="33"
+                    viewBox="0 0 58 58"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle cx="29" cy="29" r="28.5" stroke="black" />
+                    <rect
+                      x="26.666"
+                      y="19.3335"
+                      width="4.66667"
+                      height="19.3333"
+                      rx="2.33333"
+                      fill="#D9D9D9"
+                    />
+                    <rect
+                      x="38.666"
+                      y="26.667"
+                      width="4.66667"
+                      height="19.3333"
+                      rx="2.33333"
+                      transform="rotate(90 38.666 26.667)"
+                      fill="#D9D9D9"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+
+      <hr style={{ border: '1px solid #C8CBD9', margin: '20px 0' }} />
+
+      <h3>Today's Medications:</h3>
+
+
+      {medications.length === 0 ? (
+        <p>No medications added yet.</p>
+      ) : (
+        <ul>
+          {medications.map((med, index) => (
+            <li key={index}>
+              {med}
+              <button
+                onClick={() => removeMedication(med)}
+                style={{ marginLeft: '10px', backgroundColor: 'transparent', border: 'none' }}
+              >
+                <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M16.5 0.5C25.3366 0.5 32.5 7.66344 32.5 16.5C32.5 25.3366 25.3366 32.5 16.5 32.5C7.66344 32.5 0.5 25.3366 0.5 16.5C0.5 7.66344 7.66344 0.5 16.5 0.5Z" stroke="black" />
+                  <rect x="22" y="15" width="2.65517" height="11" rx="1.32759" transform="rotate(90 22 15)" fill="#D9D9D9" />
+                </svg>
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+
+
+      <hr style={{ border: '1px solid #C8CBD9', margin: '20px 0' }} />
+
+      <h3>Daily Notes:</h3>
+      <textarea
+        value={dailyNotes}
+        onChange={(e) => setDailyNotes(e.target.value)}
+        rows="5"
+        placeholder="How did you feel taking your medications today?"
+        style={{
+          width: '100%',
+          padding: '10px',
+          border: '1px solid #ccc',
+          borderRadius: '8px',
+          resize: 'vertical',
+          fontFamily: 'inherit',
+          fontSize: '1rem',
+          boxSizing: 'border-box',
+        }}
+      />
+
+      
+
+      {/* Modal for Medication Details */}
+      {selectedMedDetails && (
+        <div style={{
+          position: 'fixed',
+          top: 0, left: 0, right: 0, bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          zIndex: 1000
+        }}>
+          <div style={{
+            background: 'white',
+            padding: '20px',
+            borderRadius: '10px',
+            width: '80%',
+            maxHeight: '80%',
+            overflowY: 'scroll'
+          }}>
+            <h2>{selectedMedDetails.openfda.brand_name?.[0] || 'Unknown'}</h2>
+            <p><strong>Dosage:</strong> {selectedMedDetails.dosage_and_administration?.[0] || 'N/A'}</p>
+            <p><strong>Route:</strong> {selectedMedDetails.openfda.route?.[0] || 'N/A'}</p>
+            <p><strong>Substance Name:</strong> {selectedMedDetails.openfda.substance_name?.[0] || 'N/A'}</p>
+            <p><strong>Usage:</strong> {selectedMedDetails.indications_and_usage?.[0] || 'N/A'}</p>
+            <p><strong>Warnings:</strong> {selectedMedDetails.warnings?.[0] || 'N/A'}</p>
+            <p><strong>Prescription Required:</strong> {
+              selectedMedDetails.openfda.product_type?.[0]?.toLowerCase().includes("prescription") ? "Yes" : "No"
+            }</p>
+            <button onClick={closeModal} style={{
+              marginTop: '15px',
+              padding: '10px 20px',
+              backgroundColor: '#F44336',
+              color: 'white',
+              border: 'none',
+              borderRadius: '8px',
+              cursor: 'pointer'
+            }}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 /* weather stuff*/
 
 function AddWeather() {
@@ -1551,7 +1814,7 @@ function handleError(err) {
       </div>
 
       <div id="medication">
-        <h1>Medication</h1>
+        <AddMedication />
       </div>
 
       <div id="routine">
