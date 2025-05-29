@@ -12,7 +12,7 @@ import {
 ChartJS.register(LinearScale, PointElement, Tooltip, Legend);
 
 
-const ContentDashboard = () => {
+const ContentDashboard = ({user}) => {
  const [formData, setFormData] = useState({
    date: '',
    pasi: '',
@@ -38,7 +38,44 @@ const ContentDashboard = () => {
    link.href = 'https://fonts.googleapis.com/css2?family=Inter&family=Poppins:wght@600&display=swap';
    link.rel = 'stylesheet';
    document.head.appendChild(link);
+   getCheckinData();
  }, []);
+
+ /**
+ * Fetches user's checkin data and displays it.
+ */
+async function getCheckinData() {
+  try {
+    const res = await axios.get(
+      `/api/checkin/all/${encodeURIComponent(user.displayName)}`,
+    );
+    if (!res) {
+      return;
+    }
+    const result = res.data;
+    console.log(result);
+  } catch (err) {
+    handleError('Load error: ' + err);
+    console.error('Error:', err);
+  }
+}
+
+/**
+ * Returns the element that has the ID attribute with the specified value.
+ * @param {string} idName - element ID
+ * @returns {object} DOM object associated with id.
+ */
+function id(idName) {
+  return document.getElementById(idName);
+}
+
+/**
+ * Shows error message.
+ * @param {string} err - Error message.
+ */
+function handleError(err) {
+  id('error_info').textContent = 'Error: ' + err;
+}
 
 
  const handleInputChange = (e) => {
