@@ -44,7 +44,7 @@ function App() {
             <Route path="/" element={<ContentDefault />}>
             </Route>
             <Route
-                path="/content_dashboard" element={user ? <ContentDashboard /> : <Navigate to="/login" />}
+                path="/content_dashboard" element={user ? <ContentDashboard user={user} /> : <Navigate to="/login" />}
             />
             {/* TODO: Add more routes. See navbar.js */}
             <Route
