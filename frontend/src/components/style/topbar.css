@@ -1,43 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
 .topbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: white;
-  height: 70px;
-  width: 100%;
   position: fixed;
   top: 0;
   left: 0;
-  border-bottom: 1px solid #e0e0e0;
-  z-index: 1000;
-  font-family: 'Inter', sans-serif;
-}
-
-.topbar ul {
-  display: flex;
-  align-items: center;
+  height: 70px;
   width: 100%;
-  list-style: none;
-  margin: 0;
+  background: white; /* allow overlay box to show */
+  border-bottom: 1px solid #e0e0e0;
+  z-index: 1;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
 }
 
-.topbar li {
-  display: flex;
-  align-items: center;
-}
-
-.topbar .left-section {
+/* Layer 1: background box */
+.topbar .overlay-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 70px;
+  width: 240px;
   background-color: #f0f8ff;
-  height: 100%;
-  width: 200px; /* Match #navbar width */
+  z-index: 2;
+}
+
+/* Layer 2: nav content */
+.topbar .total_content_top {
+  position: relative;
+  z-index: 3;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  padding: 0 10px;
 }
 
-.topbar .left-section img {
-  height: 30px;
+/* Layer 2 content */
+.topbar .buttonContainer {
+  display: flex;
+  align-items: center;
+  width: 300px;
+  flex-shrink: 0;
+  flex-grow: 0;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-right: 20px;
 }
 
+.logoutTopbar{
+  border: #e0e0e0 solid 1px; 
+  padding-top: 10px; 
+  padding-bottom: 10px;
+  padding-left: 17px; 
+  padding-right: 17px;
+  border-radius: 15px; 
+}
+
+.loginAccount{
+  display: flex;
+  align-items: center;
+  border: #e0e0e0 solid 1px; 
+  padding-top: 10px; 
+  padding-bottom: 10px;
+  padding-left: 17px; 
+  padding-right: 17px;
+  border-radius: 15px; 
+}
+
+#topNav .left-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding-left: 20px;
+  height: 100%;
+  width: 250px;
+  flex-shrink: 0;
+  flex-grow: 0;
+  position: relative;
+  z-index: 3;
+}
+
+/* General styles */
 .topbar a {
   text-decoration: none;
   color: #334155;
@@ -45,7 +89,8 @@
   font-size: 1rem;
 }
 
-.topbar li:last-child img {
-  height: 25px;
+
+.topbar .loginAccount img {
+  height: 20px;
   margin-right: 5px;
 }

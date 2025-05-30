@@ -7,6 +7,9 @@ const PeriodPhaseLength = 28;
 function Checkin({user}) {
   const [message, setMessage] = useState('');
 
+  const [medications, setMedications] = useState([]);
+  const [dailyNotes, setDailyNotes] = useState('');
+
   let currSection = 'lesion';
   let period_today = false;
   let weather_location = undefined;
@@ -17,9 +20,14 @@ function Checkin({user}) {
     qsa('#checkin_nav button').forEach(button => {
       button.addEventListener('click', showSection);
     });
+    // copy go_next for skip button 
     id('go_next').addEventListener('click', showSection);
+    //make a go back button 
+
     id('show_calc_lesion').addEventListener('click', calcLesion);
     id('lesion_next').addEventListener('click', lesionNext);
+    
+    // make a go back lesion button 
     qs('#checkin_stress button').addEventListener('click', calcStress);
     qs('.search_bar').addEventListener('input', filterDiets);
     id('period_start').addEventListener('click', (evt) => {
@@ -63,6 +71,7 @@ function Checkin({user}) {
     lesionSlider(slider2, output2);
     id('submit_checkin').addEventListener("click", (evt) => {
       submitCheckin(evt);
+      id('checkin_submitted').style.display = 'block';
     });
   }, []); // Empty dependency array ensures this runs only on mount/unmount
 
@@ -239,7 +248,6 @@ function periodToday() {
     id('period_start').textContent = 'my period did not start today';
   }
 }
-
   /**
  * When Checkin sidenav button clicked, shows that section and hides previous section.
  * If the button is for "next section", shows the next section.
@@ -261,9 +269,9 @@ function showSection(event) {
   id('buttons').style.display = 'none';
   if (targetSection && targetSection !== currSection) {
     id(currSection).style.display = 'none';
-    id(currSection + '-btn').style.border = 'none';
+    id(currSection + '-btn').parentElement.style.borderLeft = 'none';
     id(targetSection).style.display = 'block';
-    id(targetSection + '-btn').style.borderLeft = '5px solid #5d7d9b';
+    id(targetSection + '-btn').parentElement.style.borderLeft = '10px solid #5d7d9b';
     id(currSection + '-btn').style.color = '#c4cade';
     id(targetSection + '-btn').style.color = '#000';
     currSection = targetSection;
@@ -279,18 +287,37 @@ function showSection(event) {
   } else if (currSection == 'stress') {
     id('checkin_stress').style.display = 'block';
     id('calc_stress').style.display = 'none';
+    id('submit_checkin').style.display = 'none';
+    id('go_next').style.display = 'block';
   } else if (currSection == 'hormone') {
     id('buttons').style.display = 'flex';
+    id('submit_checkin').style.display = 'none';
     id('go_next').innerText = 'Record Sun Exposure';
+    id('go_next').style.display = 'block';
   } else if (currSection == 'sun') {
     id('buttons').style.display = 'flex';
     id('go_next').innerText = 'Record Medication';
+    id('submit_checkin').style.display = 'none';
+    id('go_next').style.display = 'block';
+  } else if (currSection == 'medication'){
+    id('buttons').style.display = 'flex';
+    id('go_next').innerText = 'Record Routine';
+    id('submit_checkin').style.display = 'none';
+    id('go_next').style.display = 'block';
   } else if (currSection == 'routine') {
     id('buttons').style.display = 'flex';
     id('go_next').innerText = 'Record Diet';
+    id('submit_checkin').style.display = 'none';
+    id('go_next').style.display = 'block';
   } else if (currSection == 'diet') {
     id('buttons').style.display = 'flex';
+    id('submit_checkin').style.display = 'none';
     id('go_next').innerText = 'Record Weather';
+    id('go_next').style.display = 'block';
+  }else{
+    id('buttons').style.display = 'flex';
+    id('submit_checkin').style.display = 'block';
+    id('go_next').style.display = 'none';
   }
 }
 
@@ -343,6 +370,8 @@ function lesionNext() {
   }
 }
 
+// make a lesion back button 
+
 /**
  * Shows Lesion section's calculations.
  */
@@ -356,6 +385,9 @@ function calcLesion() {
   id('lesion_buttons').style.display = 'none';
   id('buttons').style.display = 'flex';
   id('go_next').innerText = 'Record Stress';
+  id('submit_checkin').style.display = 'none';
+  id('go_next').style.display = 'block';
+  //  add a go back button 
   let lesion_1_1 = parseInt(qs('input[name="lesion_1-1"]:checked')?.value ?? 0);
   let lesion_1_2 = parseInt(qs('input[name="lesion_1-2"]:checked')?.value ?? 0);
   let lesion_1_3 = parseInt(qs('input[name="lesion_1-3"]:checked')?.value ?? 0);
@@ -406,6 +438,9 @@ function calcStress() {
   id('calc_stress').style.display = 'flex';
   id('buttons').style.display = 'flex';
   id('go_next').innerText = 'Record Hormone Cycle';
+  id('submit_checkin').style.display = 'none';
+  id('go_next').style.display = 'block';
+  // go back and skip button 
   let stress1 = qs('input[name="stress_1"]:checked')?.value;
   let stress2 = qs('input[name="stress_2"]:checked')?.value;
   let stress3 = qs('input[name="stress_3"]:checked')?.value;
@@ -606,10 +641,8 @@ function AddMedication() {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [medications, setMedications] = useState([]);
   const [selectedMedDetails, setSelectedMedDetails] = useState(null);
-  const [dailyNotes, setDailyNotes] = useState('');
-
+   
   useEffect(() => {
     const debounced = debounce(function (val) {
       setDebouncedQuery(val);
@@ -667,8 +700,10 @@ function AddMedication() {
 
   return (
     <div>
-      <h1>Medication</h1>
+      <h1 className='pageTitle'>Medication</h1>
+      <p>what medications did you take today?</p>
       <input
+        className="search_bar"
         type="text"
         placeholder="Search drug by brand name..."
         value={query}
@@ -699,7 +734,8 @@ function AddMedication() {
                 listStyle: 'none',
                 borderRadius: '10px',
                 backgroundColor: 'transparent',
-                fontFamily: '15px'
+                fontSize: '15px',
+                fontFamily: 'Inter'
               }}
             >
               <div><strong>{name}</strong></div>
@@ -725,6 +761,10 @@ function AddMedication() {
                     backgroundColor: 'transparent',
                     border: 'none',
                     cursor: 'pointer',
+                    listStyle: 'none', 
+                    display: 'flex', 
+                    gap: '10px', 
+                    alignItems: 'center'
                   }}
                 >
                   <svg
@@ -770,11 +810,21 @@ function AddMedication() {
       ) : (
         <ul>
           {medications.map((med, index) => (
-            <li key={index}>
+            <li key={index} style={{listStyle: 'none', 
+                  display: 'flex', 
+                  alignItems: 'center',
+                  justifyContent: 'space-between', 
+                  marginBottom: '10px'
+                  }}>
               {med}
               <button
                 onClick={() => removeMedication(med)}
-                style={{ marginLeft: '10px', backgroundColor: 'transparent', border: 'none' }}
+                style={{ marginLeft: '10px', 
+                  marginRight: '20px',
+                  backgroundColor: 'transparent', 
+                  border: 'none', 
+                  cursor: 'pointer',
+                 }}
               >
                 <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M16.5 0.5C25.3366 0.5 32.5 7.66344 32.5 16.5C32.5 25.3366 25.3366 32.5 16.5 32.5C7.66344 32.5 0.5 25.3366 0.5 16.5C0.5 7.66344 7.66344 0.5 16.5 0.5Z" stroke="black" />
@@ -919,10 +969,11 @@ function AddWeather() {
   }
 
 
-  h1 {
-    font-size: 28px;
+  #weather h1 {
+    font-size: 40px;
     font-weight: 700;
     margin-bottom: 0.5rem;
+    font-family: Poppins;
   }
 
 
@@ -1060,7 +1111,7 @@ function AddWeather() {
 
 
       <div id="weather2">
-        <h1>Weather</h1>
+        <h1 class="pageTitle">Weather</h1>
         <p className="question inter-font">What was the weather like in your location today?</p>
 
 
@@ -1179,7 +1230,7 @@ function handleError(err) {
       <p>Daily-Check in for {user.displayName}</p>
 
       <div id="lesion">
-        <h1>Lesions</h1>
+        <h1 class="pageTitle">Lesions</h1>
         <div id="lesion_start">
           <h2>Section 1   -    Filling PASI Score</h2>
           <p>The <span class="bold">Psoriasis Area and Severity Index (PASI)</span> score is a tool dermatologists use to classify psoriasis and help determine treatment. It helps classify severity of your psoriasis.</p>
@@ -1187,19 +1238,47 @@ function handleError(err) {
           <p>In order to calculate PASI score, you will need to input information for these parts of the body:</p>
           <div class="horizontal">
             <div>
-              <img src="imgs/lesion-head.png" alt="Stick figure with colored head" />
+              <svg width="127" height="231" viewBox="0 0 127 231" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="63.2732" cy="21" r="21" fill="#3473C1"/>
+                <rect x="34.2734" y="46" width="57" height="98" rx="10" fill="#DFDFDF"/>
+                <rect x="68.2734" y="51.418" width="20" height="94.2982" rx="10" transform="rotate(-24.8912 68.2734 51.418)" fill="#DFDFDF"/>
+                <rect width="20" height="91.5092" rx="10" transform="matrix(-0.907109 -0.420896 -0.420896 0.907109 56.6582 52.418)" fill="#DFDFDF"/>
+                <rect x="34.2734" y="128" width="22" height="103" rx="10" fill="#DFDFDF"/>
+                <rect x="69.2734" y="127" width="22" height="104" rx="10" fill="#DFDFDF"/>
+              </svg>
               <h2>Head</h2>
             </div>
             <div>
-              <img src="imgs/lesion-arms.png" alt="Stick figure with colored arms" />
+              <svg width="127" height="230" viewBox="0 0 127 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="63.2732" cy="21" r="21" fill="#DFDFDF"/>
+                <rect x="68.2732" y="50.418" width="20" height="94.2982" rx="10" transform="rotate(-24.8912 68.2732 50.418)" fill="#3473C1"/>
+                <rect width="20" height="91.5092" rx="10" transform="matrix(-0.907109 -0.420896 -0.420896 0.907109 56.658 51.418)" fill="#3473C1"/>
+                <rect x="34.2732" y="127" width="22" height="103" rx="10" fill="#DFDFDF"/>
+                <rect x="69.2732" y="126" width="22" height="104" rx="10" fill="#DFDFDF"/>
+                <rect x="34.2732" y="45" width="57" height="98" rx="10" fill="#DFDFDF"/>
+              </svg>
               <h2>Arms</h2>
             </div>
             <div>
-              <img src="imgs/lesion-body.png" alt="Stick figure with colored body" />
+              <svg width="127" height="230" viewBox="0 0 127 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="63.2732" cy="21" r="21" fill="#DFDFDF"/>
+                <rect x="68.2732" y="50.418" width="20" height="94.2982" rx="10" transform="rotate(-24.8912 68.2732 50.418)" fill="#DFDFDF"/>
+                <rect width="20" height="91.5092" rx="10" transform="matrix(-0.907109 -0.420896 -0.420896 0.907109 56.658 51.418)" fill="#DFDFDF"/>
+                <rect x="34.2732" y="127" width="22" height="103" rx="10" fill="#DFDFDF"/>
+                <rect x="69.2732" y="126" width="22" height="104" rx="10" fill="#DFDFDF"/>
+                <rect x="34.2732" y="45" width="57" height="98" rx="10" fill="#3473C1"/>
+              </svg>
               <h2>Trunk</h2>
             </div>
             <div>
-              <img src="imgs/lesion-legs.png" alt="Stick figure with colored legs" />
+              <svg width="127" height="230" viewBox="0 0 127 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="63.2732" cy="21" r="21" fill="#DFDFDF"/>
+                <rect x="68.2732" y="50.418" width="20" height="94.2982" rx="10" transform="rotate(-24.8912 68.2732 50.418)" fill="#DFDFDF"/>
+                <rect width="20" height="91.5092" rx="10" transform="matrix(-0.907109 -0.420896 -0.420896 0.907109 56.658 51.418)" fill="#DFDFDF"/>
+                <rect x="34.2732" y="127" width="22" height="103" rx="10" fill="#3473C1"/>
+                <rect x="69.2732" y="126" width="22" height="104" rx="10" fill="#3473C1"/>
+                <rect x="34.2732" y="45" width="57" height="98" rx="10" fill="#DFDFDF"/>
+              </svg>
               <h2>Legs</h2>
             </div>
           </div>
@@ -1313,7 +1392,17 @@ function handleError(err) {
               <label for="lesion_1-5"><img src="imgs/image-icon.png" alt="Upload image icon" /></label>
             </div>
           </form>
-          <img src="imgs/lesion-head.png" alt="Stick figure with colored head" />
+          <div className='lesion-part-icon'>
+            <svg width="250" height="380" viewBox="0 0 127 231" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="63.2732" cy="21" r="21" fill="#3473C1"/>
+                <rect x="34.2734" y="46" width="57" height="98" rx="10" fill="#DFDFDF"/>
+                <rect x="68.2734" y="51.418" width="20" height="94.2982" rx="10" transform="rotate(-24.8912 68.2734 51.418)" fill="#DFDFDF"/>
+                <rect width="20" height="91.5092" rx="10" transform="matrix(-0.907109 -0.420896 -0.420896 0.907109 56.6582 52.418)" fill="#DFDFDF"/>
+                <rect x="34.2734" y="128" width="22" height="103" rx="10" fill="#DFDFDF"/>
+                <rect x="69.2734" y="127" width="22" height="104" rx="10" fill="#DFDFDF"/>
+           </svg>
+          </div>
+          
         </div>
         <div id="lesion_arms" class="lesion_part">
           <form class="checkin_lesion">
@@ -1424,7 +1513,16 @@ function handleError(err) {
               <label for="lesion_2-5"><img src="imgs/image-icon.png" alt="Upload image icon" /></label>
             </div>
           </form>
-          <img src="imgs/lesion-arms.png" alt="Stick figure with colored arms" />
+          <div className='lesion-part-icon'>
+            <svg width="250" height="380" viewBox="0 0 127 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="63.2732" cy="21" r="21" fill="#DFDFDF"/>
+                <rect x="68.2732" y="50.418" width="20" height="94.2982" rx="10" transform="rotate(-24.8912 68.2732 50.418)" fill="#3473C1"/>
+                <rect width="20" height="91.5092" rx="10" transform="matrix(-0.907109 -0.420896 -0.420896 0.907109 56.658 51.418)" fill="#3473C1"/>
+                <rect x="34.2732" y="127" width="22" height="103" rx="10" fill="#DFDFDF"/>
+                <rect x="69.2732" y="126" width="22" height="104" rx="10" fill="#DFDFDF"/>
+                <rect x="34.2732" y="45" width="57" height="98" rx="10" fill="#DFDFDF"/>
+            </svg>
+          </div>
         </div>
         <div id="lesion_body" class="lesion_part">
           <form class="checkin_lesion">
@@ -1535,7 +1633,17 @@ function handleError(err) {
               <label for="lesion_3-5"><img src="imgs/image-icon.png" alt="Upload image icon" /></label>
             </div>
           </form>
-          <img src="imgs/lesion-body.png" alt="Stick figure with colored body" />
+          <div className='lesion-part-icon'>
+             <svg width="250" height="380" viewBox="0 0 127 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="63.2732" cy="21" r="21" fill="#DFDFDF"/>
+                <rect x="68.2732" y="50.418" width="20" height="94.2982" rx="10" transform="rotate(-24.8912 68.2732 50.418)" fill="#DFDFDF"/>
+                <rect width="20" height="91.5092" rx="10" transform="matrix(-0.907109 -0.420896 -0.420896 0.907109 56.658 51.418)" fill="#DFDFDF"/>
+                <rect x="34.2732" y="127" width="22" height="103" rx="10" fill="#DFDFDF"/>
+                <rect x="69.2732" y="126" width="22" height="104" rx="10" fill="#DFDFDF"/>
+                <rect x="34.2732" y="45" width="57" height="98" rx="10" fill="#3473C1"/>
+            </svg>
+          </div>
+         
         </div>
         <div id="lesion_legs" class="lesion_part">
           <form class="checkin_lesion">
@@ -1646,7 +1754,16 @@ function handleError(err) {
               <label for="lesion_4-5"><img src="imgs/image-icon.png" alt="Upload image icon" /></label>
             </div>
           </form>
-          <img src="imgs/lesion-legs.png" alt="Stick figure with colored legs" />
+          <div className='lesion-part-icon'>
+            <svg width="250" height="380" viewBox="0 0 127 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="63.2732" cy="21" r="21" fill="#DFDFDF"/>
+                <rect x="68.2732" y="50.418" width="20" height="94.2982" rx="10" transform="rotate(-24.8912 68.2732 50.418)" fill="#DFDFDF"/>
+                <rect width="20" height="91.5092" rx="10" transform="matrix(-0.907109 -0.420896 -0.420896 0.907109 56.658 51.418)" fill="#DFDFDF"/>
+                <rect x="34.2732" y="127" width="22" height="103" rx="10" fill="#3473C1"/>
+                <rect x="69.2732" y="126" width="22" height="104" rx="10" fill="#3473C1"/>
+                <rect x="34.2732" y="45" width="57" height="98" rx="10" fill="#DFDFDF"/>
+            </svg>
+          </div>
         </div>
         <div id="calc_lesion">
           <div>
@@ -1686,14 +1803,14 @@ function handleError(err) {
           </form>
         </div>
         <div id="lesion_buttons">
-          <button class="lightblue_btn" id="show_calc_lesion">Skip to Lesions Section 2</button>
-          <button class="darkblue_btn" id="lesion_next">Next</button>
+          <button class="skipLesion" id="show_calc_lesion">Skip to Lesions Section 2</button>
+          <button class="lesionNext" id="lesion_next">Next</button>
         </div>
       </div>
 
       <div id="stress">
+        <h1 class="pageTitle">Stress</h1>
         <form id="checkin_stress">
-          <h1>Stress</h1>
           <p>1 = Not at all,  2 = A little,  3 = Moderately,  4 = Quite a bit,  5 = Extremely</p>
           <label for="stress_1">1. How stressed did you feel about your responsibilities today (work, school, personal tasks)?</label>
           <ul class="single-choice">
@@ -1764,7 +1881,9 @@ function handleError(err) {
               <label for="stress3-5">5</label>
             </li>
           </ul>
-          <button type="button" class="lightblue_btn">Calculate Stress Level</button>
+          <div className="calc_stress_btn_container">
+            <button type="button" class="calc_stress_btn">Calculate Stress Level</button>
+          </div>
         </form>
         <div id="calc_stress">
           <div>
@@ -1783,7 +1902,7 @@ function handleError(err) {
       </div>
 
       <div id="hormone">
-        <h1>Hormone Cycle</h1>
+        <h1 class="pageTitle">Hormone Cycle</h1>
         <div>
           <p>Rise in <span class="bold">estrogen</span> levels may decrease symptoms of psoriasis</p>
           <p>Rise in <span class="bold">progesterone</span> levels may increase symptoms of psoriasis</p>
@@ -1803,7 +1922,7 @@ function handleError(err) {
       </div>
 
       <div id="sun">
-        <h1>Sun Exposure</h1>
+        <h1 class="pageTitle">Sun Exposure</h1>
         <form>
           <p>How long did you stay out directly in the sun?</p>
           <input class="rounded_corners" name="sun_hr" id="sun_hr" type="number" min="0" max="24" />
@@ -1814,11 +1933,16 @@ function handleError(err) {
       </div>
 
       <div id="medication">
-        <AddMedication />
+        <AddMedication
+          medications={medications}
+          setMedications={setMedications}
+          dailyNotes={dailyNotes}
+          setDailyNotes={setDailyNotes}
+        />
       </div>
 
       <div id="routine">
-        <h1>Skin Care Routine</h1>
+        <h1 class="pageTitle">Skin Care Routine</h1>
         <div>
           <p>How did you treat your skin today?</p>
           <div class="routines">
@@ -1841,7 +1965,7 @@ function handleError(err) {
       </div>
 
       <div id="diet">
-        <h1>Diet</h1>
+        <h1 class="pageTitle">Diet</h1>
         <div>
           <div class="border_right">
             <p>Add a food you ate from the following list.</p>
@@ -1877,12 +2001,14 @@ function handleError(err) {
         <AddWeather />
       </div>
 
-      <div id="buttons">
-        <button class="darkblue_btn" id="go_next">Record </button>
-        <button class="lightblue_btn" id="submit_checkin">Complete Daily-Check In</button>
+      <div id="checkin_submitted">
+        <h1>Checkin Submitted!</h1>
       </div>
 
-      <h1 id="done">Daily Check-in Submitted</h1>
+      <div id="buttons">
+        <button class="next_button" id="go_next">Record </button>
+        <button class="lightblue_btn" id="submit_checkin">Complete Daily-Check In</button>
+      </div>
     </div>
     <CheckinNavbar />
     </div>

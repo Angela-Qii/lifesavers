@@ -1,11 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
 #navbar {
   width: 200px;
   height: 120vh;
   background-color: #f0f8ff;
-  font-family: 'Inter', sans-serif;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  font-family: 'Poppins', sans-serif;
 }
 
 #navbar ul {
@@ -41,4 +42,5 @@
   padding: 0.5rem 1rem;
   border-radius: 12px;
   transition: background-color 0.3s ease;
+  font-family: 'Poppins', sans-serif;
 }
