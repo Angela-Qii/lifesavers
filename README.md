@@ -1,5 +1,35 @@
 Psoriasis Health Tracker
 
+TO-DO:
+- Security
+  - Improve security for users' medical data
+  - Change Firebase/MongoDB keys and make sure they're not pushed to Github
+- Backend
+  - Change schemas to allow users to upload more data (remember to change the frontend too)
+    - Allow users to change their settings
+    - Allow users to upload account data, that's then displayed on the account page
+- Frontend
+  - checkin.js
+    - Add image previews when uploading Lesion images
+    - Make it so there isn't just a blank page after the checkin is submitted
+    - Change the loadRoutines function so the Hormone date displays as a normal date instead of showing exact time (there's an example in content_default.js)
+    - Change the periodToday function so it changes the color of the "period today" button when clicked
+    - Test that loadRoutines works for the Routines section, letting users see past inputted routines
+    - Allow users to add Diet notes and Medication data to database
+    - (optional) Fetch Weather/Medication data from database and display it in the Checkin (modify the loadRoutines function)
+    - (optional) Upload more than just the current city for the Weather section
+    - (optional) Add Sun Exposure intensity
+    - (optional) Change the way PASI score is displayed for Lesion so it isn't as large
+  - content_dashboard.js
+    - Finish this page so it uses data from database
+  - single_checkin.js
+    - Finish this page so it displays the fetched user data
+  - account.js (optional)
+    - Add this page (to components and App.js)
+- Other
+  - (optional) Delete unused pages
+  - Publish to Github pages
+
 Overview
 
 Women with psoriasis often face challenges in self-managing their condition and effectively communicating their symptoms, triggers, and treatment progress to healthcare providers. This project aims to develop a user-friendly tracking tool designed specifically to help women document key aspects of their psoriasis diagnosis, empowering them to advocate for better healthcare and optimize treatment outcomes.
